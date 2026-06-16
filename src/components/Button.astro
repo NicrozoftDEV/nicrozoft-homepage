@@ -1,0 +1,131 @@
+---
+type Variant = 'accent' | 'standard' | 'subtle' | 'outline';
+type Size = 'sm' | 'md' | 'lg';
+
+interface Props {
+  href?: string;
+  variant?: Variant;
+  size?: Size;
+  target?: string;
+  rel?: string;
+  download?: boolean | string;
+  class?: string;
+  type?: 'button' | 'submit' | 'reset';
+  ariaLabel?: string;
+  /** Base64-encoded email; renders as a link whose mailto: is set client-side. */
+  dataEmail?: string;
+}
+
+const {
+  href,
+  variant = 'standard',
+  size = 'md',
+  target,
+  rel,
+  download,
+  class: className = '',
+  type = 'button',
+  ariaLabel,
+  dataEmail,
+} = Astro.props;
+
+const isExternal = href?.startsWith('http');
+const finalRel = rel ?? (isExternal ? 'noopener noreferrer' : dataEmail ? 'nofollow' : undefined);
+// An obfuscated email renders as a link too — its href is wired up client-side.
+const Tag = href || dataEmail ? 'a' : 'button';
+const finalHref = href ?? (dataEmail ? '#' : undefined);
+---
+
+<Tag
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
+  href={finalHref}
+  target={target}
+  rel={finalRel}
+  download={download}
+  type={Tag === 'button' ? type : undefined}
+  aria-label={ariaLabel}
+  data-email={dataEmail}
+>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    --btn-bg: var(--nz-control-default);
+    --btn-bg-hover: var(--nz-control-secondary);
+    --btn-bg-pressed: var(--nz-control-tertiary);
+    --btn-fg: var(--nz-text-primary);
+    --btn-border: var(--nz-stroke-secondary);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--nz-space-2);
+    padding: var(--nz-space-2) var(--nz-space-4);
+    border: 1px solid var(--btn-border);
+    border-radius: var(--nz-radius-medium);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font: var(--nz-font-body-strong);
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      border-color var(--nz-duration-faster) var(--nz-easing-max),
+      transform var(--nz-duration-faster) var(--nz-easing-max),
+      box-shadow var(--nz-duration-faster) var(--nz-easing-max);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: inset 0 -1px 0 var(--nz-stroke-default), var(--nz-shadow-2);
+    white-space: nowrap;
+  }
+  .btn:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-fg);
+  }
+  .btn:active {
+    background: var(--btn-bg-pressed);
+    transform: translateY(1px);
+    box-shadow: inset 0 -1px 0 var(--nz-stroke-default);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--nz-stroke-focus);
+    outline-offset: 2px;
+  }
+
+  .btn--accent {
+    --btn-bg: var(--nz-accent-default);
+    --btn-bg-hover: var(--nz-accent-secondary);
+    --btn-bg-pressed: var(--nz-accent-tertiary);
+    --btn-fg: var(--nz-text-on-accent);
+    --btn-border: transparent;
+  }
+  .btn--accent {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+      var(--nz-shadow-2);
+  }
+  .btn--accent:hover { color: var(--nz-text-on-accent); }
+
+  .btn--subtle {
+    --btn-bg: transparent;
+    --btn-bg-hover: var(--nz-subtle-secondary);
+    --btn-bg-pressed: var(--nz-subtle-tertiary);
+    --btn-border: transparent;
+    box-shadow: none;
+  }
+
+  .btn--outline {
+    --btn-bg: transparent;
+    --btn-bg-hover: var(--nz-subtle-secondary);
+    --btn-bg-pressed: var(--nz-subtle-tertiary);
+    --btn-border: var(--nz-accent-default);
+    --btn-fg: var(--nz-accent-text);
+    box-shadow: none;
+  }
+
+  .btn--sm { padding: 4px var(--nz-space-3); font: var(--nz-font-caption); font-weight: 600; }
+  .btn--lg { padding: var(--nz-space-3) var(--nz-space-6); font: var(--nz-font-body-large); font-weight: 600; }
+</style>

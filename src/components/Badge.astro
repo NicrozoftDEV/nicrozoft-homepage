@@ -1,0 +1,113 @@
+---
+type Tone = 'planned' | 'active' | 'stopped' | 'series' | 'accent' | 'neutral' | 'critical' | 'success' | 'caution';
+
+interface Props {
+  tone?: Tone;
+  icon?: string;
+  /** Render as a tiny ring-style pill */
+  subtle?: boolean;
+  class?: string;
+}
+
+const { tone = 'neutral', icon, subtle = false, class: className = '' } = Astro.props;
+---
+
+<span class:list={['badge', `badge--${tone}`, subtle && 'badge--subtle', className]}>
+  {icon && (
+    tone === 'planned' ? (
+      <svg class="badge__icon" viewBox="0 0 16 16" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="8" cy="9.2" r="5" />
+        <path d="M6.4 2.4h3.2M8 2.4v1.8" />
+        <path d="M8 6.4v2.8l1.9 1.2" />
+      </svg>
+    ) : tone === 'stopped' ? (
+      <svg class="badge__icon" viewBox="0 0 16 16" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+        <path d="M5.9 3.5H10.1L13 6.4V10.6L10.1 13.5H5.9L3 10.6V6.4Z" />
+      </svg>
+    ) : (
+      <span class="badge__dot" aria-hidden="true"></span>
+    )
+  )}
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: var(--nz-radius-circular);
+    font: var(--nz-font-caption);
+    font-weight: 600;
+    line-height: 1.5;
+    border: 1px solid var(--nz-stroke-default);
+    background: var(--nz-control-default);
+    color: var(--nz-text-secondary);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    white-space: nowrap;
+  }
+  .badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    flex: none;
+  }
+  /* Timer/stopwatch icon for the "计划更新" (planned) status */
+  .badge__icon {
+    width: 13px;
+    height: 13px;
+    flex: none;
+    margin-left: -1px;
+  }
+  .badge--active .badge__dot {
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 22%, transparent);
+    animation: badge-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 26%, transparent); }
+    50% { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 8%, transparent); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .badge--active .badge__dot { animation: none; }
+  }
+
+  .badge--planned {
+    color: var(--nz-system-success);
+    background: color-mix(in srgb, var(--nz-system-success) 12%, transparent);
+    border-color: color-mix(in srgb, var(--nz-system-success) 30%, transparent);
+  }
+  .badge--active {
+    color: var(--nz-accent-text);
+    background: color-mix(in srgb, var(--nz-accent-default) 12%, transparent);
+    border-color: color-mix(in srgb, var(--nz-accent-default) 30%, transparent);
+  }
+  .badge--stopped {
+    color: var(--nz-system-critical);
+    background: color-mix(in srgb, var(--nz-system-critical) 12%, transparent);
+    border-color: color-mix(in srgb, var(--nz-system-critical) 30%, transparent);
+  }
+  .badge--series {
+    color: var(--nz-system-caution);
+    background: color-mix(in srgb, var(--nz-system-caution) 12%, transparent);
+    border-color: color-mix(in srgb, var(--nz-system-caution) 30%, transparent);
+  }
+  .badge--accent {
+    color: var(--nz-accent-foreground);
+    background: var(--nz-accent-default);
+    border-color: transparent;
+  }
+  .badge--critical { color: var(--nz-system-critical); }
+  .badge--success { color: var(--nz-system-success); }
+  .badge--caution { color: var(--nz-system-caution); }
+
+  .badge--subtle {
+    background: transparent;
+    border-color: currentColor;
+  }
+</style>

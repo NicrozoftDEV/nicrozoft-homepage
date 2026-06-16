@@ -1,0 +1,452 @@
+@import './tokens.css';
+
+/* ===========================================================================
+ * Reset & base
+ * ========================================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Prevent layout shift when scrollbars appear */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: var(--nz-font-body);
+  color: var(--nz-text-primary);
+  background: var(--nz-bg-solid-base);
+  /* Mica-style desktop tint visible behind translucent surfaces */
+  background-image:
+    radial-gradient(at 15% 0%, color-mix(in srgb, var(--nz-accent-default) 12%, transparent), transparent 55%),
+    radial-gradient(at 85% 30%, color-mix(in srgb, var(--nz-accent-default) 8%, transparent), transparent 60%),
+    radial-gradient(at 50% 100%, color-mix(in srgb, var(--nz-accent-default) 10%, transparent), transparent 55%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--nz-accent-text);
+  text-decoration: none;
+  transition: color var(--nz-duration-faster) var(--nz-easing-max);
+}
+a:hover { color: var(--nz-accent-secondary); }
+a:focus-visible { outline: none; }
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: var(--nz-text-primary);
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0; }
+
+ul, ol {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--nz-stroke-divider);
+  margin: var(--nz-space-6) 0;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
+  color: var(--nz-text-primary);
+}
+
+/* ===========================================================================
+ * Fluent focus stroke — two-stroke high-contrast focus ring
+ * ========================================================================= */
+:focus-visible {
+  outline: var(--nz-focus-ring-thickness) solid var(--nz-stroke-focus);
+  outline-offset: 2px;
+  border-radius: var(--nz-radius-small);
+  transition: outline-offset var(--nz-duration-faster) var(--nz-easing-max);
+}
+
+/* ===========================================================================
+ * Layout helpers
+ * ========================================================================= */
+.nz-container {
+  width: 100%;
+  max-width: var(--nz-content-max-width);
+  margin-inline: auto;
+  padding-inline: clamp(var(--nz-space-4), 4vw, var(--nz-space-12));
+}
+
+.nz-container--narrow {
+  max-width: var(--nz-content-narrow-width);
+}
+
+.nz-stack {
+  display: flex;
+  flex-direction: column;
+}
+.nz-stack--md { gap: var(--nz-space-4); }
+.nz-stack--lg { gap: var(--nz-space-6); }
+.nz-stack--xl { gap: var(--nz-space-10); }
+
+.nz-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nz-space-4);
+  align-items: center;
+}
+
+.nz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--nz-space-5);
+}
+
+.nz-section {
+  padding-block: var(--nz-space-12);
+}
+
+.nz-eyebrow {
+  font: var(--nz-font-body-strong);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nz-accent-text);
+}
+
+.nz-display { font: var(--nz-font-display); letter-spacing: -0.02em; }
+.nz-title-large { font: var(--nz-font-title-large); letter-spacing: -0.02em; }
+.nz-title { font: var(--nz-font-title); letter-spacing: -0.015em; }
+.nz-subtitle { font: var(--nz-font-subtitle); }
+.nz-body-large { font: var(--nz-font-body-large); }
+.nz-body { font: var(--nz-font-body); }
+.nz-body-strong { font: var(--nz-font-body-strong); }
+.nz-caption { font: var(--nz-font-caption); color: var(--nz-text-secondary); }
+
+.nz-text-secondary { color: var(--nz-text-secondary); }
+.nz-text-accent { color: var(--nz-accent-text); }
+
+/* ===========================================================================
+ * Fluent surfaces — acrylic + mica
+ * ========================================================================= */
+.nz-acrylic {
+  background: var(--nz-acrylic-fallback);
+  border: 1px solid var(--nz-stroke-card);
+  border-radius: var(--nz-radius-card);
+}
+@supports (backdrop-filter: blur(40px)) {
+  .nz-acrylic {
+    background: var(--nz-acrylic-tint);
+    backdrop-filter: saturate(180%) blur(40px);
+    -webkit-backdrop-filter: saturate(180%) blur(40px);
+  }
+}
+
+.nz-mica {
+  background: var(--nz-mica-fallback);
+  border: 1px solid var(--nz-stroke-card);
+  border-radius: var(--nz-radius-card);
+}
+@supports (backdrop-filter: blur(60px)) {
+  .nz-mica {
+    background: var(--nz-mica-tint);
+    backdrop-filter: saturate(160%) blur(60px);
+    -webkit-backdrop-filter: saturate(160%) blur(60px);
+  }
+}
+
+.nz-layer {
+  background: var(--nz-layer-default);
+  border: 1px solid var(--nz-stroke-card);
+  border-radius: var(--nz-radius-card);
+}
+
+/* ===========================================================================
+ * Smart-rail / "reveal" hover effect — CSS-only, follows pointer via
+ * conic-gradient masked by the element. Falls back gracefully without :hover.
+ * ========================================================================= */
+.nz-reveal {
+  position: relative;
+  isolation: isolate;
+}
+.nz-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    160px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--nz-accent-default) 22%, transparent),
+    transparent 60%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--nz-duration-normal) var(--nz-easing-max);
+  z-index: 0;
+}
+.nz-reveal:hover::before,
+.nz-reveal:focus-within::before {
+  opacity: 1;
+}
+.nz-reveal > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================================================================
+ * Fluent "lift" hover — gentle scale + shadow
+ * ========================================================================= */
+.nz-lift {
+  transition:
+    transform var(--nz-duration-normal) var(--nz-easing-max),
+    box-shadow var(--nz-duration-normal) var(--nz-easing-max),
+    border-color var(--nz-duration-normal) var(--nz-easing-max);
+}
+.nz-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nz-shadow-8);
+  border-color: var(--nz-stroke-secondary);
+}
+.nz-lift:active {
+  transform: translateY(0);
+  box-shadow: var(--nz-shadow-2);
+  transition-duration: var(--nz-duration-faster);
+}
+
+/* ===========================================================================
+ * Page-level entrance animations (CSS-only, no JS)
+ * ========================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes nz-enter {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  main > * {
+    animation: nz-enter var(--nz-duration-slow) var(--nz-easing-decelerate) both;
+  }
+  main > *:nth-child(2) { animation-delay: 40ms; }
+  main > *:nth-child(3) { animation-delay: 80ms; }
+  main > *:nth-child(4) { animation-delay: 120ms; }
+  main > *:nth-child(5) { animation-delay: 160ms; }
+  main > *:nth-child(6) { animation-delay: 200ms; }
+}
+
+/* ===========================================================================
+ * View Transitions — Astro <ClientRouter/> uses these names.
+ * Cross-fade body, slide nav. Pure CSS — no JS needed for the animation.
+ * ========================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--nz-duration-normal);
+    animation-timing-function: var(--nz-easing-decelerate);
+  }
+  ::view-transition-old(root) {
+    animation-name: nz-fade-out;
+  }
+  ::view-transition-new(root) {
+    animation-name: nz-fade-in;
+  }
+  @keyframes nz-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; transform: translateY(-6px); }
+  }
+  @keyframes nz-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ===========================================================================
+ * Status colors (legacy red/green tags from the old HTML)
+ * ========================================================================= */
+.warn {
+  color: var(--nz-system-critical);
+}
+.success {
+  color: var(--nz-system-success);
+}
+.info {
+  color: var(--nz-system-attention);
+}
+
+/* ===========================================================================
+ * Markdown body (used in product detail pages)
+ * ========================================================================= */
+.nz-prose {
+  font: var(--nz-font-body-large);
+  color: var(--nz-text-primary);
+}
+.nz-prose > * + * { margin-top: var(--nz-space-4); }
+.nz-prose h2 {
+  font: var(--nz-font-subtitle);
+  margin-top: var(--nz-space-8);
+  padding-bottom: var(--nz-space-2);
+  border-bottom: 1px solid var(--nz-stroke-divider);
+}
+.nz-prose h3 {
+  font: var(--nz-font-body-large);
+  font-weight: 600;
+  margin-top: var(--nz-space-6);
+}
+.nz-prose ul, .nz-prose ol { padding-left: 1.5em; }
+.nz-prose li + li { margin-top: var(--nz-space-1); }
+.nz-prose a {
+  color: var(--nz-accent-text);
+  border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
+}
+.nz-prose code {
+  font-family: var(--nz-font-family-mono);
+  font-size: 0.92em;
+  padding: 2px 6px;
+  border-radius: var(--nz-radius-small);
+  background: var(--nz-control-secondary);
+  border: 1px solid var(--nz-stroke-default);
+}
+.nz-prose blockquote {
+  margin: 0;
+  padding: var(--nz-space-4) var(--nz-space-5);
+  border-left: 3px solid var(--nz-accent-default);
+  background: var(--nz-subtle-secondary);
+  border-radius: 0 var(--nz-radius-medium) var(--nz-radius-medium) 0;
+}
+
+/* ===========================================================================
+ * Scrollbar polish (Fluent-style thin overlay) — Chromium / Firefox / Safari
+ * ========================================================================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--nz-stroke-secondary) transparent;
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: var(--nz-stroke-secondary);
+  border-radius: var(--nz-radius-circular);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--nz-text-tertiary);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+/* Lock body scroll while the mobile nav menu is open (toggled from BaseLayout) */
+body.nav-open { overflow: hidden; }
+
+/* Status-filter: hide non-matching cards / emptied sections (see BaseLayout) */
+.is-hidden { display: none !important; }
+
+/* ===========================================================================
+ * Image skeleton — shimmer overlay on an image wrapper until the image loads.
+ * Add `nz-skel` to a positioned wrapper that has a reserved size (aspect-ratio
+ * or fixed height); the controller in BaseLayout adds `is-loaded` on load.
+ * ========================================================================= */
+.nz-skel { position: relative; isolation: isolate; }
+.nz-skel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    var(--nz-subtle-secondary) 0%,
+    var(--nz-subtle-tertiary) 50%,
+    var(--nz-subtle-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: nz-skel-shimmer 1.5s linear infinite;
+  transition: opacity var(--nz-duration-normal) var(--nz-easing-max);
+}
+.nz-skel.is-loaded::before { opacity: 0; animation: none; }
+@keyframes nz-skel-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nz-skel::before { animation: none; }
+}
+
+/* Group-rules (server-rendered markdown) — red emphasis "color blocks", footer */
+.gr-hl { color: var(--nz-system-critical); font-weight: 600; }
+.gr-note {
+  margin-top: var(--nz-space-5);
+  padding-top: var(--nz-space-4);
+  border-top: 1px solid var(--nz-stroke-divider);
+  line-height: 1.8;
+}
+.gr-ver {
+  margin-top: var(--nz-space-3);
+  text-align: right;
+  font-style: italic;
+  color: var(--nz-text-tertiary);
+}
+
+/* ===========================================================================
+ * Fluent/WinUI tooltip — single floating element positioned via JS
+ * (see BaseLayout). Lives on <body> so it escapes card overflow:hidden.
+ * ========================================================================= */
+.nz-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  max-width: min(320px, 80vw);
+  padding: 5px 10px;
+  border-radius: var(--nz-radius-medium);
+  background: var(--nz-bg-solid-tertiary);
+  border: 1px solid var(--nz-stroke-default);
+  box-shadow: var(--nz-shadow-flyout);
+  color: var(--nz-text-primary);
+  font: var(--nz-font-caption);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(3px);
+  transition:
+    opacity var(--nz-duration-fast) var(--nz-easing-max),
+    transform var(--nz-duration-fast) var(--nz-easing-max);
+}
+.nz-tooltip.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nz-tooltip { transition-duration: 1ms; }
+}

@@ -1,0 +1,55 @@
+---
+// Status filter pills for listing pages. Filters cards by their data-status
+// (client-side; see the controller in BaseLayout). Renders nothing unless there
+// are at least two distinct statuses to choose between.
+interface Props {
+  statuses: string[];
+  class?: string;
+}
+const LABELS: Record<string, string> = { active: '已发布', planned: '计划更新', stopped: '停止更新' };
+const ORDER = ['active', 'planned', 'stopped'];
+const { statuses, class: className = '' } = Astro.props;
+const present = ORDER.filter((s) => statuses.includes(s));
+---
+
+{present.length >= 2 && (
+  <div class:list={['nzfilter', className]} role="tablist" aria-label="按状态筛选">
+    <button class="nzfilter__btn" type="button" role="tab" data-filter="all" aria-selected="true">全部</button>
+    {present.map((s) => (
+      <button class={`nzfilter__btn nzfilter__btn--${s}`} type="button" role="tab" data-filter={s} aria-selected="false">
+        {LABELS[s]}
+      </button>
+    ))}
+  </div>
+)}
+
+<style>
+  .nzfilter {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 3px;
+    margin-bottom: var(--nz-space-6);
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-default);
+  }
+  .nzfilter__btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px 16px;
+    border-radius: var(--nz-radius-small);
+    font: var(--nz-font-caption);
+    font-weight: 600;
+    color: var(--nz-text-secondary);
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .nzfilter__btn:hover { background: var(--nz-control-default); color: var(--nz-text-primary); }
+  .nzfilter__btn[aria-selected='true'] {
+    background: var(--nz-accent-default);
+    color: var(--nz-accent-foreground);
+  }
+</style>

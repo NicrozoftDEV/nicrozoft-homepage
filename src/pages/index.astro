@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const categories = [
+  { title: '操作系统',      href: '/oslist',    cover: '/img/OS.jpg',     blurb: 'Wihdous 系列、Windows 优化版、仿 Longhorn 主题版本' },
+  { title: '工具及其他产品', href: '/tools',     cover: '/img/tools.jpg',  blurb: '7gSSol、NishMario、NZi964 等小工具' },
+  { title: '病毒',         href: '/virlist',   cover: '/img/virus.jpg',  blurb: 'Super WindowsKiller、Lframe32、batvirus —— 仅供学习研究' },
+  { title: 'Minecraft 服务器', href: '/mcserver', cover: '/img/group.jpg', blurb: 'Java 1.21 生电与建筑服务器，半正版、白名单制' },
+];
+---
+
+<BaseLayout title="Nicrozoft" description="Nicrozoft — Windows、C++、Python、Minecraft 爱好者的项目集合站。">
+  <Hero
+    eyebrow="NICROZOFT"
+    title="Windows，开箱即用"
+    subtitle="操作系统修改、工具、病毒研究"
+  >
+    <div class="hero-actions" slot="actions">
+      <Button href="/oslist" variant="accent" size="lg">浏览操作系统 →</Button>
+      <Button href="/about" variant="subtle" size="lg">关于 Nicrozoft</Button>
+    </div>
+  </Hero>
+
+  <section class="nz-section nz-container">
+    <header class="section-head">
+      <span class="nz-eyebrow">Projects</span>
+      <h2 class="nz-title-large">产品与项目</h2>
+      <p class="nz-body-large nz-text-secondary">从修改版操作系统到病毒研究、从开发工具到 Minecraft 服务器 —— 都在这里。</p>
+    </header>
+
+    <div class="nz-grid">
+      {categories.map((cat) => (
+        <Card title={cat.title} href={cat.href} cover={cat.cover} blurb={cat.blurb} />
+      ))}
+    </div>
+  </section>
+
+  <section class="nz-section nz-container">
+    <div class="nz-mica cta">
+      <div>
+        <span class="nz-eyebrow">联系</span>
+        <h2 class="nz-title">想测试产品、报告问题，或者只是聊聊？</h2>
+        <p class="nz-body-large nz-text-secondary">欢迎加入 Nicrozoft 产品测试及交流群，与其他爱好者一起讨论。</p>
+      </div>
+      <div class="cta__actions">
+        <Button href="/group" variant="accent" size="lg">加入交流群</Button>
+        <Button href="/recommend" variant="subtle" size="lg">查看推荐内容</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-actions {
+    display: flex;
+    gap: var(--nz-space-3);
+    margin-top: var(--nz-space-3);
+    flex-wrap: wrap;
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+    margin-bottom: var(--nz-space-8);
+    max-width: 60ch;
+  }
+
+  .cta {
+    padding: var(--nz-space-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) auto;
+    align-items: center;
+    gap: var(--nz-space-6);
+    box-shadow: var(--nz-shadow-8);
+  }
+  .cta h2 { margin-top: var(--nz-space-1); }
+  .cta__actions { display: flex; gap: var(--nz-space-3); flex-wrap: wrap; }
+  @media (max-width: 760px) {
+    .cta { grid-template-columns: 1fr; }
+  }
+</style>

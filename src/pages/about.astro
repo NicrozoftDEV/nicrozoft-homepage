@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Button from '../components/Button.astro';
+import { CONTACT_EMAIL_ENCODED } from '../lib/contact';
+---
+
+<BaseLayout title="关于" description="关于 Nicrozoft —— Windows、C++、Python、Minecraft 爱好者。">
+  <Hero
+    eyebrow="ABOUT"
+    title="关于 Nicrozoft"
+    subtitle="Windows、C++、Python、Minecraft 爱好者，开发了一些项目。"
+    variant="compact"
+  />
+
+  <section class="nz-section nz-container">
+    <div class="nz-acrylic about__panel">
+      <p class="nz-body-large nz-text-secondary">
+        <span class="warn">这部分内容将会重写喵！下面都是占位符。</span>
+      </p>
+      <p class="nz-body-large">
+        Nicrozoft 的页面目前正在努力加载，就像您知道加载需要时间所以正在等待一样，至于到底要加载什么那确实就是加载该加载的东西，
+        总之如果现在没看到那肯定是因为内容还没显示出来，等它显示出来了您自然就能看到了，毕竟没显示出来的部分谁也都看不见，
+        所以目前这个情况简单来说就是目前这么个情况，以上介绍虽然说了很多字但仔细一看好像什么也没介绍，
+        不过既然您都看到这里了那就说明您确实已经看到了这里，谢谢。
+      </p>
+
+      <div class="about__actions">
+        <Button dataEmail={CONTACT_EMAIL_ENCODED} variant="accent" size="lg">
+          ✉ Nicrozoft 邮箱
+        </Button>
+        <Button href="https://space.bilibili.com/3546641434937345" target="_blank" variant="standard" size="lg">
+          Bilibili 主页 ↗
+        </Button>
+        <Button href="https://github.com/Nicrozoft" target="_blank" variant="subtle" size="lg">
+          GitHub ↗
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about__panel {
+    padding: var(--nz-space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-5);
+    line-height: 1.7;
+  }
+  .about__actions {
+    display: flex;
+    gap: var(--nz-space-3);
+    flex-wrap: wrap;
+    margin-top: var(--nz-space-3);
+  }
+</style>

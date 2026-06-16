@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import ProductLayout from '../../layouts/ProductLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('os');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const screenshots = entry.data.screenshots.map((s) =>
+  typeof s === 'string' ? { src: s } : s
+);
+---
+
+<ProductLayout
+  title={entry.data.title}
+  subtitle={entry.data.subtitle}
+  hero={entry.data.hero ?? entry.data.cover}
+  status={entry.data.status}
+  series={entry.data.series}
+  warning={entry.data.warning}
+  downloads={entry.data.downloads}
+  screenshots={screenshots}
+  category={{ label: '操作系统', href: '/oslist' }}
+>
+  <Content />
+</ProductLayout>

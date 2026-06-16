@@ -1,0 +1,6 @@
+# Keep bulk downloads out of the Workers asset upload — they exceed the 25 MiB
+# per-file limit and are served from R2 instead (see src/lib/media.ts).
+# Wrangler reads this from the assets directory root (dist/); Astro copies it
+# here from public/.
+data/**
+video/**

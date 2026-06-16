@@ -1,0 +1,146 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  /** Optional cover image path */
+  image?: string;
+  /** "compact" reduces vertical padding */
+  variant?: 'default' | 'compact';
+  /** Hide the decorative aurora background */
+  plain?: boolean;
+}
+
+const { eyebrow, title, subtitle, image, variant = 'default', plain = false } = Astro.props;
+---
+
+<section class:list={['hero', `hero--${variant}`, plain && 'hero--plain']}>
+  {!plain && (
+    <div class="hero__aurora" aria-hidden="true">
+      <span class="hero__orb hero__orb--1"></span>
+      <span class="hero__orb hero__orb--2"></span>
+      <span class="hero__orb hero__orb--3"></span>
+    </div>
+  )}
+
+  <div class="nz-container hero__inner">
+    <div class="hero__text">
+      {eyebrow && <span class="nz-eyebrow">{eyebrow}</span>}
+      <h1 class="hero__title">{title}</h1>
+      {subtitle && <p class="hero__subtitle">{subtitle}</p>}
+      <slot name="actions" />
+    </div>
+
+    {image && (
+      <div class="hero__media nz-skel">
+        <img src={image} alt="" loading="eager" decoding="async" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(var(--nz-space-12), 8vw, var(--nz-space-24)) clamp(var(--nz-space-10), 6vw, var(--nz-space-16));
+    overflow: hidden;
+  }
+  .hero--compact {
+    padding-block: var(--nz-space-12) var(--nz-space-8);
+  }
+  .hero--plain { padding-block: var(--nz-space-10) var(--nz-space-6); }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--nz-space-10);
+    align-items: center;
+  }
+  .hero:has(.hero__media) .hero__inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+  @media (max-width: 880px) {
+    .hero:has(.hero__media) .hero__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-3);
+  }
+  .hero__title {
+    font: var(--nz-font-title-large);
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--nz-text-primary), color-mix(in srgb, var(--nz-accent-default) 50%, var(--nz-text-primary)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media (min-width: 700px) {
+    .hero__title { font: var(--nz-font-display); letter-spacing: -0.025em; }
+  }
+  .hero__subtitle {
+    font: var(--nz-font-body-large);
+    color: var(--nz-text-secondary);
+    max-width: 60ch;
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--nz-radius-large);
+    box-shadow: var(--nz-shadow-16);
+    border: 1px solid var(--nz-stroke-card);
+  }
+
+  /* Aurora background — slow, CSS-only animation. */
+  .hero__aurora {
+    position: absolute;
+    inset: -20% -10%;
+    z-index: -1;
+    filter: blur(60px) saturate(140%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .hero__orb {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+  }
+  .hero__orb--1 {
+    width: 38vw; height: 38vw;
+    left: -8vw; top: -8vw;
+    background: radial-gradient(circle at 30% 30%, var(--nz-accent-default), transparent 65%);
+    animation: drift-1 18s var(--nz-easing-max) infinite alternate;
+  }
+  .hero__orb--2 {
+    width: 30vw; height: 30vw;
+    right: -6vw; top: 10vw;
+    background: radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--nz-accent-default) 80%, white), transparent 65%);
+    animation: drift-2 22s var(--nz-easing-max) infinite alternate;
+  }
+  .hero__orb--3 {
+    width: 26vw; height: 26vw;
+    left: 30vw; top: 18vw;
+    background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--nz-accent-default) 60%, transparent), transparent 70%);
+    animation: drift-3 26s var(--nz-easing-max) infinite alternate;
+  }
+
+  @keyframes drift-1 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(6vw, 4vw); }
+  }
+  @keyframes drift-2 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(-5vw, 3vw); }
+  }
+  @keyframes drift-3 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(3vw, -4vw); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__orb--1, .hero__orb--2, .hero__orb--3 { animation: none; }
+  }
+</style>

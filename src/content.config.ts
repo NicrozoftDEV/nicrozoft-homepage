@@ -1,0 +1,56 @@
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+// Status maps to colored Fluent badges on cards.
+const Status = z.enum(['planned', 'active', 'stopped']).default('active');
+
+const downloadSchema = z.object({
+  label: z.string(),
+  href: z.string(),
+  kind: z.enum(['iso', 'ova', 'image', 'archive', 'link']).default('link'),
+});
+
+const screenshotSchema = z.union([
+  z.string(),
+  z.object({ src: z.string(), alt: z.string().optional() }),
+]);
+
+// Reusable base schema for product-like entries (OS / virus / tools).
+const productSchema = z.object({
+  title: z.string(),
+  subtitle: z.string().optional(),
+  cover: z.string(),
+  status: Status,
+  series: z.string().optional(),
+  /** Order in listing pages: lower = earlier. Default 100. */
+  order: z.number().default(100),
+  /** Big hero image on the detail page. Defaults to cover. */
+  hero: z.string().optional(),
+  /** Optional one-line warning shown above the description. */
+  warning: z.string().optional(),
+  /** Short text shown under the card title on listing pages. */
+  blurb: z.string().optional(),
+  downloads: z.array(downloadSchema).default([]),
+  screenshots: z.array(screenshotSchema).default([]),
+  /** Hide from listing pages but still render the detail page. */
+  draft: z.boolean().default(false),
+});
+
+const os = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/os' }),
+  schema: productSchema,
+});
+
+const virus = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/virus' }),
+  schema: productSchema,
+});
+
+const tools = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/tools' }),
+  schema: productSchema,
+});
+
+// Recommend page is rendered from static data inline; no collection needed.
+
+export const collections = { os, virus, tools };

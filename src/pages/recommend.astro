@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
+import { mediaUrl } from '../lib/media';
+
+const os = await getCollection('os', ({ data }) => !data.draft);
+const virus = await getCollection('virus', ({ data }) => !data.draft);
+const tools = await getCollection('tools', ({ data }) => !data.draft);
+
+const pick = <T extends { id: string }>(arr: T[], ids: string[]) =>
+  ids.map((id) => arr.find((e) => e.id === id)).filter(Boolean) as T[];
+
+const recOs = pick(os, ['win11ext', 'win10to11', 'win10ext']);
+const recVirus = pick(virus, ['nicrozoft-super-windowskiller-virus']);
+const recTools = pick(tools, ['winfs']);
+
+const winBetaMui = [
+  { title: 'Longhorn 4074 MUI', cover: '/img/lh4074mui.png', href: 'https://wbmui.github.io/2023/06/10/lh4074mui',          blurb: 'Longhorn 4074 语言包' },
+  { title: 'Vista 5112 MUI',    cover: '/img/vis5112mui.png', href: 'https://andychung123.github.io/post/windows-vista-5112-duo-yu-yan-bao/', blurb: 'Vista 5112 语言包' },
+  { title: 'Longhorn 3718 MUI', cover: '/img/lh3718mui.png', href: 'https://wbmui.github.io/2023/09/19/lh3718mui',          blurb: 'Longhorn 3718 语言包' },
+];
+
+const friendLinks = [
+  { title: 'NtKrnl64',        cover: 'https://assets.krnl64.win/ev006al.png', href: 'https://krnl64.win/', blurb: "NtKrnl64's Homepage" },
+  { title: 'NtKrnl32',        cover: '/img/ntkrnl32.png', href: 'https://krnl32.win/',   blurb: "NtKrnl32's Homepage" },
+  { title: 'LiyaoUniversity', cover: '/img/liyao.png',    href: 'https://liyao.edu.kg/', blurb: 'Liyao University' },
+];
+
+const antiNish = [
+  { title: '下载溺尸介绍文档', cover: '/data/FightAgainstNish/AboutNish.png', href: '/data/FightAgainstNish/溺尸简介.pdf', blurb: '溺尸介绍文档', external: true },
+  { title: 'Nish Mario',     cover: '/data/FightAgainstNish/NMario.png',   href: '/tools/nishmario',                blurb: '溺尸马里奥' },
+  // TODO: re-enable once the pages + cover images exist. Both the covers
+  // (MCNish.png / PVNish.png) and the tool pages (/tools/mcnish,
+  // /tools/plantsvsnish) are currently missing, which caused 404s.
+  // { title: 'MC Nish',        cover: '/data/FightAgainstNish/MCNish.png',   href: '/tools/mcnish',                   blurb: 'Minecraft 溺尸版' },
+  // { title: '植物大战溺尸',     cover: '/data/FightAgainstNish/PVNish.png',   href: '/tools/plantsvsnish',             blurb: '植物大战溺尸' },
+];
+---
+
+<BaseLayout title="推荐" description="Nicrozoft 推荐的内容以及友情链接。">
+  <Hero eyebrow="推荐" title="推荐与友情链接" subtitle="Nicrozoft 推荐的内容、合作的 MUI 团队，以及友情链接。" variant="compact" />
+
+  <section class="nz-section nz-container nz-stack nz-stack--xl">
+    {recVirus.length > 0 && (
+      <div>
+        <header class="head"><span class="nz-eyebrow">Nicrozoft 产品</span><h2 class="nz-title">病毒</h2></header>
+        <div class="nz-grid">
+          {recVirus.map((e) => (
+            <Card title={e.data.title} href={`/virus/${e.id}`} cover={e.data.cover} status={e.data.status} blurb={e.data.blurb} />
+          ))}
+        </div>
+      </div>
+    )}
+
+    {recOs.length > 0 && (
+      <div>
+        <header class="head"><span class="nz-eyebrow">Nicrozoft 产品</span><h2 class="nz-title">操作系统</h2></header>
+        <div class="nz-grid">
+          {recOs.map((e) => (
+            <Card title={e.data.title} href={`/os/${e.id}`} cover={e.data.cover} status={e.data.status} blurb={e.data.blurb} />
+          ))}
+        </div>
+      </div>
+    )}
+
+    {recTools.length > 0 && (
+      <div>
+        <header class="head"><span class="nz-eyebrow">Nicrozoft 产品</span><h2 class="nz-title">工具及其他产品</h2></header>
+        <div class="nz-grid">
+          {recTools.map((e) => (
+            <Card title={e.data.title} href={`/tools/${e.id}`} cover={e.data.cover} status={e.data.status} blurb={e.data.blurb} />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div>
+      <header class="head"><span class="nz-eyebrow">合作团队</span><h2 class="nz-title">WinBetaMUI 产品</h2></header>
+      <div class="nz-grid">
+        {winBetaMui.map((item) => (
+          <Card title={item.title} href={item.href} cover={item.cover} blurb={item.blurb} />
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <header class="head"><span class="nz-eyebrow">友情链接</span><h2 class="nz-title">朋友的网站</h2></header>
+      <div class="nz-grid">
+        {friendLinks.map((item) => (
+          <Card title={item.title} href={item.href} cover={item.cover} blurb={item.blurb} />
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <header class="head"><span class="nz-eyebrow">用于对抗溺尸的产品</span><h2 class="nz-title">反溺尸联盟</h2></header>
+      <div class="nz-grid">
+        {antiNish.map((item) => (
+          <Card title={item.title} href={mediaUrl(item.href)} cover={mediaUrl(item.cover)} blurb={item.blurb} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-1);
+    margin-bottom: var(--nz-space-5);
+  }
+</style>

@@ -1,0 +1,514 @@
+{
+  "dreamscenevideo": {
+    "slug": "dreamscenevideo",
+    "source": "/checksums/dreamscenevideo.txt",
+    "filename": null,
+    "size": null,
+    "hashes": [
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "FA158EA0627B3D8B414C6365B23F2B60"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "E0827A4A1230A8C0BB2DF5B8BDD63334531F3EC7"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "3E8F1D18B02C46A8FDEC00E836B714D4651D0E69E4A4DAC86BCA299B102B41A1"
+      }
+    ]
+  },
+  "wih7gs2": {
+    "slug": "wih7gs2",
+    "source": "/checksums/wih7gs2.txt",
+    "filename": "Wihdous_7_Ghost_Shadow_v2.0_Nicrozoft.iso",
+    "size": "3.92 GB (4,204,789,760 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "D06D12AC"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "B5D0678F9BF01A7D61A26959B113652D"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "487201C1E2806978826E77E377F175839FA45B19"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "FA25F09EAC11853AABD0753CB09EA1679CD27752743E2F1C5287F24E2F93962F"
+      }
+    ]
+  },
+  "win10ext_1.0_iso": {
+    "slug": "win10ext_1.0_iso",
+    "source": "/checksums/win10ext_1.0_iso.txt",
+    "filename": "Windows_10_Extended_ProfessionalWorkstation_v1.0_Nicrozoft.iso",
+    "size": "20.95 GB (22,491,430,912 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "6E56C31E"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "21FE2C3FAABDBF37A9D1B4600EE2FE4A"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "B49589617A69CBDA47E4AC6BAAA5CB6301F03CC2"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "2A2306EC28EEA3EB73B1AD4A87FEBC1DF08F131E318E00EDFEBF2C8F4E1820CB"
+      }
+    ]
+  },
+  "win10ext_2.0_basic_iso": {
+    "slug": "win10ext_2.0_basic_iso",
+    "source": "/checksums/win10ext_2.0_basic_iso.txt",
+    "filename": "Windows_10_Extended_ProfessionalWorkstation_v2.0_Basic_Nicrozoft.iso",
+    "size": "9.69 GiB (10,403,840,000 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "02B60FE7"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "9FD28BF57203E711B3658F815CCB77CB"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "294F926F35C6D6D0112DDBCDF7733F227C3627AB"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "8B6202989FF6DC406FC634774AFFFE2E27D0575483E9544DE0A674619B8DCC99"
+      }
+    ]
+  },
+  "win10ext_2.0_full_iso": {
+    "slug": "win10ext_2.0_full_iso",
+    "source": "/checksums/win10ext_2.0_full_iso.txt",
+    "filename": "Windows_10_Extended_ProfessionalWorkstation_v2.0_Full_Nicrozoft.iso",
+    "size": "32.88 GiB (35,305,127,936 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "492546DD"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "DAA6AC3EB6A0516F3DBA39B67375A72C"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "C48770C08A3F661FCB28EF6CB16B166D4D5085C7"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "751D8909EC321665C86D621F9A9F81EC1141022417CE8BEB6AD39140BF757544"
+      }
+    ]
+  },
+  "win10to11_1.0_iso": {
+    "slug": "win10to11_1.0_iso",
+    "source": "/checksums/win10to11_1.0_iso.txt",
+    "filename": null,
+    "size": null,
+    "hashes": [
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "4EE20793260E25A9971682D7A2E139D0"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "20047760CDEFAE0CAA33DEA8CB8CA9DA41F06BD9"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "BDE9EB6F2A4DD9AD954AE9C2B9847701AA4BBDD6CA81109AE8C52E9877DEFD9B"
+      }
+    ]
+  },
+  "win10to11_1.0_vm": {
+    "slug": "win10to11_1.0_vm",
+    "source": "/checksums/win10to11_1.0_vm.txt",
+    "filename": null,
+    "size": null,
+    "hashes": [
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "7A30A3542BB4DB728DF49BEED6FAD9C0"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "313B40545F2D2C14A6296239FD440779BEFD4A2E"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "3A573B7E564AE2103BA7BEE7356504C37347763660BC39030AD1EDC0A9F36E6C"
+      }
+    ]
+  },
+  "win11ext_4.0_iso": {
+    "slug": "win11ext_4.0_iso",
+    "source": "/checksums/win11ext_4.0_iso.txt",
+    "filename": null,
+    "size": null,
+    "hashes": [
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "719F6A2919D1EC566ED54ADE1CCB248B"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "62AC935862F5388794AFE8E4972D230F234CCCDE"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "FECAC0C5C89660BDBB820FA5122A462C10F7DC8F1698965D62189D356E6673D3"
+      }
+    ]
+  },
+  "win11ext_5.0.1_iso": {
+    "slug": "win11ext_5.0.1_iso",
+    "source": "/checksums/win11ext_5.0.1_iso.txt",
+    "filename": "Windows_11_Extended_ProfessionalWorkstation_v5.0.1_Nicrozoft.iso",
+    "size": "16.75 GB (17,982,619,648 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "F64B6DFF"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "7F29017B777514B63504738285DAF6DA"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "70CDA10A7A5BC9E8EE88B6A71AB77C8FDBC53096"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "EE4E8634ECAA3A0209B87F6AF672D82B0619FDF51E8578CC2F7A4EAD9006006E"
+      }
+    ]
+  },
+  "win11ext_5.0_iso": {
+    "slug": "win11ext_5.0_iso",
+    "source": "/checksums/win11ext_5.0_iso.txt",
+    "filename": "Windows_11_Extended_ProfessionalWorkstation_v5.0_Nicrozoft.iso",
+    "size": "16.75 GB (17,982,619,648 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "5710D25C"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "77EC6BE098EE736806A734EB401078E1"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "91C8C6444E2C7324FDBFDE407279ED76DF8EBDA4"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "DCAFB7FEA221EBEC87B438165108870C342E9AD13E0FD5F7C5F629BC1025FD58"
+      }
+    ]
+  },
+  "win11ext_5.1_iso": {
+    "slug": "win11ext_5.1_iso",
+    "source": "/checksums/win11ext_5.1_iso.txt",
+    "filename": "Windows_11_Extended_ProfessionalWorkstation_v5.1_Nicrozoft.iso",
+    "size": "21.2 GB (22,764,814,336 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "2A4DD165"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "524F8923F558B2BF0722309D4E7CF7EF"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "571F98A081B2A625F814CE9A4E4011708D9D1DDD"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "3E5360D817FF01497F6B1EFF0A698353C64E84F97B6C302DF22B5CDE140D12CB"
+      }
+    ]
+  },
+  "win11ext_6.0_basic_iso": {
+    "slug": "win11ext_6.0_basic_iso",
+    "source": "/checksums/win11ext_6.0_basic_iso.txt",
+    "filename": "Windows_11_Extended_ProfessionalWorkstation_v6.0_Basic_Nicrozoft.iso",
+    "size": "9.45 GB (10,145,693,696 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "B30D797F"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "99AC3AAB0CEF75230BC9D8E779F836F8"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "5D50CDC0E858ABCA05420F30A1FC064D5556A44C"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "FFAF6410F34FE51C01CEDD19860042C1944F48CA3E61E5A7FC6B52CA07123FA5"
+      }
+    ]
+  },
+  "win11ext_6.0_full_iso": {
+    "slug": "win11ext_6.0_full_iso",
+    "source": "/checksums/win11ext_6.0_full_iso.txt",
+    "filename": "Windows_11_Extended_ProfessionalWorkstation_v6.0_Full_Nicrozoft.iso",
+    "size": "31.48 GB (33,797,799,936 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "EA5B3C81"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "E9E423A28902D8935519F52A15ABA286"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "D219267D19F0A65E5C116EC56C54D11B4624985C"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "78FF3C92441A67B95102DAAF99DCB7E92B7EA26C189E043EFCBDDD680B2B6A80"
+      }
+    ]
+  },
+  "win7tolh_1_3.0_vm": {
+    "slug": "win7tolh_1_3.0_vm",
+    "source": "/checksums/win7tolh_1_3.0_vm.txt",
+    "filename": "Windows 7 Longhorn #1 v3.0.7z",
+    "size": "3.21 GB (3,445,770,491 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "3527C4EF"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "842DB9E18C0E2822FB631F8872B6E45F"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "9388D01418E844A867715AAAAEBC089A73C4E994"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "3C89018EF8CDC3EE2DC71D110D73E0305FD9654474434DF9C97299BD2B2F4763"
+      }
+    ]
+  },
+  "win7tolh_2_3.0_vm": {
+    "slug": "win7tolh_2_3.0_vm",
+    "source": "/checksums/win7tolh_2_3.0_vm.txt",
+    "filename": "Windows 7 Longhorn #2 v3.0.7z",
+    "size": "3.42 GB (3,670,874,872 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "E7385CA8"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "560BFEABBD002B6272AE59A84E66DE7D"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "8DC274F85AEFC79BE85F6842730D9F5135C59265"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "CF605BC0046DBE91681209267AFC8EA9B9038AF9721850488A645612D33C63B3"
+      }
+    ]
+  },
+  "winvistatolh_5.0_vm": {
+    "slug": "winvistatolh_5.0_vm",
+    "source": "/checksums/winvistatolh_5.0_vm.txt",
+    "filename": "Windows Vista Longhorn v5.0.7z",
+    "size": "12.96 GB (13,919,185,567 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "145B617C"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "1C95D7FF9102E9E48BA32520399BB752"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "CF79553FE3C7FFCD6BFFFD2A790AC944F9411CF6"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "9A000881E26C9C3EEB5EAB33E457B5A0BFD2551D3C852006883E3DBAE969C651"
+      }
+    ]
+  },
+  "winvistatolh_6.0_free_vm": {
+    "slug": "winvistatolh_6.0_free_vm",
+    "source": "/checksums/winvistatolh_6.0_free_vm.txt",
+    "filename": "Windows Vista Longhorn v6.0 Free.7z",
+    "size": "9.82 GB (10,542,522,543 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "AD192D12"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "ADF99F1C7D725503F13B0800F2222C0F"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "80AE811F9F1FF434969866A1D82BCD5A8A87AC69"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "AEF7BE9797C2ED3D1AD81C63C7D52341992AABFC874A33EE5E6C97A53E685809"
+      }
+    ]
+  },
+  "winvistatolh_6.0_plus_vm": {
+    "slug": "winvistatolh_6.0_plus_vm",
+    "source": "/checksums/winvistatolh_6.0_plus_vm.txt",
+    "filename": "Windows Vista Longhorn v6.0 Plus.7z",
+    "size": "14 GB (15,032,602,084 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "4BBBC248"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "8C4C40007404BAA1F0B7C1B8091F3B32"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "4ECB861F17C7BE29AE715B357296F912E9D7B993"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "26ADC9FCA1DD24DCEEDD5F0CB440BB91C6B938F3E8FE22FB912B2645D30633B6"
+      }
+    ]
+  },
+  "winvistatolh_6.1_plus_vm": {
+    "slug": "winvistatolh_6.1_plus_vm",
+    "source": "/checksums/winvistatolh_6.1_plus_vm.txt",
+    "filename": "Windows Vista Longhorn v6.1 Plus.7z",
+    "size": "13.6 GiB (14,598,268,639 字节)",
+    "hashes": [
+      {
+        "algo": "crc32",
+        "label": "CRC32",
+        "value": "A5BAFE81"
+      },
+      {
+        "algo": "md5",
+        "label": "MD5",
+        "value": "6DDBFD398B865498DE71F244FF906DFB"
+      },
+      {
+        "algo": "sha1",
+        "label": "SHA-1",
+        "value": "B6FD47FD229B1D87BA77AC9466455A3AC551E1D4"
+      },
+      {
+        "algo": "sha256",
+        "label": "SHA-256",
+        "value": "AE4FAE7B7BD3E91E05E2CE04F7CDD8B699FC63E0853EE6FFEFE70660556B84A5"
+      }
+    ]
+  }
+}

@@ -1,0 +1,288 @@
+---
+const navLinks = [
+  { href: '/',          label: '主页',            match: ['/', '/index'] },
+  { href: '/oslist',    label: '操作系统',         match: ['/oslist', '/os'] },
+  { href: '/tools',     label: '工具及其他',        match: ['/tools'] },
+  { href: '/virlist',   label: '病毒',            match: ['/virlist', '/virus'] },
+  { href: '/mcserver',  label: 'Minecraft',     match: ['/mcserver'] },
+  { href: '/group',     label: '交流群',           match: ['/group'] },
+  { href: '/recommend', label: '推荐',            match: ['/recommend'] },
+  { href: '/about',     label: '关于',            match: ['/about'] },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (link: (typeof navLinks)[number]) =>
+  link.match.some((m) => pathname === m || pathname.startsWith(m + '/'));
+---
+
+<header class="nav" transition:persist="topnav">
+  <div class="nav__inner nz-container">
+    <a class="nav__brand" href="/" aria-label="Nicrozoft 首页">
+      <span class="nav__brand-mark" aria-hidden="true"></span>
+      <span class="nav__brand-text">Nicrozoft</span>
+    </a>
+
+    <input id="nav-toggle" class="nav__toggle-input" type="checkbox" aria-label="切换菜单" aria-controls="nav-menu" aria-expanded="false" />
+    <label for="nav-toggle" class="nav__toggle" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav id="nav-menu" class="nav__links" aria-label="主导航">
+      <ul>
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              data-match={link.match.join(',')}
+              class:list={['nav__link', isActive(link) && 'nav__link--active']}
+              aria-current={isActive(link) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Tap-outside backdrop (mobile only); clicking it toggles the menu off -->
+    <label for="nav-toggle" class="nav__scrim" aria-hidden="true"></label>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background: var(--nz-acrylic-fallback);
+    border-bottom: 1px solid var(--nz-stroke-divider);
+  }
+  @supports (backdrop-filter: blur(40px)) {
+    .nav {
+      background: var(--nz-acrylic-tint);
+      backdrop-filter: saturate(180%) blur(40px);
+      -webkit-backdrop-filter: saturate(180%) blur(40px);
+    }
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--nz-space-4);
+    height: 56px;
+  }
+
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nz-space-2);
+    font: var(--nz-font-body-strong);
+    font-weight: 600;
+    color: var(--nz-text-primary);
+    padding: 4px var(--nz-space-2);
+    border-radius: var(--nz-radius-small);
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .nav__brand:hover {
+    background: var(--nz-subtle-secondary);
+    color: var(--nz-text-primary);
+  }
+  .nav__brand-mark {
+    width: 18px;
+    height: 18px;
+    border-radius: var(--nz-radius-small);
+    background:
+      conic-gradient(
+        from 0deg at 50% 50%,
+        var(--nz-accent-default) 0deg 90deg,
+        color-mix(in srgb, var(--nz-accent-default) 80%, white) 90deg 180deg,
+        color-mix(in srgb, var(--nz-accent-default) 60%, black) 180deg 270deg,
+        color-mix(in srgb, var(--nz-accent-default) 40%, white) 270deg 360deg
+      );
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 0 8px color-mix(in srgb, var(--nz-accent-default) 50%, transparent);
+  }
+  .nav__brand-text { letter-spacing: -0.01em; }
+
+  .nav__links {
+    margin-left: auto;
+  }
+  .nav__links ul {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__link {
+    display: inline-block;
+    padding: 6px var(--nz-space-3);
+    border-radius: var(--nz-radius-small);
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    position: relative;
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .nav__link:hover {
+    background: var(--nz-subtle-secondary);
+    color: var(--nz-text-primary);
+  }
+  .nav__link--active {
+    color: var(--nz-text-primary);
+    font-weight: 600;
+  }
+  .nav__link--active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--nz-accent-default);
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px var(--nz-accent-default);
+    animation: pip var(--nz-duration-slow) var(--nz-easing-emphasized) both;
+  }
+  @keyframes pip {
+    from { transform: translateX(-50%) scaleX(0); opacity: 0; }
+    to   { transform: translateX(-50%) scaleX(1); opacity: 1; }
+  }
+
+  /* Mobile toggle */
+  .nav__toggle-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav__toggle {
+    display: none;
+    margin-left: auto;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border-radius: var(--nz-radius-medium);
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .nav__toggle:hover { background: var(--nz-subtle-secondary); }
+  .nav__toggle-input:focus-visible ~ .nav__toggle {
+    outline: 2px solid var(--nz-accent-default);
+    outline-offset: 2px;
+  }
+  .nav__toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--nz-text-primary);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform var(--nz-duration-fast) var(--nz-easing-max), opacity var(--nz-duration-fast) var(--nz-easing-max);
+  }
+  /* Morph the three bars into an X when the menu is open. The toggle's inner
+     box is 20px tall (36px − 2×8px padding); with space-between the bar centers
+     sit at 1/10/19px, so the outer bars must travel 9px to meet at center. */
+  .nav__toggle-input:checked ~ .nav__toggle span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .nav__toggle-input:checked ~ .nav__toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav__toggle-input:checked ~ .nav__toggle span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  /* Tap-outside backdrop — desktop hidden, mobile fades in when menu open */
+  .nav__scrim { display: none; }
+
+  @media (max-width: 880px) {
+    .nav__toggle { display: flex; }
+    .nav__links {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 56px;
+      z-index: 2;
+      padding: var(--nz-space-2) var(--nz-space-4) max(var(--nz-space-4), env(safe-area-inset-bottom));
+      /* Opaque surface — the dropdown sits over page content, and a nested
+         backdrop-filter (inside the bar's own filter context) can't be relied
+         on to blur it, so keep it legible without depending on blur. */
+      background: var(--nz-bg-solid-base);
+      border-bottom: 1px solid var(--nz-stroke-divider);
+      box-shadow: var(--nz-shadow-16);
+      max-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition:
+        max-height var(--nz-duration-normal) var(--nz-easing-max),
+        opacity var(--nz-duration-fast) var(--nz-easing-max),
+        transform var(--nz-duration-fast) var(--nz-easing-max);
+    }
+    @supports (backdrop-filter: blur(30px)) {
+      .nav__links {
+        /* High-opacity tint so it stays readable even if blur is weak/absent */
+        background: color-mix(in srgb, var(--nz-bg-solid-base) 92%, transparent);
+        backdrop-filter: saturate(180%) blur(30px);
+        -webkit-backdrop-filter: saturate(180%) blur(30px);
+      }
+    }
+    .nav__links ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+    }
+    .nav__link {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--nz-space-3);
+      border-radius: var(--nz-radius-medium);
+      font: var(--nz-font-body-large);
+    }
+    .nav__link--active {
+      background: var(--nz-subtle-secondary);
+    }
+    .nav__link--active::after { display: none; }
+    /* WinUI NavigationView-style selection bar on the left */
+    .nav__link--active::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 50%;
+      width: 3px;
+      height: 18px;
+      border-radius: 2px;
+      background: var(--nz-accent-default);
+      transform: translateY(-50%);
+    }
+
+    .nav__scrim {
+      display: block;
+      position: fixed;
+      inset: 56px 0 0 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--nz-duration-fast) var(--nz-easing-max);
+    }
+
+    .nav__toggle-input:checked ~ .nav__links {
+      max-height: calc(100vh - 56px);
+      opacity: 1;
+      transform: none;
+    }
+    .nav__toggle-input:checked ~ .nav__scrim {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__links, .nav__toggle span, .nav__scrim { transition-duration: 1ms; }
+  }
+</style>

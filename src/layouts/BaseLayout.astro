@@ -1,0 +1,455 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import TopNav from '../components/TopNav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Nicrozoft — Windows / C++ / Python / Minecraft 爱好者，开发了一些项目。',
+  ogImage = '/img/hero.jpg',
+} = Astro.props;
+
+const fullTitle = title === 'Nicrozoft' ? title : `${title} · Nicrozoft`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.org').toString();
+---
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0067c0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/img/Nicrozoft.svg" />
+    <link rel="icon" type="image/x-icon" href="/img/NZ.ico" />
+    <link rel="apple-touch-icon" href="/img/NZ.ico" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- No-JS fallback: the skeleton overlay covers the image until JS marks it
+         loaded, so without JS just drop the shimmer to reveal the image. -->
+    <noscript>
+      <style>
+        .nz-skel::before { display: none !important; }
+      </style>
+    </noscript>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <!-- WinUI-style indeterminate top progress bar, shown during client-side
+         navigation. transition:persist keeps it alive across view transitions. -->
+    <div class="nz-progress" id="nz-progress" transition:persist aria-hidden="true">
+      <div class="nz-progress__bar"></div>
+    </div>
+
+    <!-- First-visit welcome dialog (WinUI ContentDialog). Must be confirmed;
+         shown once per browser via localStorage. -->
+    <dialog class="nz-cdialog" id="nz-welcome" aria-labelledby="nz-welcome-title">
+      <div class="nz-cdialog__content">
+        <h2 class="nz-cdialog__title" id="nz-welcome-title">欢迎使用全新的 Nicrozoft 网站</h2>
+        <p class="nz-cdialog__text">
+          这是全新的网站体验。如果你需要访问旧版网站，请前往
+          <a href="https://legacy.nicrozoft.org">legacy.nicrozoft.org</a>。
+        </p>
+      </div>
+      <div class="nz-cdialog__commands">
+        <button class="nz-cdialog__btn" id="nz-welcome-ok" type="button" autofocus>知道了</button>
+      </div>
+    </dialog>
+
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <TopNav />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- First-visit welcome dialog: modal, must be confirmed (Escape/backdrop
+         won't dismiss it), shown once per browser. -->
+    <script is:inline>
+      (() => {
+        if (window.__nzWelcomeInit) return;
+        window.__nzWelcomeInit = true;
+        const KEY = 'nz-welcome-v1';
+        const dlg = document.getElementById('nz-welcome');
+        if (!dlg) return;
+        dlg.addEventListener('cancel', (e) => e.preventDefault());
+        const ok = document.getElementById('nz-welcome-ok');
+        if (ok) ok.addEventListener('click', () => {
+          try { localStorage.setItem(KEY, '1'); } catch (e) {}
+          dlg.close();
+        });
+        let dismissed = false;
+        try { dismissed = localStorage.getItem(KEY) === '1'; } catch (e) {}
+        if (!dismissed && typeof dlg.showModal === 'function') dlg.showModal();
+      })();
+    </script>
+
+    <!-- Status-filter controller: toggles card visibility by data-status, and
+         hides any [data-filter-section] that ends up empty. -->
+    <script is:inline>
+      (() => {
+        if (window.__nzFilterInit) return;
+        window.__nzFilterInit = true;
+        const apply = (root, val) => {
+          root.querySelectorAll('.nzfilter__btn').forEach((b) =>
+            b.setAttribute('aria-selected', String(b.dataset.filter === val)));
+          document.querySelectorAll('[data-status]').forEach((card) => {
+            card.classList.toggle('is-hidden', !(val === 'all' || card.dataset.status === val));
+          });
+          document.querySelectorAll('[data-filter-section]').forEach((sec) => {
+            sec.classList.toggle('is-hidden', !sec.querySelector('[data-status]:not(.is-hidden)'));
+          });
+        };
+        document.addEventListener('click', (e) => {
+          const btn = e.target.closest && e.target.closest('.nzfilter__btn');
+          if (!btn) return;
+          const root = btn.closest('.nzfilter');
+          if (root) apply(root, btn.dataset.filter);
+        });
+      })();
+    </script>
+
+    <!-- Image skeleton: mark a .nz-skel wrapper as loaded so its shimmer fades
+         out to reveal the image. load/error don't bubble, so capture them;
+         sweep handles cache hits (incl. after view transitions). -->
+    <script is:inline>
+      (() => {
+        if (window.__nzSkeletonInit) return;
+        window.__nzSkeletonInit = true;
+        const done = (img) => {
+          const m = img.closest && img.closest('.nz-skel');
+          if (m) m.classList.add('is-loaded');
+        };
+        const hit = (e) => {
+          const t = e.target;
+          if (t && t.matches && t.matches('.nz-skel img')) done(t);
+        };
+        document.addEventListener('load', hit, true);
+        document.addEventListener('error', hit, true);
+        const sweep = () => document.querySelectorAll('.nz-skel img').forEach((img) => {
+          if (img.complete && img.naturalWidth > 0) done(img);
+        });
+        sweep();
+        document.addEventListener('astro:page-load', sweep);
+      })();
+    </script>
+
+    <!-- Loading bar controller: show while a client-side navigation is in
+         flight (between before-preparation and after-swap). -->
+    <script is:inline>
+      (() => {
+        if (window.__nzProgressInit) return;
+        window.__nzProgressInit = true;
+        let hideTimer = 0;
+        const bar = () => document.getElementById('nz-progress');
+        const start = () => {
+          const p = bar();
+          if (!p) return;
+          clearTimeout(hideTimer);
+          p.classList.remove('is-done');
+          p.classList.add('is-active');
+        };
+        const done = () => {
+          const p = bar();
+          if (!p || !p.classList.contains('is-active')) return;
+          p.classList.remove('is-active');
+          p.classList.add('is-done');
+          hideTimer = setTimeout(() => p.classList.remove('is-done'), 400);
+        };
+        document.addEventListener('astro:before-preparation', start);
+        document.addEventListener('astro:after-swap', done);
+        document.addEventListener('astro:page-load', done);
+      })();
+    </script>
+
+    <!-- Tiny pointer tracker for the Fluent "reveal" hover effect on .nz-reveal -->
+    <script is:inline>
+      (() => {
+        if (matchMedia('(hover: none)').matches) return;
+        const onPointer = (e) => {
+          const el = e.target instanceof Element ? e.target.closest('.nz-reveal') : null;
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+          el.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+        };
+        document.addEventListener('pointermove', onPointer, { passive: true });
+      })();
+    </script>
+
+    <!-- Fluent/WinUI tooltip driver. A single floating element is appended to
+         <body> (escaping card overflow:hidden) and positioned under whatever
+         [data-tooltip] element is hovered/focused. Bound once; survives view
+         transitions via delegation + isConnected re-check. -->
+    <script is:inline>
+      (() => {
+        if (window.__nzTooltipInit) return;
+        window.__nzTooltipInit = true;
+        const DELAY = 600;
+        let tip = null, timer = 0, current = null;
+
+        const ensure = () => {
+          if (!tip || !tip.isConnected) {
+            tip = document.createElement('div');
+            tip.className = 'nz-tooltip';
+            tip.setAttribute('role', 'tooltip');
+            document.body.appendChild(tip);
+          }
+          return tip;
+        };
+        const place = (el) => {
+          const r = el.getBoundingClientRect();
+          const t = ensure();
+          const gap = 8;
+          let left = r.left + r.width / 2 - t.offsetWidth / 2;
+          left = Math.max(8, Math.min(left, innerWidth - t.offsetWidth - 8));
+          let top = r.bottom + gap;
+          if (top + t.offsetHeight > innerHeight - 8) top = r.top - t.offsetHeight - gap;
+          t.style.left = left + 'px';
+          t.style.top = Math.max(8, top) + 'px';
+        };
+        const show = (el) => {
+          const text = el.getAttribute('data-tooltip');
+          if (!text) return;
+          const t = ensure();
+          t.textContent = text;
+          place(el);
+          requestAnimationFrame(() => { place(el); t.classList.add('is-visible'); });
+          current = el;
+        };
+        const hide = () => {
+          clearTimeout(timer);
+          current = null;
+          if (tip) tip.classList.remove('is-visible');
+        };
+
+        document.addEventListener('pointerover', (e) => {
+          if (!matchMedia('(hover: hover)').matches) return;
+          const el = e.target.closest && e.target.closest('[data-tooltip]');
+          if (!el || el === current) return;
+          clearTimeout(timer);
+          timer = setTimeout(() => show(el), DELAY);
+        });
+        document.addEventListener('pointerout', (e) => {
+          const el = e.target.closest && e.target.closest('[data-tooltip]');
+          if (!el) return;
+          if (e.relatedTarget && el.contains(e.relatedTarget)) return;
+          hide();
+        });
+        document.addEventListener('focusin', (e) => {
+          const el = e.target.closest && e.target.closest('[data-tooltip]');
+          if (el) { clearTimeout(timer); show(el); }
+        });
+        document.addEventListener('focusout', hide);
+        document.addEventListener('scroll', hide, true);
+        document.addEventListener('astro:before-swap', hide);
+        addEventListener('resize', hide);
+      })();
+    </script>
+
+    <!-- Email de-obfuscation: addresses ship base64-encoded in [data-email] with
+         no plaintext or mailto: in the markup. Decode + wire up the link here so
+         scrapers reading the static HTML never see the address. -->
+    <script is:inline>
+      (() => {
+        const wire = () => {
+          document.querySelectorAll('[data-email]').forEach((el) => {
+            let addr = '';
+            try { addr = atob(el.getAttribute('data-email')); } catch { return; }
+            if (!addr) return;
+            if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + addr);
+            if (el.hasAttribute('data-email-reveal')) el.textContent = addr;
+            el.removeAttribute('data-email');
+            el.removeAttribute('data-email-reveal');
+          });
+        };
+        wire();
+        document.addEventListener('astro:page-load', wire);
+      })();
+    </script>
+
+    <!-- Mobile menu controller: syncs aria-expanded + body scroll-lock, and
+         closes the menu on link tap, navigation, or resize back to desktop.
+         The nav is transition:persist'd, so the checkbox state would otherwise
+         survive navigation and leave the menu stuck open. -->
+    <script is:inline>
+      (() => {
+        if (window.__nzNavMenuInit) return;
+        window.__nzNavMenuInit = true;
+        const toggle = () => document.getElementById('nav-toggle');
+        const sync = () => {
+          const t = toggle();
+          const open = !!(t && t.checked);
+          if (t) t.setAttribute('aria-expanded', String(open));
+          document.body.classList.toggle('nav-open', open);
+        };
+        const close = () => { const t = toggle(); if (t && t.checked) { t.checked = false; } sync(); };
+        document.addEventListener('change', (e) => {
+          if (e.target && e.target.id === 'nav-toggle') sync();
+        });
+        document.addEventListener('click', (e) => {
+          if (e.target.closest && e.target.closest('.nav__links a')) close();
+        });
+        document.addEventListener('astro:page-load', close);
+        addEventListener('resize', () => { if (innerWidth > 880) close(); });
+      })();
+    </script>
+
+    <!-- Re-sync the TopNav active link on client-side navigation. The nav is
+         transition:persist'd, so its server-rendered .nav__link--active class
+         doesn't update on its own. -->
+    <script is:inline>
+      (() => {
+        const sync = () => {
+          const path = location.pathname.replace(/\/$/, '') || '/';
+          document.querySelectorAll('.nav__link').forEach((a) => {
+            const match = (a.dataset.match || a.getAttribute('href') || '').split(',');
+            const active = match.some((m) => m && (path === m || path.startsWith(m + '/')));
+            a.classList.toggle('nav__link--active', active);
+            if (active) a.setAttribute('aria-current', 'page');
+            else a.removeAttribute('aria-current');
+          });
+        };
+        sync();
+        document.addEventListener('astro:page-load', sync);
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--nz-accent-default);
+    color: var(--nz-text-on-accent);
+    padding: var(--nz-space-2) var(--nz-space-4);
+    border-radius: var(--nz-radius-medium);
+    z-index: 100;
+  }
+  .skip-link:focus { left: var(--nz-space-3); top: var(--nz-space-3); }
+
+  main {
+    min-height: calc(100vh - 56px - 280px);
+  }
+
+  /* WinUI ContentDialog (native <dialog>) — first-visit welcome */
+  .nz-cdialog {
+    padding: 0;
+    width: calc(100% - 48px);
+    max-width: 420px;
+    border: 1px solid var(--nz-stroke-default);
+    border-radius: var(--nz-radius-large);
+    background: var(--nz-bg-solid-base);
+    color: var(--nz-text-primary);
+    box-shadow: var(--nz-shadow-flyout);
+  }
+  .nz-cdialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .nz-cdialog__content { padding: var(--nz-space-6) var(--nz-space-6) var(--nz-space-5); }
+  .nz-cdialog__title { font: var(--nz-font-subtitle); margin: 0 0 var(--nz-space-3); }
+  .nz-cdialog__text { font: var(--nz-font-body); color: var(--nz-text-secondary); line-height: 1.6; margin: 0; }
+  .nz-cdialog__text a {
+    color: var(--nz-accent-text);
+    border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
+  }
+  .nz-cdialog__commands { display: flex; padding: var(--nz-space-2) var(--nz-space-6) var(--nz-space-6); }
+  .nz-cdialog__btn {
+    flex: 1;
+    padding: var(--nz-space-3) var(--nz-space-5);
+    border: 1px solid transparent;
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-accent-default);
+    color: var(--nz-text-on-accent);
+    font: var(--nz-font-body-strong);
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .nz-cdialog__btn:hover { background: var(--nz-accent-secondary); }
+  .nz-cdialog__btn:active { background: var(--nz-accent-tertiary); transform: translateY(1px); }
+  .nz-cdialog__btn:focus-visible { outline: 2px solid var(--nz-stroke-focus); outline-offset: 2px; }
+  .nz-cdialog[open] { animation: nz-cdialog-in var(--nz-duration-normal) var(--nz-easing-max); }
+  .nz-cdialog[open]::backdrop { animation: nz-cdialog-fade var(--nz-duration-normal) ease; }
+  @keyframes nz-cdialog-in {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes nz-cdialog-fade { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .nz-cdialog[open], .nz-cdialog[open]::backdrop { animation: none; }
+  }
+
+  /* WinUI-style indeterminate loading bar (top of viewport, above everything) */
+  .nz-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 1001;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity var(--nz-duration-fast) var(--nz-easing-max);
+  }
+  .nz-progress.is-active { opacity: 1; }
+  .nz-progress.is-done {
+    opacity: 0;
+    transition: opacity var(--nz-duration-normal) var(--nz-easing-max);
+  }
+  .nz-progress__bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -45%;
+    width: 45%;
+    border-radius: 2px;
+    background: var(--nz-accent-default);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--nz-accent-default) 55%, transparent);
+  }
+  .nz-progress.is-active .nz-progress__bar {
+    animation: nz-progress-sweep 1.3s var(--nz-easing-max) infinite;
+  }
+  @keyframes nz-progress-sweep {
+    0%   { left: -45%; width: 45%; }
+    55%  { left: 30%;  width: 55%; }
+    100% { left: 100%; width: 45%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* Avoid the travelling sweep — show a gently pulsing full-width bar instead */
+    .nz-progress__bar { left: 0; width: 100%; }
+    .nz-progress.is-active .nz-progress__bar {
+      animation: nz-progress-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes nz-progress-pulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 1; }
+    }
+  }
+</style>

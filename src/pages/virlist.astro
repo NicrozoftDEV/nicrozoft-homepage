@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import StatusFilter from '../components/StatusFilter.astro';
+
+const entries = (await getCollection('virus', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+const statuses = [...new Set(entries.map((e) => e.data.status))];
+---
+
+<BaseLayout title="病毒" description="Nicrozoft 制作的病毒研究项目 —— 仅供学习与研究用途。">
+  <Hero
+    eyebrow="病毒"
+    title="病毒研究"
+    subtitle="Nicrozoft 制作的病毒研究项目集合。请勿用于任何非法用途。"
+    variant="compact"
+  />
+
+  <section class="nz-section nz-container">
+    <div class="warn-stack">
+      <p class="nz-body-strong">
+        <span class="warn">⚠ 警告：此处所列的病毒仅供学习与研究用途。请勿在他人计算机或物理机器上运行。</span>
+      </p>
+      <p class="nz-body nz-text-secondary">
+        所有内容由 Nicrozoft 独立制作。任何因运行造成的损失，由运行者自行承担。
+      </p>
+    </div>
+
+    <StatusFilter statuses={statuses} />
+
+    <div class="nz-grid" data-filter-section>
+      {entries.map((entry) => (
+        <Card
+          title={entry.data.title}
+          href={`/virus/${entry.id}`}
+          cover={entry.data.cover}
+          status={entry.data.status}
+          series={entry.data.series}
+          blurb={entry.data.blurb}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .warn-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+    padding: var(--nz-space-5);
+    margin-bottom: var(--nz-space-8);
+    border-radius: var(--nz-radius-large);
+    background: color-mix(in srgb, var(--nz-system-critical) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--nz-system-critical) 20%, transparent);
+  }
+</style>

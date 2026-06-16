@@ -1,0 +1,146 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  title: string;
+  href: string;
+  cover?: string;
+  status?: 'planned' | 'active' | 'stopped';
+  series?: string;
+  blurb?: string;
+  warning?: string;
+  class?: string;
+}
+
+// status is optional: omit it for non-product cards (category links, friend
+// links, external recommendations) so they show no status badge.
+const { title, href, cover, status, series, blurb, warning, class: className = '' } = Astro.props;
+
+const statusLabel = status && ({
+  planned: '计划更新',
+  active: '已发布',
+  stopped: '停止更新',
+})[status];
+---
+
+<a class:list={['card nz-reveal nz-lift', className]} href={href} data-tooltip={title} data-status={status}>
+  {cover && (
+    <div class="card__media nz-skel">
+      <img src={cover} alt="" loading="lazy" decoding="async" />
+      <div class="card__overlay" aria-hidden="true">
+        <span class="card__cta">查看详情 →</span>
+      </div>
+    </div>
+  )}
+
+  <div class="card__body">
+    {(status || series) && (
+      <div class="card__tags">
+        {status && <Badge tone={status} icon="●">{statusLabel}</Badge>}
+        {series && <Badge tone="series">{series} 系列</Badge>}
+      </div>
+    )}
+    <h3 class="card__title">{title}</h3>
+    {blurb && <p class="card__blurb">{blurb}</p>}
+    {warning && <p class="card__warning"><span class="warn">{warning}</span></p>}
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--nz-radius-card);
+    background: var(--nz-card-default);
+    border: 1px solid var(--nz-stroke-card);
+    color: var(--nz-text-primary);
+    text-decoration: none;
+    box-shadow: var(--nz-shadow-2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .card__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-bottom: 1px solid var(--nz-stroke-card);
+    background: var(--nz-bg-solid-secondary);
+  }
+  .card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--nz-duration-slow) var(--nz-easing-max);
+  }
+  .card:hover .card__media img { transform: scale(1.05); }
+
+  .card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: var(--nz-space-3);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.55) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity var(--nz-duration-fast) var(--nz-easing-max);
+  }
+  .card:hover .card__overlay,
+  .card:focus-visible .card__overlay { opacity: 1; }
+
+  .card__cta {
+    color: white;
+    font: var(--nz-font-body-strong);
+    background: color-mix(in srgb, var(--nz-accent-default) 80%, transparent);
+    padding: 4px var(--nz-space-3);
+    border-radius: var(--nz-radius-circular);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+    padding: var(--nz-space-4) var(--nz-space-4) var(--nz-space-5);
+  }
+  .card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .card__title {
+    font: var(--nz-font-body-large);
+    font-weight: 600;
+    color: var(--nz-text-primary);
+    /* Long unbroken tokens (e.g. Some_Long_File_Name) must wrap, then
+       ellipsize past two lines instead of overflowing the card. */
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card__blurb {
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card__warning {
+    font: var(--nz-font-caption);
+    margin-top: var(--nz-space-1);
+  }
+</style>

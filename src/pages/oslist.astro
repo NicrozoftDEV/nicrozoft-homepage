@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import StatusFilter from '../components/StatusFilter.astro';
+
+const all = (await getCollection('os', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+
+// The "Wihdous" series are early novelty/gag builds — split them into their own
+// unsupported section, away from the maintained Windows modifications.
+const supported = all.filter((e) => e.data.series !== 'Wihdous');
+const wihdous = all.filter((e) => e.data.series === 'Wihdous');
+const statuses = [...new Set(all.map((e) => e.data.status))];
+---
+
+<BaseLayout title="操作系统" description="Nicrozoft 制作的修改版操作系统：Windows 优化版、Longhorn 改造，以及早期 Wihdous 整活作品。">
+  <Hero
+    eyebrow="操作系统"
+    title="Windows 修改版"
+    subtitle="从 Vista 到 Windows 11、从 Longhorn 到仿主题版本，所有修改均由 Nicrozoft 制作。"
+    variant="compact"
+  />
+
+  <section class="nz-section nz-container">
+    <div class="warn-stack">
+      <p class="nz-body-strong"><span class="warn">这些修改版系统均由 Nicrozoft 制作，未经允许，禁止转载或修改！</span></p>
+      <p class="nz-body"><span class="warn">除“Wihdous”系列外，所有系统均未添加任何流氓软件或病毒，从未使用任何流氓封装工具。</span></p>
+      <p class="nz-caption">系统以首个版本发布时间为顺序排列。</p>
+    </div>
+
+    <StatusFilter statuses={statuses} />
+
+    <div class="nz-grid" data-filter-section>
+      {supported.map((entry) => (
+        <Card
+          title={entry.data.title}
+          href={`/os/${entry.id}`}
+          cover={entry.data.cover}
+          status={entry.data.status}
+          series={entry.data.series}
+          blurb={entry.data.blurb}
+        />
+      ))}
+    </div>
+  </section>
+
+  {wihdous.length > 0 && (
+    <section class="nz-section nz-container oslist__legacy" data-filter-section>
+      <header class="oslist__legacy-head">
+        <span class="nz-eyebrow">EARLY WORKS</span>
+        <h2 class="nz-title">不受支持的早期整活作品</h2>
+        <p class="nz-body-large oslist__legacy-intro">
+          以下为 Nicrozoft 早期制作的“Wihdous”系列整活作品，仅供娱乐，已不再维护或提供支持。
+        </p>
+        <p class="nz-body"><span class="warn">不建议将“Wihdous”系列的系统安装到物理机，否则带来的任何损失由安装者自己承担。</span></p>
+      </header>
+
+      <div class="nz-grid">
+        {wihdous.map((entry) => (
+          <Card
+            title={entry.data.title}
+            href={`/os/${entry.id}`}
+            cover={entry.data.cover}
+            status={entry.data.status}
+            series={entry.data.series}
+            blurb={entry.data.blurb}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .warn-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+    padding: var(--nz-space-5);
+    margin-bottom: var(--nz-space-8);
+    border-radius: var(--nz-radius-large);
+    background: color-mix(in srgb, var(--nz-system-critical) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--nz-system-critical) 20%, transparent);
+  }
+
+  .oslist__legacy {
+    margin-top: var(--nz-space-6);
+    padding-top: var(--nz-space-8);
+    border-top: 1px solid var(--nz-stroke-divider);
+  }
+  .oslist__legacy-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+    margin-bottom: var(--nz-space-6);
+  }
+  .oslist__legacy-intro { color: var(--nz-text-secondary); max-width: 70ch; }
+  /* Dim the gag builds a touch so they read as secondary */
+  .oslist__legacy .nz-grid { opacity: 0.92; }
+</style>

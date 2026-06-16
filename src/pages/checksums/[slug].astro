@@ -1,0 +1,338 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import checksums from '../../data/checksums.json';
+
+// One view page per entry in the generated checksums.json (see
+// scripts/build-checksums.mjs). Regenerate with: npm run gen:checksums
+export function getStaticPaths() {
+  return Object.values(checksums).map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const heading = entry.filename ?? entry.slug;
+
+// Build copy-pasteable verification commands. CRC32 is intentionally excluded —
+// neither Get-FileHash nor certutil computes it. The PowerShell form prints
+// True/False; the cmd form (certutil | findstr) echoes the hash on a match.
+const file = entry.filename ?? '<文件名>';
+const ALGO_NAMES: Record<string, string> = { md5: 'MD5', sha1: 'SHA1', sha256: 'SHA256', sha512: 'SHA512' };
+// Strongest-first, so SHA-256 is the default-selected verification tab.
+const ALGO_PREF = ['sha256', 'sha512', 'sha1', 'md5'];
+const verifiable = entry.hashes
+  .filter((h) => ALGO_NAMES[h.algo])
+  .sort((a, b) => ALGO_PREF.indexOf(a.algo) - ALGO_PREF.indexOf(b.algo))
+  .map((h) => {
+    const a = ALGO_NAMES[h.algo];
+    return {
+      ...h,
+      ps: `(Get-FileHash -Algorithm ${a} '${file}').Hash -eq '${h.value}'`,
+      cmd: `certutil -hashfile "${file}" ${a} | findstr /i "${h.value}"`,
+    };
+  });
+---
+
+<BaseLayout title={`${heading} · 文件校验和`} description={`${heading} 的文件校验和（CRC32 / MD5 / SHA 哈希）。`}>
+  <section class="cs nz-container nz-section">
+    <Breadcrumb items={[{ label: '主页', href: '/' }, { label: '文件校验和' }]} />
+
+    <header class="cs__head">
+      <p class="nz-eyebrow">文件校验和</p>
+      <h1 class="cs__title">{heading}</h1>
+      {entry.size && <p class="cs__meta">大小 · {entry.size}</p>}
+    </header>
+
+    <div class="cs__card nz-acrylic">
+      {entry.hashes.length > 0 ? (
+        <ul class="cs__list">
+          {entry.hashes.map((h) => (
+            <li class="cs__row">
+              <span class="cs__algo">{h.label}</span>
+              <code class="cs__value">{h.value}</code>
+              <button class="cs__copy" type="button" data-copy={h.value} aria-label={`复制 ${h.label}`}>
+                <span class="cs__copy-icon" aria-hidden="true"></span>
+                <span class="cs__copy-text">复制</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="cs__empty">未能识别校验和数据。</p>
+      )}
+    </div>
+
+    {verifiable.length > 0 && (
+      <div class="cs__verify">
+        <p class="nz-eyebrow">校验命令</p>
+        <p class="cs__verify-hint">
+          在文件所在目录打开终端，运行以下命令校验完整性 —— PowerShell 返回 <code>True</code>、CMD 回显该哈希即表示匹配。
+        </p>
+        <div class="cs__algos" role="tablist" aria-label="校验算法">
+          {verifiable.map((h, i) => (
+            <button class="cs__algo-btn" type="button" role="tab" data-algo={h.algo} aria-selected={i === 0 ? 'true' : 'false'}>
+              {h.label}
+            </button>
+          ))}
+        </div>
+        <div class="cs__cmds">
+          {verifiable.map((h, i) => (
+            <div class="cs__cmd-group" data-algo={h.algo} hidden={i !== 0}>
+              {[{ shell: 'PowerShell', text: h.ps }, { shell: 'CMD', text: h.cmd }].map((c) => (
+                <div class="cs__cmd">
+                  <span class="cs__cmd-shell">{c.shell}</span>
+                  <code class="cs__cmd-text">{c.text}</code>
+                  <button class="cs__copy cs__copy--sm" type="button" data-copy={c.text} aria-label={`复制 ${c.shell} 命令`}>
+                    <span class="cs__copy-icon" aria-hidden="true"></span>
+                    <span class="cs__copy-text">复制</span>
+                  </button>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <p class="cs__source">
+      <a href={entry.source} target="_blank" rel="noopener noreferrer">查看原始 .txt 文件 ↗</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<script>
+  // Delegated copy handler — bound once and persists across view transitions.
+  const w = window as unknown as { __csCopyBound?: boolean };
+  if (!w.__csCopyBound) {
+    w.__csCopyBound = true;
+    document.addEventListener('click', async (e) => {
+      const target = e.target as Element | null;
+      const btn = target?.closest('.cs__copy') as HTMLButtonElement | null;
+      if (!btn) return;
+      const value = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(value);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = value;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch { /* ignore */ }
+        ta.remove();
+      }
+      const label = btn.querySelector('.cs__copy-text');
+      if (!label || btn.classList.contains('is-copied')) return;
+      const prev = label.textContent;
+      btn.classList.add('is-copied');
+      label.textContent = '已复制';
+      setTimeout(() => {
+        btn.classList.remove('is-copied');
+        label.textContent = prev;
+      }, 1400);
+    });
+
+    // Segmented algorithm switcher for the verification commands.
+    document.addEventListener('click', (e) => {
+      const target = e.target as Element | null;
+      const tab = target?.closest('.cs__algo-btn') as HTMLElement | null;
+      if (!tab) return;
+      const root = tab.closest('.cs__verify');
+      if (!root) return;
+      const algo = tab.dataset.algo;
+      root.querySelectorAll('.cs__algo-btn').forEach((b) =>
+        b.setAttribute('aria-selected', String(b === tab))
+      );
+      root.querySelectorAll('.cs__cmd-group').forEach((g) => {
+        (g as HTMLElement).hidden = (g as HTMLElement).dataset.algo !== algo;
+      });
+    });
+  }
+</script>
+
+<style>
+  .cs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-5);
+    max-width: 880px;
+  }
+  .cs__head { display: flex; flex-direction: column; gap: var(--nz-space-2); }
+  .cs__title {
+    font: var(--nz-font-title-large);
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  .cs__meta { font: var(--nz-font-body); color: var(--nz-text-secondary); }
+
+  .cs__card { padding: var(--nz-space-3); }
+  .cs__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cs__row {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--nz-space-3);
+    padding: var(--nz-space-3);
+    border-radius: var(--nz-radius-medium);
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .cs__row:hover { background: var(--nz-subtle-secondary); }
+  .cs__algo {
+    font: var(--nz-font-caption);
+    font-weight: 600;
+    color: var(--nz-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .cs__value {
+    font-family: var(--nz-font-family-mono);
+    font-size: 13px;
+    color: var(--nz-text-primary);
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+    user-select: all;
+  }
+  .cs__copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: var(--nz-radius-medium);
+    border: 1px solid var(--nz-stroke-default);
+    background: var(--nz-control-default);
+    color: var(--nz-text-secondary);
+    font: var(--nz-font-caption);
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      color var(--nz-duration-faster) var(--nz-easing-max),
+      border-color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .cs__copy:hover { background: var(--nz-control-secondary); color: var(--nz-text-primary); }
+  .cs__copy:active { transform: translateY(0.5px); }
+  .cs__copy-icon {
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+    border: 1.5px solid currentColor;
+    box-shadow: 2.5px -2.5px 0 -1px var(--nz-control-default), 2.5px -2.5px 0 0 currentColor;
+  }
+  .cs__copy.is-copied {
+    color: var(--nz-system-success);
+    border-color: color-mix(in srgb, var(--nz-system-success) 40%, transparent);
+    background: color-mix(in srgb, var(--nz-system-success) 12%, transparent);
+  }
+  .cs__copy.is-copied .cs__copy-icon {
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    transform: rotate(45deg) translate(-1px, -2px);
+    width: 6px;
+    height: 11px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .cs__empty { padding: var(--nz-space-4); color: var(--nz-text-secondary); }
+
+  /* Verification commands */
+  .cs__verify { display: flex; flex-direction: column; gap: var(--nz-space-3); }
+  .cs__verify-hint { font: var(--nz-font-body); color: var(--nz-text-secondary); }
+  .cs__verify-hint code {
+    font-family: var(--nz-font-family-mono);
+    font-size: 0.88em;
+    padding: 1px 5px;
+    border-radius: var(--nz-radius-small);
+    background: var(--nz-control-secondary);
+    border: 1px solid var(--nz-stroke-default);
+  }
+  .cs__algos {
+    align-self: flex-start;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 3px;
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-default);
+  }
+  .cs__algo-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px 14px;
+    border-radius: var(--nz-radius-small);
+    font: var(--nz-font-caption);
+    font-weight: 600;
+    color: var(--nz-text-secondary);
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .cs__algo-btn:hover { background: var(--nz-control-default); color: var(--nz-text-primary); }
+  .cs__algo-btn[aria-selected="true"] {
+    background: var(--nz-accent-default);
+    color: var(--nz-accent-foreground);
+  }
+  .cs__cmd-group { display: flex; flex-direction: column; gap: var(--nz-space-2); }
+  .cs__cmd-group[hidden] { display: none; }
+  .cs__cmd {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--nz-space-3);
+    padding: var(--nz-space-3);
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-default);
+  }
+  .cs__cmd-shell { font: var(--nz-font-caption); font-weight: 600; color: var(--nz-accent-text); }
+  .cs__cmd-text {
+    font-family: var(--nz-font-family-mono);
+    font-size: 12.5px;
+    color: var(--nz-text-primary);
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.5;
+    padding-bottom: 2px;
+  }
+  .cs__copy--sm { padding: 4px 10px; }
+
+  .cs__source { font: var(--nz-font-body); }
+  .cs__source a {
+    color: var(--nz-accent-text);
+    border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
+  }
+
+  @media (max-width: 560px) {
+    .cs__row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "algo copy" "value value";
+      row-gap: var(--nz-space-2);
+    }
+    .cs__algo { grid-area: algo; }
+    .cs__copy { grid-area: copy; justify-self: end; }
+    .cs__value { grid-area: value; }
+
+    .cs__cmd {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "shell copy" "text text";
+      row-gap: var(--nz-space-2);
+    }
+    .cs__cmd-shell { grid-area: shell; }
+    .cs__cmd .cs__copy { grid-area: copy; }
+    .cs__cmd-text { grid-area: text; }
+  }
+</style>

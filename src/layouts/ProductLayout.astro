@@ -1,0 +1,415 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Badge from '../components/Badge.astro';
+import Button from '../components/Button.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { mediaUrl } from '../lib/media';
+
+interface Download { label: string; href: string; kind: 'iso' | 'ova' | 'image' | 'archive' | 'link' }
+interface Screenshot { src: string; alt?: string }
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  hero: string;
+  status: 'planned' | 'active' | 'stopped';
+  series?: string;
+  warning?: string;
+  downloads: Download[];
+  screenshots: Screenshot[];
+  /** Breadcrumb root: e.g., { label: '操作系统', href: '/oslist' } */
+  category: { label: string; href: string };
+}
+
+const { title, subtitle, hero, status, series, warning, downloads, screenshots, category } = Astro.props;
+const statusLabel = ({ planned: '计划更新', active: '已发布', stopped: '停止更新' })[status];
+const iconFor = (k: Download['kind']) => ({ iso: '💿', ova: '🖥', image: '🖼', archive: '📦', link: '↗' })[k];
+
+// Split file downloads (ISO/OVA/image/archive) from generic links (GitHub
+// release pages, video watch pages, navigation). The kind field is set by
+// the content extractor; everything not `link` is treated as a real file.
+const fileDownloads = downloads.filter((d) => d.kind !== 'link');
+const relatedLinks = downloads.filter((d) => d.kind === 'link');
+
+// Group file downloads by version / category when there are many.
+// Heuristic on label: explicit "x.y(.z) 版" → version group; 变种 → 变种.
+type Group = { key: string; weight: number; items: Download[] };
+function groupKey(label: string): { key: string; weight: number } {
+  // Order matters: more specific predicates run first.
+  if (/变种/.test(label)) return { key: '变种', weight: -5 };
+  const m = label.match(/(\d+\.\d+(?:\.\d+)?)/);
+  if (m) {
+    // Weight version groups by numeric value (descending).
+    const parts = m[1].split('.').map(Number);
+    const weight = parts[0] * 1_000_000 + (parts[1] ?? 0) * 1000 + (parts[2] ?? 0);
+    return { key: `${m[1]} 版`, weight };
+  }
+  return { key: '其他', weight: -20 };
+}
+
+const useGroups = fileDownloads.length > 5;
+const groups: Group[] = (() => {
+  if (!useGroups) return [];
+  const map = new Map<string, Group>();
+  for (const d of fileDownloads) {
+    const { key, weight } = groupKey(d.label);
+    const g = map.get(key) ?? { key, weight, items: [] };
+    g.items.push(d);
+    map.set(key, g);
+  }
+  return [...map.values()].sort((a, b) => b.weight - a.weight);
+})();
+---
+
+<BaseLayout title={title} description={subtitle ?? title} ogImage={hero}>
+  <section class="detail__head nz-container">
+    <Breadcrumb items={[{ label: '主页', href: '/' }, { label: category.label, href: category.href }, { label: title }]} />
+
+    <div class="detail__tags">
+      <Badge tone={status} icon="●">{statusLabel}</Badge>
+      {series && <Badge tone="series">{series} 系列</Badge>}
+    </div>
+
+    <h1 class="detail__title">{title}</h1>
+    {subtitle && <p class="detail__subtitle">{subtitle}</p>}
+    {warning && <p class="detail__warning"><span class="warn">{warning}</span></p>}
+  </section>
+
+  <section class="detail__main nz-container">
+    <div class="detail__primary">
+      <figure class="detail__hero nz-skel">
+        <img src={mediaUrl(hero)} alt={title} loading="eager" decoding="async" />
+      </figure>
+
+      <article class="detail__body">
+        <div class="nz-prose">
+          <slot />
+        </div>
+      </article>
+    </div>
+
+    <aside class="detail__aside">
+      <div class="detail__panel nz-acrylic">
+        <div class="detail__panel-section">
+          <p class="nz-eyebrow">关于</p>
+          <h2 class="nz-subtitle">{title}</h2>
+        </div>
+
+        {fileDownloads.length > 0 && (
+          <div class="detail__panel-section">
+            <p class="nz-eyebrow">下载</p>
+
+            {!useGroups && (
+              <ul class="detail__downloads">
+                {fileDownloads.map((d) => (
+                  <li>
+                    <Button href={mediaUrl(d.href)} variant={d.kind === 'iso' ? 'accent' : 'standard'} size="md" target="_blank">
+                      <span aria-hidden="true">{iconFor(d.kind)}</span>
+                      <span>{d.label}</span>
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {useGroups && (
+              <div class="detail__groups">
+                {groups.map((g, idx) => (
+                  <details class="detail__group" open={idx === 0}>
+                    <summary>
+                      <span class="detail__group-name">{g.key}</span>
+                      <span class="detail__group-count">{g.items.length}</span>
+                    </summary>
+                    <ul class="detail__downloads">
+                      {g.items.map((d) => (
+                        <li>
+                          <Button href={mediaUrl(d.href)} variant={d.kind === 'iso' ? 'accent' : 'standard'} size="md" target="_blank">
+                            <span aria-hidden="true">{iconFor(d.kind)}</span>
+                            <span>{d.label}</span>
+                          </Button>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {relatedLinks.length > 0 && (
+          <div class="detail__panel-section">
+            <p class="nz-eyebrow">相关链接</p>
+            <ul class="detail__links">
+              {relatedLinks.map((d) => (
+                <li>
+                  {d.href ? (
+                    <a class="detail__link" href={mediaUrl(d.href)} target="_blank" rel="noopener noreferrer">
+                      <span class="detail__link-icon" aria-hidden="true">↗</span>
+                      <span class="detail__link-text">{d.label}</span>
+                    </a>
+                  ) : (
+                    <span class="detail__link detail__link--disabled" aria-disabled="true">
+                      <span class="detail__link-icon" aria-hidden="true">⊘</span>
+                      <span class="detail__link-text">{d.label}</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="detail__panel-section">
+          <p class="nz-eyebrow">分类</p>
+          <p><a href={category.href} class="detail__cat-link">{category.label} →</a></p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  {screenshots.length > 0 && (
+    <section class="detail__shots nz-container">
+      <h2 class="nz-title">系统截图</h2>
+      <div class="detail__shots-grid">
+        {screenshots.map((s) => (
+          <a class="detail__shot nz-reveal nz-lift nz-skel" href={mediaUrl(typeof s === 'string' ? s : s.src)} target="_blank" rel="noopener noreferrer">
+            <img src={mediaUrl(typeof s === 'string' ? s : s.src)} alt={(typeof s === 'string' ? '' : s.alt) ?? ''} loading="lazy" decoding="async" />
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .detail__head {
+    padding-top: var(--nz-space-10);
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-3);
+  }
+  .detail__tags { display: flex; gap: var(--nz-space-2); flex-wrap: wrap; }
+  .detail__title {
+    font: var(--nz-font-title-large);
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--nz-text-primary), color-mix(in srgb, var(--nz-accent-default) 50%, var(--nz-text-primary)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media (min-width: 700px) {
+    .detail__title { font: var(--nz-font-display); letter-spacing: -0.025em; }
+  }
+  .detail__subtitle {
+    font: var(--nz-font-body-large);
+    color: var(--nz-text-secondary);
+  }
+  .detail__warning { font: var(--nz-font-body-strong); }
+
+  .detail__main {
+    margin-top: var(--nz-space-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: var(--nz-space-6);
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .detail__main { grid-template-columns: 1fr; }
+  }
+
+  .detail__primary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-10);
+    min-width: 0;
+  }
+
+  .detail__hero {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--nz-radius-large);
+    border: 1px solid var(--nz-stroke-card);
+    box-shadow: var(--nz-shadow-16);
+    background: var(--nz-bg-solid-secondary);
+  }
+  .detail__hero img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  .detail__body { min-width: 0; }
+  .detail__body .nz-prose { max-width: 70ch; }
+
+  .detail__panel {
+    padding: var(--nz-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-5);
+    position: sticky;
+    top: 72px;
+    /* Cap so the panel never exceeds the viewport — internal scroll picks up */
+    max-height: calc(100vh - 88px);
+    overflow-y: auto;
+    /* Soften the scrollable edges */
+    mask-image: linear-gradient(180deg, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
+  }
+  .detail__panel-section { display: flex; flex-direction: column; gap: var(--nz-space-2); }
+  .detail__panel-section .nz-eyebrow { font-size: 11px; }
+
+  .detail__downloads {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+  }
+  .detail__downloads > li > :global(a) {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  /* Allow long Chinese labels to wrap inside compact buttons instead of overflowing */
+  .detail__downloads > li > :global(a > span:last-child) {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.35;
+  }
+
+  .detail__groups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+  }
+  .detail__group {
+    border: 1px solid var(--nz-stroke-default);
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-subtle-secondary);
+    overflow: hidden;
+  }
+  .detail__group > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--nz-space-2);
+    padding: var(--nz-space-2) var(--nz-space-3);
+    cursor: pointer;
+    font: var(--nz-font-body-strong);
+    color: var(--nz-text-primary);
+    list-style: none;
+    user-select: none;
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .detail__group > summary::-webkit-details-marker { display: none; }
+  .detail__group > summary::before {
+    content: "▸";
+    color: var(--nz-text-tertiary);
+    font-size: 12px;
+    transition: transform var(--nz-duration-fast) var(--nz-easing-max);
+    margin-right: 2px;
+  }
+  .detail__group[open] > summary::before { transform: rotate(90deg); }
+  .detail__group > summary:hover { background: var(--nz-subtle-tertiary); }
+
+  .detail__group-name { flex: 1; }
+  .detail__group-count {
+    font: var(--nz-font-caption);
+    color: var(--nz-text-secondary);
+    background: var(--nz-control-default);
+    border: 1px solid var(--nz-stroke-default);
+    border-radius: var(--nz-radius-circular);
+    padding: 1px 8px;
+    min-width: 22px;
+    text-align: center;
+  }
+
+  .detail__group > .detail__downloads {
+    padding: var(--nz-space-2) var(--nz-space-3) var(--nz-space-3);
+    border-top: 1px solid var(--nz-stroke-default);
+    background: var(--nz-card-default);
+  }
+
+  .detail__cat-link {
+    font: var(--nz-font-body-strong);
+    color: var(--nz-accent-text);
+  }
+
+  /* Lighter, link-style list for non-download related URLs */
+  .detail__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .detail__link {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--nz-space-2);
+    padding: 6px var(--nz-space-2);
+    margin-left: calc(var(--nz-space-2) * -1);
+    border-radius: var(--nz-radius-small);
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .detail__link:hover {
+    background: var(--nz-subtle-secondary);
+    color: var(--nz-accent-text);
+  }
+  /* Disabled placeholder entry (empty href) — informational, not clickable */
+  .detail__link--disabled {
+    color: var(--nz-text-tertiary);
+    cursor: default;
+  }
+  .detail__link--disabled:hover {
+    background: transparent;
+    color: var(--nz-text-tertiary);
+  }
+  .detail__link-icon {
+    flex: 0 0 auto;
+    width: 18px;
+    text-align: center;
+    color: var(--nz-text-tertiary);
+    transition: transform var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .detail__link:hover .detail__link-icon {
+    color: var(--nz-accent-default);
+    transform: translate(1px, -1px);
+  }
+  .detail__link-text {
+    flex: 1 1 auto;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+  }
+
+  .detail__shots { margin-top: var(--nz-space-12); }
+  .detail__shots h2 { margin-bottom: var(--nz-space-5); }
+  .detail__shots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--nz-space-3);
+  }
+  .detail__shot {
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-bg-solid-secondary);
+    border: 1px solid var(--nz-stroke-card);
+    box-shadow: var(--nz-shadow-2);
+    display: block;
+  }
+  .detail__shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--nz-duration-slow) var(--nz-easing-max);
+  }
+  .detail__shot:hover img { transform: scale(1.05); }
+</style>

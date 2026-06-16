@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Card from '../components/Card.astro';
+import StatusFilter from '../components/StatusFilter.astro';
+
+const entries = (await getCollection('tools', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
+const statuses = [...new Set(entries.map((e) => e.data.status))];
+---
+
+<BaseLayout title="工具及其他产品" description="Nicrozoft 开发的小工具与其它项目。">
+  <Hero
+    eyebrow="工具及其他产品"
+    title="工具与小项目"
+    subtitle="独立小工具、实验性项目、用于折腾的奇怪东西。"
+    variant="compact"
+  />
+
+  <section class="nz-section nz-container">
+    <StatusFilter statuses={statuses} />
+
+    <div class="nz-grid" data-filter-section>
+      {entries.map((entry) => (
+        <Card
+          title={entry.data.title}
+          href={`/tools/${entry.id}`}
+          cover={entry.data.cover}
+          status={entry.data.status}
+          series={entry.data.series}
+          blurb={entry.data.blurb}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
