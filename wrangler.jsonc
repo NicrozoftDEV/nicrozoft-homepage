@@ -1,28 +1,27 @@
-// Cloudflare Workers config — serves the Astro static build as Worker assets,
-// with a Worker that handles redirects (www → apex, and old flat URLs → new
-// nested paths). See worker/index.js.
+// Cloudflare Workers config — serves the Astro static build as static assets,
+// with NO Worker script. Redirects (old flat URLs → new nested paths) are
+// handled at the asset layer via public/_redirects, and unmatched routes serve
+// the custom 404 page via `not_found_handling`. Because there is no Worker,
+// every request — pages, assets, redirects, and 404s — is served straight from
+// static assets, which is free and never counts against Workers request limits.
 // Docs: https://developers.cloudflare.com/workers/static-assets/
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nicrozoft-homepage",
-  "main": "worker/index.js",
   "compatibility_date": "2026-06-16",
   "assets": {
     "directory": "./dist",
-    // Exposed to the Worker as `env.ASSETS` (see worker/index.js).
-    "binding": "ASSETS",
-    // Run the Worker on every request so its redirects always fire; the Worker
-    // then serves matching files via env.ASSETS.fetch().
-    "run_worker_first": true,
     // Astro is configured with `build.format: 'file'`, so routes resolve as
     // /about.html, /os/wih11.html, etc. Let Workers auto-resolve clean URLs.
     "html_handling": "auto-trailing-slash",
-    // Serve our custom 404 page on any unmatched route.
+    // Serve our custom 404 page (with a real 404 status) on any unmatched
+    // route — no dynamic Worker required.
     "not_found_handling": "404-page"
   },
-  // Bind both the apex and www to this Worker as custom domains. Requires the
-  // nicrozoft.org zone to be active on the same Cloudflare account; Cloudflare
-  // provisions the DNS + certificates automatically.
+  // Bind the custom domain. `_redirects` cannot do host-level redirects, so the
+  // www → apex canonicalization should be a zone-level Redirect Rule when the
+  // www host is pointed here. Requires the nicrozoft.org zone to be active on
+  // the same Cloudflare account; Cloudflare provisions DNS + certs automatically.
   "routes": [
     { "pattern": "new.nicrozoft.org", "custom_domain": true }
   ],
