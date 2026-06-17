@@ -1,0 +1,70 @@
+# Cloudflare Static Assets redirects — applied at the asset layer, so they cost
+# NOTHING (no Worker invocation) and never touch Workers request limits.
+# Docs: https://developers.cloudflare.com/workers/static-assets/redirects/
+# Astro copies this file from public/ to the build root (dist/_redirects).
+#
+# These replace the old flat GitHub Pages URLs (/win11ext.html, …) with the new
+# nested collection paths. Each old slug is matched both bare and with the
+# legacy `.html` suffix. `_redirects` matches on path only (domain-level/host
+# redirects are NOT supported), so the www → apex canonicalization is handled by
+# a zone-level Redirect Rule instead of here — see wrangler.jsonc.
+
+# OS pages → /os/*
+/wih11               /os/wih11               301
+/wih11.html          /os/wih11               301
+/wih11shit           /os/wih11shit           301
+/wih11shit.html      /os/wih11shit           301
+/wih7                /os/wih7                301
+/wih7.html           /os/wih7                301
+/wih7ghostshadow     /os/wih7ghostshadow     301
+/wih7ghostshadow.html /os/wih7ghostshadow    301
+/wih7hell            /os/wih7hell            301
+/wih7hell.html       /os/wih7hell            301
+/wihvista            /os/wihvista            301
+/wihvista.html       /os/wihvista            301
+/wihvistabroken      /os/wihvistabroken      301
+/wihvistabroken.html /os/wihvistabroken      301
+/wihxp               /os/wihxp               301
+/wihxp.html          /os/wihxp               301
+/win10ext            /os/win10ext            301
+/win10ext.html       /os/win10ext            301
+/win10to11           /os/win10to11           301
+/win10to11.html      /os/win10to11           301
+/win11ext            /os/win11ext            301
+/win11ext.html       /os/win11ext            301
+/win7to11            /os/win7to11            301
+/win7to11.html       /os/win7to11            301
+/win7tolh            /os/win7tolh            301
+/win7tolh.html       /os/win7tolh            301
+/winlh4074           /os/winlh4074           301
+/winlh4074.html      /os/winlh4074           301
+/winvistatolh        /os/winvistatolh        301
+/winvistatolh.html   /os/winvistatolh        301
+/winxptheme          /os/winxptheme          301
+/winxptheme.html     /os/winxptheme          301
+/winxptolh           /os/winxptolh           301
+/winxptolh.html      /os/winxptolh           301
+
+# Tools pages → /tools/*
+/7gssol              /tools/7gssol           301
+/7gssol.html         /tools/7gssol           301
+/nishmario           /tools/nishmario        301
+/nishmario.html      /tools/nishmario        301
+/nzi964              /tools/nzi964           301
+/nzi964.html         /tools/nzi964           301
+/officesadepa        /tools/officesadepa     301
+/officesadepa.html   /tools/officesadepa     301
+/winfs               /tools/winfs            301
+/winfs.html          /tools/winfs            301
+
+# Virus pages → /virus/* (renamed to kebab-case)
+/batvirus            /virus/batvirus         301
+/batvirus.html       /virus/batvirus         301
+/vistahorror         /virus/vistahorror      301
+/vistahorror.html    /virus/vistahorror      301
+/Nicozoft_super_virus /virus/nicozoft-super-virus 301
+/Nicozoft_super_virus.html /virus/nicozoft-super-virus 301
+/Nicrozoft_Lframe32_Virus /virus/nicrozoft-lframe32-virus 301
+/Nicrozoft_Lframe32_Virus.html /virus/nicrozoft-lframe32-virus 301
+/Nicrozoft_Super_WindowsKiller_Virus /virus/nicrozoft-super-windowskiller-virus 301
+/Nicrozoft_Super_WindowsKiller_Virus.html /virus/nicrozoft-super-windowskiller-virus 301
