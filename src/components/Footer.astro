@@ -30,6 +30,12 @@ const social: { href: string; label: string; path: string; brand: string }[] = [
       <h3 class="footer__title">Nicrozoft</h3>
       <p>Nicrozoft 是一位 Windows、C++、Python、Minecraft 爱好者，开发了一些项目。</p>
       <a class="footer__mail" href="#" rel="nofollow" data-email={CONTACT_EMAIL_ENCODED} data-email-reveal>电子邮箱</a>
+
+      <div class="footer__org">
+        <h4 class="footer__subtitle">NicrozoftDEV</h4>
+        <p>NicrozoftDEV 是一个为 Windows 开发软件的组织。</p>
+        <a class="footer__org-link" href="https://github.com/NicrozoftDEV" target="_blank" rel="noopener noreferrer">github.com/NicrozoftDEV ↗</a>
+      </div>
     </section>
 
     <section class="footer__col">
@@ -65,7 +71,7 @@ const social: { href: string; label: string; path: string; brand: string }[] = [
   </div>
 
   <div class="nz-container footer__bottom">
-    <span>© {new Date().getFullYear()} Nicrozoft. All rights reserved.</span>
+    <span>© {new Date().getFullYear()} <a href="https://github.com/NicrozoftDEV" target="_blank" rel="noopener noreferrer">NicrozoftDEV</a>. All rights reserved.</span>
     <span class="footer__build">Built with Astro · Fluent Design</span>
   </div>
 </footer>
@@ -109,6 +115,26 @@ const social: { href: string; label: string; path: string; brand: string }[] = [
     display: inline-block;
     margin-top: var(--nz-space-3);
     font: var(--nz-font-body-strong);
+  }
+
+  .footer__org {
+    margin-top: var(--nz-space-6);
+    padding-top: var(--nz-space-5);
+    border-top: 1px solid var(--nz-stroke-divider);
+  }
+  .footer__subtitle {
+    font: var(--nz-font-body-strong);
+    color: var(--nz-text-primary);
+    margin-bottom: var(--nz-space-2);
+  }
+  .footer__org p {
+    max-width: 38ch;
+    line-height: 1.6;
+    margin-bottom: var(--nz-space-2);
+  }
+  .footer__org-link {
+    font: var(--nz-font-body-strong);
+    color: var(--nz-accent-text);
   }
 
   .footer__list,
@@ -191,4 +217,10 @@ const social: { href: string; label: string; path: string; brand: string }[] = [
     font: var(--nz-font-caption);
   }
   .footer__build { color: var(--nz-text-tertiary); }
+  .footer__bottom a {
+    color: var(--nz-text-secondary);
+    font-weight: 600;
+    transition: color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .footer__bottom a:hover { color: var(--nz-accent-text); }
 </style>
