@@ -9,6 +9,12 @@
 # redirects are NOT supported), so the www → apex canonicalization is handled by
 # a zone-level Redirect Rule instead of here — see wrangler.jsonc.
 
+# Legacy site: the old snapshot no longer ships with this build — it lives on
+# its own subdomain now. Forward any old /legacy/* URL there (:splat keeps the
+# rest of the path).
+/legacy              https://legacy.nicrozoft.org            301
+/legacy/*            https://legacy.nicrozoft.org/:splat     301
+
 # OS pages → /os/*
 /wih11               /os/wih11               301
 /wih11.html          /os/wih11               301

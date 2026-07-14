@@ -39,7 +39,7 @@ downloads:
   - { label: "下载 6.0 版运行视频", href: "/video/Nicrozoft_Super_WindowsKiller_Virus.wmv", kind: "link" }
   - { label: "下载 Jack 2.0 运行视频", href: "/video/Jack.wmv", kind: "link" }
   - { label: "下载 MENZ 运行视频", href: "/video/menz.wmv", kind: "link" }
-  - { label: "前往旧版 Nicrozoft 网站", href: "/legacy/index.html", kind: "link" }
+  - { label: "前往旧版 Nicrozoft 网站", href: "https://legacy.nicrozoft.org", kind: "link" }
 ---
 
 Nicrozoft_Super_WindowsKiller_Virus 是 Nicrozoft 开发的最强病毒，它可以死锁硬盘，清空数据，破坏操作系统，禁用功能，删除用户，且无法恢复。
