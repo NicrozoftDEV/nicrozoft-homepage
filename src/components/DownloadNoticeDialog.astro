@@ -197,6 +197,32 @@
     border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
   }
   .nz-dld__body :global(.nz-dl-notice__body strong) { color: var(--nz-text-primary); }
+  /* Rendered Markdown: inline code, code blocks, lists. */
+  .nz-dld__body :global(.nz-dl-notice__body code) {
+    font-family: var(--nz-font-family-mono);
+    font-size: 0.9em;
+    padding: 1px 5px;
+    border-radius: var(--nz-radius-small);
+    background: var(--nz-control-secondary);
+    border: 1px solid var(--nz-stroke-default);
+    overflow-wrap: anywhere;
+  }
+  .nz-dld__body :global(.nz-dl-notice__body pre) {
+    margin: 0;
+    padding: var(--nz-space-2) var(--nz-space-3);
+    border-radius: var(--nz-radius-small);
+    background: var(--nz-control-secondary);
+    border: 1px solid var(--nz-stroke-default);
+    overflow-x: auto;
+  }
+  .nz-dld__body :global(.nz-dl-notice__body pre code) {
+    padding: 0;
+    border: none;
+    background: none;
+  }
+  .nz-dld__body :global(.nz-dl-notice__body ul),
+  .nz-dld__body :global(.nz-dl-notice__body ol) { margin: 0; padding-left: 1.4em; }
+  .nz-dld__body :global(.nz-dl-notice__body li + li) { margin-top: 2px; }
 
   .nz-dld__commands {
     display: flex;

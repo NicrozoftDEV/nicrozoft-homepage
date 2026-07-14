@@ -30,6 +30,10 @@ downloads:
   - { label: "123 网盘链接 (5.0.1 备用链接)", href: "https://www.123865.com/s/kb7cjv-ZiVc3", kind: "iso" }
 notices:
   - groups: ["6.0 版"]
+    tone: "critical"
+    title: "Nicrozoft Activator 可能不起作用"
+    body: "由于未知原因，Nicrozoft_Activator 不起作用。你可以在 PowerShell 运行 `irm https://get.activated.win | iex` 来执行来自上游 [Massgravel](https://massgrave.dev) 的激活。"
+  - groups: ["6.0 版"]
     tone: "warning"
     title: "下载 6.0 版镜像前请注意"
     body: "为保证下载到正确的文件，<strong>请勿使用迅雷下载该镜像</strong>！网盘单线程即可跑满带宽，无需第三方下载器加速。下载前请阅读 <a href=\"/data/Win11Ext/安装前必读.pdf\" target=\"_blank\" rel=\"noopener\">《安装前必读》</a>。"

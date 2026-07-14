@@ -4,6 +4,7 @@
 // The site owner controls notices at four levels, from broad to precise, by
 // combining the targeting filters on a notice. See DownloadNotice below.
 
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { groupKey, type Download } from './downloads';
 import globalNoticesData from '../data/download-notices.json';
 
@@ -34,8 +35,9 @@ export type NoticeTone = 'info' | 'warning' | 'critical';
  *            a pattern with "*" is always glob-matched.
  * `kinds`  – download kind ('iso' | 'ova' | 'image' | 'archive').
  *
- * `body` is trusted inline HTML authored by the site owner (the same way the
- * markdown pages already use <span class="warn">…</span>); it renders as-is.
+ * `body` is authored by the site owner in Markdown (rendered at build time via
+ * Astro's own Markdown engine), with raw inline HTML passthrough — so both
+ * `code` / **bold** / [links](…) and <span class="warn">…</span> work.
  */
 export interface DownloadNotice {
   /** Optional heading shown above this notice inside the dialog. */
@@ -121,9 +123,20 @@ export function noticeMatches(n: DownloadNotice, ctx: DownloadCtx): boolean {
   return true;
 }
 
-const toRenderable = (n: DownloadNotice): RenderableNotice => ({
+// Astro's Markdown engine, reused across notices. Inline code / lists / links
+// plus raw-HTML passthrough; syntax highlighting off (notices are short prose).
+let processorPromise: ReturnType<typeof createMarkdownProcessor> | undefined;
+const getProcessor = () => (processorPromise ??= createMarkdownProcessor({ gfm: true, syntaxHighlight: false }));
+
+/** Render a notice body (Markdown + raw HTML) to an HTML string. */
+async function renderBody(body: string): Promise<string> {
+  const { code } = await (await getProcessor()).render(body);
+  return code;
+}
+
+const toRenderable = async (n: DownloadNotice): Promise<RenderableNotice> => ({
   ...(n.title ? { title: n.title } : {}),
-  body: n.body,
+  body: await renderBody(n.body),
   tone: n.tone ?? 'info',
 });
 
@@ -140,14 +153,17 @@ export interface ResolvedNotices {
  * (which are implicitly scoped to this page). Identical notices are deduped so
  * the JSON registry embedded in the page stays small.
  */
-export function resolveDownloadNotices(params: {
+export async function resolveDownloadNotices(params: {
   collection: string;
   page: string;
   downloads: Download[];
   pageNotices?: DownloadNotice[];
-}): ResolvedNotices {
+}): Promise<ResolvedNotices> {
   const { collection, page, downloads, pageNotices = [] } = params;
   const all = [...globalDownloadNotices, ...pageNotices];
+
+  // Render Markdown once per source notice; rendered[i] mirrors all[i].
+  const rendered = await Promise.all(all.map(toRenderable));
 
   const registry: RenderableNotice[] = [];
   const indexByKey = new Map<string, number>();
@@ -162,9 +178,9 @@ export function resolveDownloadNotices(params: {
       kind: d.kind,
     };
     const ids: number[] = [];
-    for (const n of all) {
-      if (!noticeMatches(n, ctx)) continue;
-      const renderable = toRenderable(n);
+    for (let i = 0; i < all.length; i++) {
+      if (!noticeMatches(all[i], ctx)) continue;
+      const renderable = rendered[i];
       const key = JSON.stringify(renderable);
       let idx = indexByKey.get(key);
       if (idx === undefined) {

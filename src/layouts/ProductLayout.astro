@@ -43,7 +43,7 @@ const useGroups = fileDownloads.length > 5;
 const groups = useGroups ? groupDownloads(fileDownloads) : [];
 
 // Resolve "download additional info" notices for each file-download button.
-const { registry: noticeRegistry, idsByDownload } = resolveDownloadNotices({
+const { registry: noticeRegistry, idsByDownload } = await resolveDownloadNotices({
   collection,
   page: pageId,
   downloads: fileDownloads,
