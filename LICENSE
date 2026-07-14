@@ -1,9 +1,46 @@
-© Nicrozoft Development Group. All Rights Reserved.
+© 2026 NicrozoftDEV. All Rights Reserved.
 
-This project and its contents are protected under applicable copyright laws.
+This project is source-available. Its source code, assets, text, images, and
+other contents (the "Content") are published openly so the community can read,
+learn from, and contribute to it. Publishing the Content here does not place it
+in the public domain; all rights not expressly granted below are reserved.
 
-Some materials, assets, or content included within this project may be the property of their respective copyright holders and are used under appropriate permissions, licenses, or fair use considerations.
+Contributions are welcome
+-------------------------
+You are welcome to:
+  • fork this repository and experiment with it locally;
+  • modify the Content in order to prepare an improvement; and
+  • submit that improvement back to this project (for example via a pull
+    request, patch, or issue).
 
-This project is intended to be useful and informative, and is provided in good faith. However, no guarantees are made regarding completeness, accuracy, or fitness for any particular purpose.
+By submitting a contribution you confirm that it is your own work, or that you
+otherwise have the right to submit it, and you grant NicrozoftDEV a perpetual,
+worldwide, royalty-free license to use, modify, and distribute your
+contribution as part of this project.
 
-No part of this project may be reproduced, distributed, modified, or otherwise used without prior written permission from the copyright owner(s), except where explicitly permitted by applicable law or license.
+What is not permitted
+---------------------
+Except for the purpose of contributing to this project as described above, you
+may NOT, without prior written permission from NicrozoftDEV:
+  • copy, republish, redistribute, mirror, or re-host the Content, in whole or
+    in part, anywhere else;
+  • present the Content, or a modified version of it, as your own; or
+  • use the Content for a separate, derivative, or competing project or product.
+
+In short: contributions back to this project are encouraged; taking the Content
+for use elsewhere is not.
+
+Third-party materials
+---------------------
+Some materials or assets included in this project are the property of their
+respective owners and are used under their own permissions or licenses. Those
+materials remain governed by their original terms, which take precedence over
+this notice.
+
+No warranty
+-----------
+This project is provided in good faith, "as is", without warranty of any kind.
+No guarantee is made regarding its completeness, accuracy, or fitness for any
+particular purpose.
+
+For any use beyond the scope of this notice, please contact NicrozoftDEV.
