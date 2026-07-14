@@ -4,8 +4,9 @@ import Badge from '../components/Badge.astro';
 import Button from '../components/Button.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import { mediaUrl } from '../lib/media';
+import { groupDownloads, type Download } from '../lib/downloads';
+import { resolveDownloadNotices, type DownloadNotice } from '../lib/downloadNotices';
 
-interface Download { label: string; href: string; kind: 'iso' | 'ova' | 'image' | 'archive' | 'link' }
 interface Screenshot { src: string; alt?: string }
 
 interface Props {
@@ -19,9 +20,15 @@ interface Props {
   screenshots: Screenshot[];
   /** Breadcrumb root: e.g., { label: '操作系统', href: '/oslist' } */
   category: { label: string; href: string };
+  /** Collection name ('os' | 'virus' | 'tools') — used to target notices. */
+  collection: string;
+  /** Content id (filename without .md) — used to target notices. */
+  pageId: string;
+  /** Page-local download notices from frontmatter. */
+  notices?: DownloadNotice[];
 }
 
-const { title, subtitle, hero, status, series, warning, downloads, screenshots, category } = Astro.props;
+const { title, subtitle, hero, status, series, warning, downloads, screenshots, category, collection, pageId, notices } = Astro.props;
 const statusLabel = ({ planned: '计划更新', active: '已发布', stopped: '停止更新' })[status];
 const iconFor = (k: Download['kind']) => ({ iso: '💿', ova: '🖥', image: '🖼', archive: '📦', link: '↗' })[k];
 
@@ -32,33 +39,22 @@ const fileDownloads = downloads.filter((d) => d.kind !== 'link');
 const relatedLinks = downloads.filter((d) => d.kind === 'link');
 
 // Group file downloads by version / category when there are many.
-// Heuristic on label: explicit "x.y(.z) 版" → version group; 变种 → 变种.
-type Group = { key: string; weight: number; items: Download[] };
-function groupKey(label: string): { key: string; weight: number } {
-  // Order matters: more specific predicates run first.
-  if (/变种/.test(label)) return { key: '变种', weight: -5 };
-  const m = label.match(/(\d+\.\d+(?:\.\d+)?)/);
-  if (m) {
-    // Weight version groups by numeric value (descending).
-    const parts = m[1].split('.').map(Number);
-    const weight = parts[0] * 1_000_000 + (parts[1] ?? 0) * 1000 + (parts[2] ?? 0);
-    return { key: `${m[1]} 版`, weight };
-  }
-  return { key: '其他', weight: -20 };
-}
-
 const useGroups = fileDownloads.length > 5;
-const groups: Group[] = (() => {
-  if (!useGroups) return [];
-  const map = new Map<string, Group>();
-  for (const d of fileDownloads) {
-    const { key, weight } = groupKey(d.label);
-    const g = map.get(key) ?? { key, weight, items: [] };
-    g.items.push(d);
-    map.set(key, g);
-  }
-  return [...map.values()].sort((a, b) => b.weight - a.weight);
-})();
+const groups = useGroups ? groupDownloads(fileDownloads) : [];
+
+// Resolve "download additional info" notices for each file-download button.
+const { registry: noticeRegistry, idsByDownload } = await resolveDownloadNotices({
+  collection,
+  page: pageId,
+  downloads: fileDownloads,
+  pageNotices: notices,
+});
+const noticeAttr = (d: Download) => {
+  const ids = idsByDownload.get(d);
+  return ids && ids.length ? ids.join(',') : undefined;
+};
+// Serialize for the client; escape "<" so it can't break out of the <script>.
+const noticeRegistryJson = JSON.stringify(noticeRegistry).replace(/</g, '\\u003c');
 ---
 
 <BaseLayout title={title} description={subtitle ?? title} ogImage={hero}>
@@ -103,7 +99,7 @@ const groups: Group[] = (() => {
               <ul class="detail__downloads">
                 {fileDownloads.map((d) => (
                   <li>
-                    <Button href={mediaUrl(d.href)} variant={d.kind === 'iso' ? 'accent' : 'standard'} size="md" target="_blank">
+                    <Button href={mediaUrl(d.href)} variant={d.kind === 'iso' ? 'accent' : 'standard'} size="md" target="_blank" dataNzDl={!!noticeAttr(d)} dataNzNotices={noticeAttr(d)}>
                       <span aria-hidden="true">{iconFor(d.kind)}</span>
                       <span>{d.label}</span>
                     </Button>
@@ -123,7 +119,7 @@ const groups: Group[] = (() => {
                     <ul class="detail__downloads">
                       {g.items.map((d) => (
                         <li>
-                          <Button href={mediaUrl(d.href)} variant={d.kind === 'iso' ? 'accent' : 'standard'} size="md" target="_blank">
+                          <Button href={mediaUrl(d.href)} variant={d.kind === 'iso' ? 'accent' : 'standard'} size="md" target="_blank" dataNzDl={!!noticeAttr(d)} dataNzNotices={noticeAttr(d)}>
                             <span aria-hidden="true">{iconFor(d.kind)}</span>
                             <span>{d.label}</span>
                           </Button>
@@ -179,6 +175,10 @@ const groups: Group[] = (() => {
         ))}
       </div>
     </section>
+  )}
+
+  {noticeRegistry.length > 0 && (
+    <script type="application/json" id="nz-dl-notices" is:inline set:html={noticeRegistryJson} />
   )}
 </BaseLayout>
 

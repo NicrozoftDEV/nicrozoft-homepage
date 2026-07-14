@@ -10,6 +10,21 @@ const downloadSchema = z.object({
   kind: z.enum(['iso', 'ova', 'image', 'archive', 'link']).default('link'),
 });
 
+// Page-local "download additional info" notice. Shown in a popup when a matching
+// download button is clicked. Implicitly scoped to this page; narrow further with
+// the optional filters (groups / labels / kinds). See src/lib/downloadNotices.ts.
+const noticeSchema = z.object({
+  title: z.string().optional(),
+  body: z.string(),
+  tone: z.enum(['info', 'warning', 'critical']).optional(),
+  collections: z.array(z.string()).optional(),
+  pages: z.array(z.string()).optional(),
+  groups: z.array(z.string()).optional(),
+  labels: z.array(z.string()).optional(),
+  labelMatch: z.enum(['exact', 'includes']).optional(),
+  kinds: z.array(z.string()).optional(),
+});
+
 const screenshotSchema = z.union([
   z.string(),
   z.object({ src: z.string(), alt: z.string().optional() }),
@@ -31,6 +46,8 @@ const productSchema = z.object({
   /** Short text shown under the card title on listing pages. */
   blurb: z.string().optional(),
   downloads: z.array(downloadSchema).default([]),
+  /** Popups shown when a download button on this page is clicked. */
+  notices: z.array(noticeSchema).default([]),
   screenshots: z.array(screenshotSchema).default([]),
   /** Hide from listing pages but still render the detail page. */
   draft: z.boolean().default(false),

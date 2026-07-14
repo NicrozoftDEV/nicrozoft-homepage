@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import TopNav from '../components/TopNav.astro';
 import Footer from '../components/Footer.astro';
+import DownloadNoticeDialog from '../components/DownloadNoticeDialog.astro';
 
 interface Props {
   title: string;
@@ -74,6 +75,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         <button class="nz-cdialog__btn" id="nz-welcome-ok" type="button" autofocus>知道了</button>
       </div>
     </dialog>
+
+    <!-- "Download additional info" dialog: filled per-click from the page's
+         #nz-dl-notices registry (emitted by ProductLayout). -->
+    <DownloadNoticeDialog />
 
     <a class="skip-link" href="#main">跳到主要内容</a>
     <TopNav />
