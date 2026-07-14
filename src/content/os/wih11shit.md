@@ -7,9 +7,7 @@ series: "Wihdous"
 order: 50
 blurb: "Wihdous 11 流氓软件版"
 downloads:
-  - { label: "下载 2.0 版镜像 (ISO)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwih11shit%2Fv2.0%2FISO", kind: "iso" }
   - { label: "下载 2.0 版截图", href: "/img/wih11shit2.png", kind: "image" }
-  - { label: "下载 1.0 版镜像 (ISO)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwih11shit%2Fv1.0", kind: "iso" }
   - { label: "下载 1.0 版截图", href: "/img/wih11shit.png", kind: "image" }
   - { label: "观看 WinBetaUser 为该系统的 1.0 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1HzYtedENo", kind: "link" }
 ---
@@ -22,4 +20,4 @@ Nicrozoft Wihdous 11 流氓软件版。
 
 请勿在物理机上安装此系统！因为这些流氓软件占系统体积，资源，性能巨大，且可能携带病毒！
 
-十分感谢 WinBetaUser 在 bilibili 上测评了该系统。
+## 该系统的镜像及虚拟机文件不再提供下载

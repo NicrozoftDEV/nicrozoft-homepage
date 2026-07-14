@@ -7,8 +7,6 @@ series: "Wihdous"
 order: 40
 blurb: "Wihdous Vista SP3"
 downloads:
-  - { label: "下载镜像 (ISO)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwihvista%2FISO", kind: "iso" }
-  - { label: "下载虚拟机 (OVA)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwihvista%2FVM", kind: "ova" }
   - { label: "下载截图", href: "/img/wihdousvista.png", kind: "image" }
 screenshots:
   - "/img/vista_1.png"
@@ -52,7 +50,4 @@ Nicrozoft Wihdous Vista 旗舰版。
 5. 预装了 Windows DreamScene，使系统拥有动态壁纸功能
 6. 内置 Longhorn Aurora，可以打开 Longhorn 桌面极光，但是因为程序是 64 位，所以打不开……但你可以提取出来，在其他系统使用，例如：Nicrozoft Wihdous 11。位置： C:/Program Files/Aurora/aur.exe
 
-## 普遍问题
-
-1. Q：如何激活
-   A：系统内置激活工具，sysprep 时会自动运行，但经测试会运行失败，因此你需要在进入系统后手动运行。位置： C:/Activator.exe
+## 该系统的镜像及虚拟机文件不再提供下载

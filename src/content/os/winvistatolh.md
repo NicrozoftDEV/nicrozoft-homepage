@@ -22,7 +22,7 @@ screenshots:
   - "/img/vistatolh_2.png"
 ---
 
-Windows Vista 仿 Windows Longhorn v6.1
+Windows Vista 仿 Windows Longhorn v6.1  
 此产品修改自原版 Windows Vista SP2 x86，且除 Vista WUC 外没有参考任何教程。
 
 ## 系统更改
@@ -79,7 +79,3 @@ Windows Vista 仿 Windows Longhorn v6.1
 <span class="warn">© Nicrozoft Dev Group, 保留演示视频、动态壁纸、WinSAT 效果工具、 Nicrozoft OS Installer 的所有权利。
 系统及预装的软件的所有权属于其各自的开发者、组织或公司，使用时需要遵守它们的许可条款或开源协议。
 未经 Nicrozoft 允许, 禁止转载或修改该镜像、视频等内容, 否则 Nicrozoft 必将追究其责任！</span>
-
-以下为下载相关内容
-
-十分感谢 WinBetaUser 在 bilibili 上测评了该系统。

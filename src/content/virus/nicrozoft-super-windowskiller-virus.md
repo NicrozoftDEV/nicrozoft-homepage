@@ -37,8 +37,6 @@ downloads:
   - { label: "下载变种: 三体病毒", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/trisolaris/Trisolaris.zip", kind: "archive" }
   - { label: "下载变种: 三体病毒 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Trisolaris.zip", kind: "archive" }
   - { label: "下载 6.0 版运行视频", href: "/video/Nicrozoft_Super_WindowsKiller_Virus.wmv", kind: "link" }
-  - { label: "下载 Jack 2.0 运行视频", href: "/video/Jack.wmv", kind: "link" }
-  - { label: "下载 MENZ 运行视频", href: "/video/menz.wmv", kind: "link" }
   - { label: "前往旧版 Nicrozoft 网站", href: "https://legacy.nicrozoft.org", kind: "link" }
 ---
 
@@ -54,10 +52,6 @@ Nicrozoft_Super_WindowsKiller_Virus 是 Nicrozoft 开发的最强病毒，它可
 ### 以下是 6.6 版的内容
 
 该版本有 x64 和 x86 版本，运行时程序会自动识别系统体系结构并运行对应的版本。
-
-### 以下是 6.0 版的内容
-
-变种 Jack 2.0 是私人定制病毒，因此设有密码。
 
 ### 早期版本
 

@@ -55,13 +55,13 @@ Windows Longhorn 4074，内置全部概念功能！
 
 ## 常见问题
 
-1. Q：安装了 Longhorn Tools (Longhorn 2008) 了吗？
-   A：没有。因为 Longhorn Tools 会损坏 WinFS 和 Explorer，而且用其开启的 Aero 和 DWM 极不稳定。
-2. Q：Nicrozoft OS Installer 是什么？
+1. Q：安装了 Longhorn Tools (Longhorn 2008) 了吗？  
+   A：没有。因为 Longhorn Tools 会损坏 WinFS 和 Explorer，而且用其开启的 Aero 和 DWM 极不稳定。但是该系统移植了 LHT 的部分组件。
+2. Q：Nicrozoft OS Installer 是什么？  
    A：Nicrozoft OS Installer 是 Nirozoft 编写的 Windows 安装程序，目前已被应用于 Nicrozoft Wihdous 7 地狱版、Windows XP SP3 集成主题版、Nicrozoft Wihdous 7 鬼影版的镜像。
-3. Q：安装了 VMware Tools 了吗？
+3. Q：安装了 VMware Tools 了吗？  
    A：没有。作者亲测在该版本的 Windows 上安装 VMware Tools 会导致系统出现窗口动画丢失，打开窗口时闪屏，挂起并恢复后卡死等问题。
-4. Q：为什么启动后卡住？
+4. Q：为什么启动后卡住？  
    A：因为系统检测到新硬件会自动安装设备，因此首次和第二次启动需要等待 2-3 分钟，一般启动第 3 次后就会恢复正常。
 
 特别鸣谢：
