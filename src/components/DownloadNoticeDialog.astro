@@ -1,0 +1,256 @@
+---
+// WinUI ContentDialog that shows "download additional info" before a download
+// proceeds. Rendered once (via BaseLayout) so it's present on every page; the
+// per-page notice data is emitted separately by ProductLayout as a JSON
+// registry (#nz-dl-notices) and referenced from each button's data-nz-notices.
+//
+// The controller is a delegated, guarded is:inline script (matching the other
+// BaseLayout controllers). It binds document-level listeners once and reads the
+// registry fresh on each click, so it survives Astro view transitions.
+---
+
+<dialog class="nz-dld" id="nz-dl-dialog" aria-labelledby="nz-dl-title">
+  <div class="nz-dld__content">
+    <h2 class="nz-dld__title" id="nz-dl-title">下载前须知</h2>
+    <div class="nz-dld__body" id="nz-dl-body"></div>
+  </div>
+  <div class="nz-dld__commands">
+    <button class="nz-dld__btn nz-dld__btn--secondary" id="nz-dl-cancel" type="button">取消</button>
+    <button class="nz-dld__btn nz-dld__btn--primary" id="nz-dl-continue" type="button" autofocus>继续下载</button>
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    if (window.__nzDlNoticeInit) return;
+    window.__nzDlNoticeInit = true;
+
+    const ICON = { info: 'ℹ', warning: '⚠', critical: '⛔' };
+    let pending = null; // { href, target }
+
+    const dialog = () => document.getElementById('nz-dl-dialog');
+    const registry = () => {
+      const el = document.getElementById('nz-dl-notices');
+      if (!el) return [];
+      try { return JSON.parse(el.textContent || '[]'); } catch (e) { return []; }
+    };
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    const render = (notices) => notices.map((n) => {
+      const tone = ICON[n.tone] ? n.tone : 'info';
+      const title = n.title ? '<p class="nz-dl-notice__title">' + esc(n.title) + '</p>' : '';
+      // n.body is trusted owner-authored HTML — injected as-is.
+      return '<div class="nz-dl-notice nz-dl-notice--' + tone + '">'
+        + '<span class="nz-dl-notice__icon" aria-hidden="true">' + ICON[tone] + '</span>'
+        + '<div class="nz-dl-notice__main">' + title
+        + '<div class="nz-dl-notice__body">' + (n.body || '') + '</div></div></div>';
+    }).join('');
+
+    const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Native <dialog>.close() is instant; animate the exit via an .is-closing
+    // class, then close for real once the CSS animation finishes.
+    const animateClose = () => {
+      const dlg = dialog();
+      if (!dlg || !dlg.open || dlg.classList.contains('is-closing')) return;
+      if (reduceMotion()) { dlg.close(); return; }
+      dlg.classList.add('is-closing');
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        dlg.removeEventListener('animationend', finish);
+        dlg.classList.remove('is-closing');
+        dlg.close();
+      };
+      dlg.addEventListener('animationend', finish);
+      setTimeout(finish, 400); // fallback if animationend never fires
+    };
+
+    const closeDialog = () => { pending = null; animateClose(); };
+
+    const openFor = (el) => {
+      const idsAttr = el.getAttribute('data-nz-notices');
+      if (!idsAttr) return false;
+      const reg = registry();
+      const notices = idsAttr.split(',').map((i) => reg[Number(i)]).filter(Boolean);
+      if (!notices.length) return false;
+      const dlg = dialog();
+      if (!dlg || typeof dlg.showModal !== 'function') return false;
+      const body = document.getElementById('nz-dl-body');
+      if (body) body.innerHTML = render(notices);
+      // Escape triggers the native `cancel`; intercept it to animate the close.
+      if (!dlg.__nzCancelBound) {
+        dlg.__nzCancelBound = true;
+        dlg.addEventListener('cancel', (e) => { e.preventDefault(); closeDialog(); });
+      }
+      dlg.classList.remove('is-closing');
+      pending = { href: el.href, target: el.getAttribute('target') || '' };
+      dlg.showModal();
+      return true;
+    };
+
+    const proceed = () => {
+      const p = pending;
+      pending = null;
+      // Navigate synchronously so the click gesture still counts (popup blockers),
+      // then fade the dialog out.
+      if (p && p.href) {
+        if (p.target === '_blank') window.open(p.href, '_blank', 'noopener');
+        else window.location.href = p.href;
+      }
+      animateClose();
+    };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (!target || !target.closest) return;
+
+      // Dialog command buttons.
+      const cmd = target.closest('#nz-dl-continue, #nz-dl-cancel');
+      if (cmd) {
+        if (cmd.id === 'nz-dl-continue') proceed();
+        else closeDialog();
+        return;
+      }
+
+      // Backdrop click (a native <dialog> reports itself as the target).
+      const dlg = dialog();
+      if (dlg && dlg.open && target === dlg) { closeDialog(); return; }
+
+      // Download-button interception.
+      const el = target.closest('a[data-nz-dl]');
+      if (!el) return;
+      // Let modifier / non-primary clicks through (open-in-new-tab, etc.).
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (openFor(el)) e.preventDefault();
+    });
+  })();
+</script>
+
+<style>
+  /* WinUI ContentDialog — download notice. Design tokens are global; the dialog
+     chrome is scoped here. Content injected into .nz-dld__body at runtime lacks
+     the scope attribute, so its rules use :global(). */
+  .nz-dld {
+    padding: 0;
+    width: calc(100% - 48px);
+    max-width: 480px;
+    border: 1px solid var(--nz-stroke-default);
+    border-radius: var(--nz-radius-large);
+    background: var(--nz-bg-solid-base);
+    color: var(--nz-text-primary);
+    box-shadow: var(--nz-shadow-flyout);
+  }
+  .nz-dld::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .nz-dld__content { padding: var(--nz-space-6) var(--nz-space-6) var(--nz-space-5); }
+  .nz-dld__title { font: var(--nz-font-subtitle); margin: 0 0 var(--nz-space-4); }
+
+  .nz-dld__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-3);
+    /* Long notices stay inside the viewport; the body scrolls. */
+    max-height: min(60vh, 460px);
+    overflow-y: auto;
+  }
+
+  /* One notice block (injected). */
+  .nz-dld__body :global(.nz-dl-notice) {
+    display: flex;
+    gap: var(--nz-space-3);
+    padding: var(--nz-space-3) var(--nz-space-4);
+    border: 1px solid var(--nz-stroke-default);
+    border-left: 3px solid var(--tone, var(--nz-accent-default));
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-subtle-secondary);
+  }
+  .nz-dld__body :global(.nz-dl-notice--info)     { --tone: var(--nz-system-attention); }
+  .nz-dld__body :global(.nz-dl-notice--warning)  { --tone: var(--nz-system-caution); }
+  .nz-dld__body :global(.nz-dl-notice--critical) { --tone: var(--nz-system-critical); }
+
+  .nz-dld__body :global(.nz-dl-notice__icon) {
+    flex: 0 0 auto;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--tone, var(--nz-accent-default));
+  }
+  .nz-dld__body :global(.nz-dl-notice__main) { min-width: 0; }
+  .nz-dld__body :global(.nz-dl-notice__title) {
+    font: var(--nz-font-body-strong);
+    margin: 0 0 var(--nz-space-1);
+  }
+  .nz-dld__body :global(.nz-dl-notice__body) {
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .nz-dld__body :global(.nz-dl-notice__body > * + *) { margin-top: var(--nz-space-2); }
+  .nz-dld__body :global(.nz-dl-notice__body a) {
+    color: var(--nz-accent-text);
+    border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
+  }
+  .nz-dld__body :global(.nz-dl-notice__body strong) { color: var(--nz-text-primary); }
+
+  .nz-dld__commands {
+    display: flex;
+    gap: var(--nz-space-2);
+    justify-content: flex-end;
+    padding: var(--nz-space-2) var(--nz-space-6) var(--nz-space-6);
+  }
+  .nz-dld__btn {
+    padding: var(--nz-space-2) var(--nz-space-5);
+    border: 1px solid var(--nz-stroke-secondary);
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-control-default);
+    color: var(--nz-text-primary);
+    font: var(--nz-font-body-strong);
+    cursor: pointer;
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .nz-dld__btn:hover { background: var(--nz-control-secondary); }
+  .nz-dld__btn:active { transform: translateY(1px); }
+  .nz-dld__btn:focus-visible { outline: 2px solid var(--nz-stroke-focus); outline-offset: 2px; }
+  .nz-dld__btn--primary {
+    border-color: transparent;
+    background: var(--nz-accent-default);
+    color: var(--nz-text-on-accent);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+  .nz-dld__btn--primary:hover { background: var(--nz-accent-secondary); }
+  .nz-dld__btn--primary:active { background: var(--nz-accent-tertiary); }
+
+  .nz-dld[open]:not(.is-closing) { animation: nz-dld-in var(--nz-duration-normal) var(--nz-easing-max); }
+  .nz-dld[open]:not(.is-closing)::backdrop { animation: nz-dld-fade var(--nz-duration-normal) ease; }
+
+  /* Exit: reversed, quicker, held at the end (both) until the JS close() lands. */
+  .nz-dld.is-closing { animation: nz-dld-out var(--nz-duration-fast) var(--nz-easing-accelerate) both; }
+  .nz-dld.is-closing::backdrop { animation: nz-dld-fade-out var(--nz-duration-fast) var(--nz-easing-accelerate) both; }
+
+  @keyframes nz-dld-in {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes nz-dld-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes nz-dld-out {
+    from { opacity: 1; transform: none; }
+    to { opacity: 0; transform: scale(0.97) translateY(6px); }
+  }
+  @keyframes nz-dld-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nz-dld[open], .nz-dld[open]::backdrop,
+    .nz-dld.is-closing, .nz-dld.is-closing::backdrop { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    .nz-dld__commands { flex-direction: column-reverse; }
+    .nz-dld__btn { width: 100%; }
+  }
+</style>

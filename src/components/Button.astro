@@ -14,6 +14,10 @@ interface Props {
   ariaLabel?: string;
   /** Base64-encoded email; renders as a link whose mailto: is set client-side. */
   dataEmail?: string;
+  /** Marks this as a download the notice controller may intercept. */
+  dataNzDl?: boolean;
+  /** Comma-separated registry indices of the notices that apply to it. */
+  dataNzNotices?: string;
 }
 
 const {
@@ -27,6 +31,8 @@ const {
   type = 'button',
   ariaLabel,
   dataEmail,
+  dataNzDl,
+  dataNzNotices,
 } = Astro.props;
 
 const isExternal = href?.startsWith('http');
@@ -45,6 +51,8 @@ const finalHref = href ?? (dataEmail ? '#' : undefined);
   type={Tag === 'button' ? type : undefined}
   aria-label={ariaLabel}
   data-email={dataEmail}
+  data-nz-dl={dataNzDl ? '' : undefined}
+  data-nz-notices={dataNzNotices}
 >
   <slot />
 </Tag>
