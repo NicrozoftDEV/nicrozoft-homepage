@@ -23,7 +23,9 @@
   // www host is pointed here. Requires the nicrozoft.org zone to be active on
   // the same Cloudflare account; Cloudflare provisions DNS + certs automatically.
   "routes": [
-    { "pattern": "new.nicrozoft.org", "custom_domain": true }
+    { "pattern": "new.nicrozoft.org", "custom_domain": true },
+    { "pattern": "nicrozoft.org", "custom_domain": true },
+    { "pattern": "www.nicrozoft.org", "custom_domain": true }
   ],
   "observability": {
     "enabled": true
