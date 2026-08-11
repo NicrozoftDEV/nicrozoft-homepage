@@ -11,10 +11,10 @@ downloads:
   - { label: "观看 2.0 版本的介绍及演示视频", href: "https://www.bilibili.com/video/BV1EAZKBZEeE/", kind: "link" }
   - { label: "阅读 《安装后必读》", href: "/data/Win10Ext/安装后必读.pdf", kind: "link" }
   - { label: "查看文件校验和 (2.0 完整版 ISO)", href: "/checksums/win10ext_2.0_full_iso", kind: "link" }
-  - { label: "移动网盘链接 (2.0 完整版)", href: "https://yun.139.com/shareweb/#/w/i/2sUfF0DBF8Dms", kind: "iso" }
+  - { label: "移动网盘链接 (2.0 完整版)", href: "https://yun.139.com/shareweb/#/w/i/2sUfF0DBF8Dms", kind: "iso", password: "hyor" }
   - { label: "123 网盘链接 (2.0 完整版)", href: "https://www.123865.com/s/kb7cjv-W3he3", kind: "iso" }
   - { label: "查看文件校验和 (2.0 基本版 ISO)", href: "/checksums/win10ext_2.0_basic_iso", kind: "link" }
-  - { label: "移动网盘链接 (2.0 基本版)", href: "https://yun.139.com/shareweb/#/w/i/2sUfExBAvCuum", kind: "iso" }
+  - { label: "移动网盘链接 (2.0 基本版)", href: "https://yun.139.com/shareweb/#/w/i/2sUfExBAvCuum", kind: "iso", password: "rsru" }
   - { label: "123 网盘链接 (2.0 基本版)", href: "https://www.123865.com/s/kb7cjv-dhhe3", kind: "iso" }
 notices:
   - groups: ["2.0 版"]

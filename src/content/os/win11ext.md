@@ -12,10 +12,10 @@ downloads:
   - { label: "阅读 《安装前必读》", href: "/data/Win11Ext/安装前必读.pdf", kind: "link" }
   - { label: "阅读 《安装后必读》", href: "/data/Win11Ext/安装后必读.pdf", kind: "link" }
   - { label: "查看文件校验和 (6.0 完整版 ISO)", href: "/checksums/win11ext_6.0_full_iso", kind: "link" }
-  - { label: "移动网盘链接 (6.0 完整版)", href: "https://yun.139.com/shareweb/#/w/i/2ur51sqSj0W80", kind: "iso" }
+  - { label: "移动网盘链接 (6.0 完整版)", href: "https://yun.139.com/shareweb/#/w/i/2ur51sqSj0W80", kind: "iso", password: "b6at" }
   - { label: "123 网盘链接 (6.0 完整版)", href: "https://www.123865.com/s/kb7cjv-23he3", kind: "iso" }
   - { label: "查看文件校验和 (6.0 基本版 ISO)", href: "/checksums/win11ext_6.0_basic_iso", kind: "link" }
-  - { label: "移动网盘链接 (6.0 基本版)", href: "https://yun.139.com/shareweb/#/w/i/2u8ooGH7HPB37", kind: "iso" }
+  - { label: "移动网盘链接 (6.0 基本版)", href: "https://yun.139.com/shareweb/#/w/i/2u8ooGH7HPB37", kind: "iso", password: "ljar" }
   - { label: "123 网盘链接 (6.0 基本版)", href: "https://www.123865.com/s/kb7cjv-s3he3", kind: "iso" }
   - { label: "查看文件校验和 (5.1 ISO)", href: "/checksums/win11ext_5.1_iso", kind: "link" }
   - { label: "123 网盘链接 (5.1)", href: "https://www.123912.com/s/kb7cjv-bHve3", kind: "iso" }

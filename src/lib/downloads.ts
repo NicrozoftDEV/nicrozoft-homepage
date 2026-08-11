@@ -9,6 +9,8 @@ export interface Download {
   label: string;
   href: string;
   kind: DownloadKind;
+  /** Extraction code (提取码) — when present, auto-shown in the download-notice dialog. */
+  password?: string;
 }
 
 export interface DownloadGroup {

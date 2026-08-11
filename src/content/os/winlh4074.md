@@ -7,10 +7,7 @@ order: 100
 blurb: "Windows Longhorn 4074 全功能优化版"
 downloads:
   - { label: "下载 2.0 虚拟机 (7Z)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwinlh4074%2Fv2.0%2FVM", kind: "archive" }
-  - { label: "下载 2.0 镜像 (ISO) 该版本的镜像的 wim 文件由 WinBetaUser 封装，感谢他的贡献。", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwinlh4074%2Fv2.0%2FISO", kind: "iso" }
-  - { label: "下载 1.0 虚拟机 (7Z)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwinlh4074%2Fv1.0%2FVM%2F7-ZIP%E5%8E%8B%E7%BC%A9%E5%8C%85", kind: "archive" }
-  - { label: "下载 1.0 虚拟机自解压安装程序 (EXE) 不建议使用", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwinlh4074%2Fv1.0%2FVM%2F%E8%87%AA%E8%A7%A3%E5%8E%8B%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F", kind: "link" }
-  - { label: "下载 1.0 镜像 (ISO)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwinlh4074%2Fv1.0%2FISO", kind: "iso" }
+  - { label: "下载 2.0 镜像 (ISO) 该版本的镜像的 wim 文件由 WinBetaUser 封装，感谢他的贡献。", href: "https://www.123pan.com/s/kb7cjv-RjTe3", kind: "iso" }
   - { label: "下载中文版截图 (2.0)", href: "/img/winlh4074.png", kind: "image" }
   - { label: "下载英文版截图 (2.0)", href: "/img/winlh4074en.png", kind: "image" }
   - { label: "观看 WinBetaUser 为此系统的 2.0 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1st42177Xb", kind: "link" }

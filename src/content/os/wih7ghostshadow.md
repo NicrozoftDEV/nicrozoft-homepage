@@ -12,7 +12,6 @@ downloads:
   - { label: "123 网盘链接", href: "https://www.123912.com/s/kb7cjv-qave3", kind: "iso" }
   - { label: "123 网盘链接（备用链接）", href: "https://www.123865.com/s/kb7cjv-qave3", kind: "iso" }
   - { label: "下载 1.0 镜像 (ISO)", href: "https://www.123912.com/s/kb7cjv-DjTe3", kind: "iso" }
-  - { label: "下载 1.0虚拟机 (7Z)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwih7ghostshadow%2Fv1.0%2FVM", kind: "archive" }
   - { label: "查看 1.0 版本的规则", href: "/tools/7gssol", kind: "link" }
   - { label: "在 bilibili 上观看该运行视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1RJ4m1b7kk", kind: "link" }
 ---
@@ -98,9 +97,6 @@ Nicrozoft Wihdous 7 鬼影版。
 <span class="warn">© Nicrozoft Corporation, 保留所有权利。
 未经 Nicrozoft 允许, 禁止转载或修改, 否则 Nicrozoft 必将追究！</span>
 
-以下为 2.0 版本的【镜像】文件，文件格式为[.iso]
-
-以下是早期版本的内容
-注意:新版本的规则不适用于旧版本，如果你要下载旧版本，需要查看旧版本的规则。
+注意:新版本的规则不适用于旧版本。
 
 十分感谢 WinBetaUser 在 bilibili 上测评了该系统。

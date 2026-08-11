@@ -152,6 +152,9 @@ export interface ResolvedNotices {
  * Global notices are considered first, then the page's own frontmatter notices
  * (which are implicitly scoped to this page). Identical notices are deduped so
  * the JSON registry embedded in the page stays small.
+ *
+ * In addition to the explicit notices, a download with a `password` field
+ * (提取码) automatically gets an info notice showing the code.
  */
 export async function resolveDownloadNotices(params: {
   collection: string;
@@ -169,6 +172,19 @@ export async function resolveDownloadNotices(params: {
   const indexByKey = new Map<string, number>();
   const idsByDownload = new Map<Download, number[]>();
 
+  // Pre-render password notices for each unique extraction code.
+  const passwordRendered = new Map<string, RenderableNotice>();
+  for (const d of downloads) {
+    if (d.password && !passwordRendered.has(d.password)) {
+      const notice = await toRenderable({
+        title: '提取码',
+        body: '`' + d.password + '`',
+        tone: 'info',
+      });
+      passwordRendered.set(d.password, notice);
+    }
+  }
+
   for (const d of downloads) {
     const ctx: DownloadCtx = {
       collection,
@@ -181,6 +197,18 @@ export async function resolveDownloadNotices(params: {
     for (let i = 0; i < all.length; i++) {
       if (!noticeMatches(all[i], ctx)) continue;
       const renderable = rendered[i];
+      const key = JSON.stringify(renderable);
+      let idx = indexByKey.get(key);
+      if (idx === undefined) {
+        idx = registry.length;
+        registry.push(renderable);
+        indexByKey.set(key, idx);
+      }
+      if (!ids.includes(idx)) ids.push(idx);
+    }
+    // Auto-generate an extraction-code notice when the download has a password.
+    if (d.password) {
+      const renderable = passwordRendered.get(d.password)!;
       const key = JSON.stringify(renderable);
       let idx = indexByKey.get(key);
       if (idx === undefined) {

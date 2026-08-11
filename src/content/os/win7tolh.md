@@ -9,18 +9,13 @@ downloads:
   - { label: "查看文件校验和", href: "/checksums/win7tolh_1_3.0_vm", kind: "link" }
   - { label: "huang1111 网盘链接 (#1 v3.0 VM)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin7tolh%2FSys_1%2Fv3.0%2FVM", kind: "archive" }
   - { label: "111 网盘链接 (#1 v3.0 VM)", href: "https://111pan.cn/s/VQoH6?path=%2Fwin7tolh%2FSys_1%2Fv3.0%2FVM", kind: "archive" }
-  - { label: "astpan 网盘链接 (#1 v3.0 VM)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwin7tolh%2FSys_1%2Fv3.0%2FVM", kind: "archive" }
-  - { label: "huang1111 网盘链接 (#1 v3.0 ISO)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin7tolh%2FSys_1%2Fv3.0%2FISO", kind: "iso" }
-  - { label: "111 网盘链接 (#1 v3.0 ISO)", href: "https://111pan.cn/s/VQoH6?path=%2Fwin7tolh%2FSys_1%2Fv3.0%2FISO", kind: "iso" }
+  - { label: "123 网盘链接 (#1 v3.0 ISO)", href: "https://1829589382.share.123pan.cn/123pan/kb7cjv-eDHi3", kind: "iso" }
   - { label: "查看文件校验和 (#2 v3.0 VM)", href: "/checksums/win7tolh_2_3.0_vm", kind: "link" }
   - { label: "huang1111 网盘链接 (#2 v3.0 VM)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin7tolh%2FSys_2%2Fv3.0_VM", kind: "archive" }
   - { label: "111 网盘链接 (#2 v3.0 VM)", href: "https://111pan.cn/s/VQoH6?path=%2Fwin7tolh%2FSys_2%2Fv3.0_VM", kind: "archive" }
-  - { label: "astpan 网盘链接 (#2 v3.0 VM)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwin7tolh%2FSys_2%2Fv3.0_VM", kind: "archive" }
   - { label: "下载 #1 v3.0 截图", href: "/img/win7tolh_1.png", kind: "image" }
   - { label: "下载 #2 v3.0 截图", href: "/img/win7tolh_2.png", kind: "image" }
   - { label: "观看这两个系统的最新版本的介绍及演示视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1fRp1eGEVM/", kind: "link" }
-  - { label: "下载 #1 v2.0 虚拟机 (7Z)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin7tolh%2FSys_1%2FVM", kind: "archive" }
-  - { label: "下载 #2 v2.0 虚拟机 (7Z)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin7tolh%2FSys_2%2FVM", kind: "archive" }
   - { label: "观看 WinBetaUser 为 #1 系统的 2.0 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1Gt421577X", kind: "link" }
   - { label: "观看 WinBetaUser 为 #2 系统的 2.0 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1GZ421a7wt", kind: "link" }
 screenshots:

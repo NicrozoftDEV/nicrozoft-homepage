@@ -8,6 +8,8 @@ const downloadSchema = z.object({
   label: z.string(),
   href: z.string(),
   kind: z.enum(['iso', 'ova', 'image', 'archive', 'link']).default('link'),
+  /** Extraction code (提取码) — when present, shown in the download-notice dialog. */
+  password: z.string().optional(),
 });
 
 // Page-local "download additional info" notice. Shown in a popup when a matching
