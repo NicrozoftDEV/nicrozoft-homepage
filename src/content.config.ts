@@ -31,6 +31,26 @@ const noticeSchema = z.object({
 
 const screenshotSchema = z.union([z.string(), z.object({ src: z.string(), alt: z.string().optional() })]);
 
+// A documented config key or plugin (see the Minecraft wiki's 性能与修复 and 插件特性
+// pages). Grouped so each section can carry its own heading and intro.
+const configEntrySchema = z.object({
+  key: z.string(),
+  /** Pills describing how the key is configured, e.g. 全部子项启用. */
+  meta: z.array(z.string()).default([]),
+  /** Where the entry comes from rather than upstream, e.g. 本地分支 / 私有插件. */
+  origin: z.string().optional(),
+  /** Description. Inline HTML is allowed here for links and <code>. */
+  body: z.string(),
+});
+
+const configGroupSchema = z.object({
+  title: z.string(),
+  lead: z.string().optional(),
+  entries: z.array(configEntrySchema).default([]),
+  /** Closing paragraphs after the entries, for the odds and ends a list can't hold. */
+  notes: z.array(z.string()).default([]),
+});
+
 // Reusable base schema for product-like entries (OS / virus / tools).
 const productSchema = z.object({
   title: z.string(),
@@ -92,6 +112,7 @@ const mcserver = defineCollection({
       )
       .default([]),
     machines: z.array(machineSchema).optional(),
+    configGroups: z.array(configGroupSchema).optional(),
     tagLegend: z
       .array(
         z.object({

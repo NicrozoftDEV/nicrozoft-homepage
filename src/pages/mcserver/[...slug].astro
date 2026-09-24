@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import McWikiLayout from '../../layouts/McWikiLayout.astro';
 import Card from '../../components/Card.astro';
 import Button from '../../components/Button.astro';
+import ConfigList from '../../components/ConfigList.astro';
 import GroupRules from '../../components/GroupRules.astro';
 import MachineList from '../../components/MachineList.astro';
 import MachineTagLegend from '../../components/MachineTagLegend.astro';
@@ -30,13 +31,17 @@ const cards =
       ? wikiChildren(entries, entry.id)
       : [];
 const lead = data.machines ? `${data.lead ?? ''}共 ${data.machines.length} 台。` : data.lead;
+// Pages that render entirely from frontmatter have no markdown left, and an empty
+// prose block would still take a gap in the card's flex column.
+const hasProse = Boolean(entry.body?.trim());
 ---
 
 <McWikiLayout title={data.title} lead={lead} description={data.description} navigation={wikiNavigation(entries)}>
   <article class="nz-acrylic mcw-card">
     {data.sharedContent === 'group-rules' && <GroupRules />}
     {data.machines && <MachineList machines={data.machines} />}
-    <div class="nz-prose"><Content /></div>
+    {hasProse && <div class="nz-prose"><Content /></div>}
+    {data.configGroups && <ConfigList groups={data.configGroups} />}
     {data.tagLegend && <MachineTagLegend groups={data.tagLegend} />}
     {data.actions.length > 0 && <div class="nz-row">
       {data.actions.map((action) => <Button

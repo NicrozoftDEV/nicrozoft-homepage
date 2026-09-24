@@ -1,0 +1,125 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Badge from './Badge.astro';
+
+type ConfigGroups = NonNullable<CollectionEntry<'mcserver'>['data']['configGroups']>;
+
+interface Props {
+  groups: ConfigGroups;
+}
+const { groups } = Astro.props;
+---
+
+<div class="cfg">
+  {groups.map((group) => <section class="cfg__group">
+    <h2 class="cfg__title">{group.title}</h2>
+    {group.lead && <p class="cfg__lead">{group.lead}</p>}
+    <ul class="cfg__list">
+      {group.entries.map((entry) => <li class="cfg__entry">
+        <div class="cfg__head">
+          <code class="cfg__key">{entry.key}</code>
+          {entry.meta.map((label) => <Badge tone="accent" subtle>{label}</Badge>)}
+          {entry.origin && <span class="cfg__origin"><Badge tone="success" subtle>{entry.origin}</Badge></span>}
+        </div>
+        <p class="cfg__body" set:html={entry.body} />
+      </li>)}
+    </ul>
+    {group.notes.map((note) => (
+      <p class="cfg__note" set:html={note} />
+    ))}
+  </section>)}
+</div>
+
+<style>
+  .cfg {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-8);
+  }
+  .cfg__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-3);
+  }
+  /* Matches the section rule that .nz-prose h2 draws, so config groups and prose
+     sections keep the same rhythm inside one card. */
+  .cfg__title {
+    font: var(--nz-font-subtitle);
+    padding-bottom: var(--nz-space-2);
+    border-bottom: 1px solid var(--nz-stroke-divider);
+  }
+  .cfg__lead,
+  .cfg__note {
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    line-height: 1.7;
+  }
+  .cfg__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+  }
+  .cfg__entry {
+    padding: var(--nz-space-3) var(--nz-space-4);
+    border-radius: var(--nz-radius-medium);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-default);
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+  }
+  .cfg__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--nz-space-2);
+  }
+  .cfg__key {
+    font-family: var(--nz-font-family-mono);
+    font-size: 0.92em;
+    padding: 2px 6px;
+    border-radius: var(--nz-radius-small);
+    background: var(--nz-control-secondary);
+    border: 1px solid var(--nz-stroke-default);
+    color: var(--nz-text-primary);
+    overflow-wrap: anywhere;
+  }
+  /* Provenance reads as a corner marker, so it sits at the trailing edge. */
+  .cfg__origin {
+    margin-left: auto;
+  }
+  .cfg__body {
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  /* Bodies and notes are authored as inline HTML, so they miss the .nz-prose rules. */
+  .cfg__body :global(code),
+  .cfg__note :global(code) {
+    font-family: var(--nz-font-family-mono);
+    font-size: 0.92em;
+    padding: 2px 6px;
+    border-radius: var(--nz-radius-small);
+    background: var(--nz-control-secondary);
+    border: 1px solid var(--nz-stroke-default);
+  }
+  .cfg__body :global(a),
+  .cfg__note :global(a) {
+    color: var(--nz-accent-text);
+    border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
+  }
+  .cfg__body :global(a[target='_blank'])::after,
+  .cfg__note :global(a[target='_blank'])::after {
+    content: ' ↗';
+    color: var(--nz-text-tertiary);
+  }
+  .cfg__body :global(a:not([target='_blank']))::after,
+  .cfg__note :global(a:not([target='_blank']))::after {
+    content: ' →';
+    color: var(--nz-text-tertiary);
+  }
+</style>
