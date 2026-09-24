@@ -1,35 +1,43 @@
 ---
 import McWikiLayout from '../../layouts/McWikiLayout.astro';
-
-const categories = [
-  {
-    href: '/mcserver/machines/natural',
-    title: '自然刷怪类',
-    desc: '基于自然刷怪机制的机器（刷怪塔、刷铁机等）。',
-  },
-  {
-    href: '/mcserver/machines/structure',
-    title: '结构利用类',
-    desc: '利用自然生成结构的机器（掠夺者前哨站、试炼密室等）。',
-  },
-  {
-    href: '/mcserver/machines/redstone',
-    title: '普通红石机器类',
-    desc: '全物品、门控、红石电路等常规红石机器。',
-  },
-];
+import Badge from '../../components/Badge.astro';
+import { machineCategories, machineTagLegend, machineTags } from '../../lib/mcMachines';
 ---
 
-<McWikiLayout title="机器" lead="收录服务器内的机器与大型工程，按类型分类整理。">
+<McWikiLayout title="机器" lead="收录服务器内的机器与大型工程，按类型分类整理，并以标签标注效率分类、功能、规模与状态。">
   <nav class="mcw__cats" aria-label="机器分类">
-    {categories.map((c) => (
-      <a class="mcw__cat-card nz-lift" href={c.href}>
+    {machineCategories.map((c) => (
+      <a class="mcw__cat-card nz-lift" href={`/mcserver/machines/${c.id}`}>
         <span class="mcw__cat-title">{c.title}</span>
         <span class="mcw__cat-desc">{c.desc}</span>
+        <span class="mcw__cat-count">{c.machines.length} 台</span>
       </a>
     ))}
   </nav>
-  <p class="mcw-p">本栏目正在建设中，各分类页面暂时为占位页面，详细信息将陆续补充。</p>
+
+  <article class="nz-acrylic mcw-card">
+    <h2 class="mcw-h2">标签说明</h2>
+    {machineTagLegend.map((g) => (
+      <div class="mcw__legend-group">
+        <p class="mcw__legend-title">{g.title}</p>
+        <ul class="mcw__legend-list">
+          {g.tags.map((t) => {
+            const def = machineTags[t];
+            return (
+              <li class="mcw__legend-item">
+                <span title={def.hint}>
+                  <Badge tone={def.tone} subtle><span class="mcw__legend-icon" aria-hidden="true">{def.icon}</span>{def.label}</Badge>
+                </span>
+                {def.hint && <span class="mcw__legend-hint">{def.hint}</span>}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </article>
+
+  <p class="mcw-p">各机器的详细介绍（原理、产出、位置等）将陆续补充。</p>
 </McWikiLayout>
 
 <style>
@@ -63,5 +71,38 @@ const categories = [
   .mcw__cat-desc {
     font: var(--nz-font-body);
     color: var(--nz-text-secondary);
+  }
+  .mcw__cat-count {
+    font: var(--nz-font-caption);
+    color: var(--nz-text-tertiary);
+  }
+
+  .mcw__legend-group { display: flex; flex-direction: column; gap: var(--nz-space-2); }
+  .mcw__legend-title {
+    margin: var(--nz-space-3) 0 0;
+    font: var(--nz-font-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--nz-text-tertiary);
+  }
+  .mcw__legend-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-2);
+  }
+  .mcw__legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--nz-space-3);
+    flex-wrap: wrap;
+  }
+  .mcw__legend-icon { margin-right: 5px; }
+  .mcw__legend-hint {
+    font: var(--nz-font-caption);
+    color: var(--nz-text-tertiary);
   }
 </style>

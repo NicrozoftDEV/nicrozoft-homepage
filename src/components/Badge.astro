@@ -102,6 +102,12 @@ const { tone = 'neutral', icon, subtle = false, class: className = '' } = Astro.
     background: var(--nz-accent-default);
     border-color: transparent;
   }
+  /* accent-foreground is white (for the filled accent pill); on the subtle
+     (transparent) variant that would be invisible — use the readable accent
+     text color instead. */
+  .badge--accent.badge--subtle {
+    color: var(--nz-accent-text);
+  }
   .badge--critical { color: var(--nz-system-critical); }
   .badge--success { color: var(--nz-system-success); }
   .badge--caution { color: var(--nz-system-caution); }

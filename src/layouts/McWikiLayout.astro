@@ -284,6 +284,32 @@ const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
   /* Body link color — exclude .btn so accent buttons keep their white label. */
   .mcw__body :global(a:not(.btn)) { color: var(--nz-accent-text); }
 
+  /* Link direction markers inside wiki prose (cards/buttons excluded):
+     internal links end with "→"; external links carry a small "↗" pinned to
+     the bottom-right corner of the link box. */
+  .mcw__body :global(a:not(.btn):not(.mcw__quick-card):not(.mcw__cat-card):not([target="_blank"]))::after {
+    content: "→";
+    margin-left: 3px;
+    font-size: 0.8em;
+    text-decoration: none;
+    color: var(--nz-text-tertiary);
+  }
+  .mcw__body :global(a:not(.btn):not(.mcw__quick-card):not(.mcw__cat-card)[target="_blank"]) {
+    position: relative;
+    /* reserve room for the corner mark so it never overlaps following text */
+    margin-right: 0.7em;
+  }
+  .mcw__body :global(a:not(.btn):not(.mcw__quick-card):not(.mcw__cat-card)[target="_blank"])::after {
+    content: "↗";
+    position: absolute;
+    right: -0.75em;
+    bottom: 0;
+    font-size: 0.62em;
+    line-height: 1;
+    text-decoration: none;
+    color: var(--nz-text-tertiary);
+  }
+
   /* Definition grid for address/connection cards */
   .mcw__body :global(.mcw-props) {
     margin: 0;

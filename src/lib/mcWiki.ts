@@ -40,6 +40,7 @@ export const mcWikiNav: McWikiSection[] = [
     items: [
       { label: '总览', href: '/mcserver/machines' },
       { label: '自然刷怪类', href: '/mcserver/machines/natural' },
+      { label: '机制刷怪类', href: '/mcserver/machines/mechanism' },
       { label: '结构利用类', href: '/mcserver/machines/structure' },
       { label: '普通红石机器类', href: '/mcserver/machines/redstone' },
     ],
