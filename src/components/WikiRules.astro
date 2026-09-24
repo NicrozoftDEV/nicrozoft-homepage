@@ -1,0 +1,73 @@
+---
+import Badge from './Badge.astro';
+
+export interface WikiRule {
+  /** Config key / command shown in mono. */
+  key: string;
+  /** Added or reworked in the self-maintained Leaves fork (green badge). */
+  local?: boolean;
+  /** Upstream rule extended by the fork (yellow badge). */
+  extended?: boolean;
+  /** Only usable by server admins or explicitly authorized players (red badge). */
+  admin?: boolean;
+  /** Current non-default value, shown next to the key. */
+  value?: string;
+  /** One-line description; trusted inline HTML (code/a) allowed. */
+  desc: string;
+}
+
+export interface WikiRuleGroup {
+  title: string;
+  note?: string;
+  rules: WikiRule[];
+}
+
+interface Props {
+  groups: WikiRuleGroup[];
+}
+
+const { groups } = Astro.props;
+---
+
+{groups.map((g) => (
+  <article class="nz-acrylic mcw-card">
+    <h2 class="mcw-h2">{g.title}</h2>
+    {g.note && <p class="mcw-p">{g.note}</p>}
+    <ul class="mcw-rules">
+      {g.rules.map((r) => (
+        <li>
+          <p class="mcw-rule-key">
+            <code>{r.key}</code>
+            {r.value && <span class="wiki-rules__value">{r.value}</span>}
+            {(r.local || r.extended || r.admin) && (
+              <span class="wiki-rules__badges">
+                {r.local && <Badge tone="success" subtle>本地分支</Badge>}
+                {r.extended && <Badge tone="caution" subtle>本地扩展</Badge>}
+                {r.admin && <Badge tone="critical" subtle>仅管理员或授权用户</Badge>}
+              </span>
+            )}
+          </p>
+          <p class="mcw-rule-desc" set:html={r.desc} />
+        </li>
+      ))}
+    </ul>
+  </article>
+))}
+
+<style>
+  .wiki-rules__badges {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nz-space-2);
+    flex-wrap: wrap;
+  }
+  .wiki-rules__value {
+    font: var(--nz-font-caption);
+    color: var(--nz-accent-text);
+    padding: 1px 8px;
+    border-radius: var(--nz-radius-circular);
+    background: color-mix(in srgb, var(--nz-accent-default) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--nz-accent-default) 30%, transparent);
+  }
+</style>

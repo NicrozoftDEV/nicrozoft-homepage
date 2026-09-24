@@ -1,0 +1,201 @@
+---
+import McWikiLayout from '../../../layouts/McWikiLayout.astro';
+import Button from '../../../components/Button.astro';
+import Badge from '../../../components/Badge.astro';
+
+// [私有插件] 由服主开发、仅适用于本服务器、不进行分发；[本地分支] 为本服务器
+// 制作的插件分支版本。两类标记在下方各处以徽章展示。
+const featureCards = [
+  {
+    title: '账号与登录',
+    plugin: 'AuthMe · FastLogin · UUIDRedirect',
+    tags: [],
+    desc: '半正版验证：正版玩家自动登录；离线玩家（离线登录 / LittleSkin）首次进服设置密码，之后每次进服验证密码；转为同名正版账户后可用 <code>/premium</code> 切换为正版进服。',
+  },
+  {
+    title: '跨版本与基岩版加入',
+    plugin: 'ViaVersion · ViaBackwards · ViaRewind · Geyser · Floodgate',
+    tags: [],
+    desc: 'Java 版 <code>1.7.10 ~ 26.3</code>、基岩版 <code>26.30 ~ 26.51</code> 均可加入服务器；基岩版玩家由 <a href="https://geysermc.org" target="_blank" rel="noopener noreferrer">Geyser</a> 适配，皮肤由 GeyserSkinManager 处理。',
+  },
+  {
+    title: '伪装',
+    plugin: 'FeatherMorph',
+    tags: [{ text: '本地分支', tone: 'success' }],
+    desc: '第一次杀死某种生物或某个玩家后即获得其伪装，可随时切换；部分生物具有特殊属性或技能，如凋灵能够飞行，方便对机器或建筑进行施工。',
+  },
+  {
+    title: '领地',
+    plugin: 'Dominion',
+    tags: [],
+    desc: '使用物品“箭”标记两个角点，输入 <code>/dom create 领地名称</code> 即可创建六面体领地；可管理成员与访客权限、领地的环境行为，保护自己的建筑与机器。<span class="warn">请勿在非自己的建筑或机器处创建领地！</span>',
+  },
+  {
+    title: '高级附魔书',
+    plugin: 'EnchantBookPlus · AnvilUnlocker',
+    tags: [],
+    desc: '允许略高于原版等级上限的附魔书，可在铁砧中合成；同时解除了铁砧经验上限（配合服务端的 avoid-anvil-too-expensive 规则）。',
+  },
+  {
+    title: '新配方',
+    plugin: 'RecipeCreateX · HastePotion · BarrierRecipePlugin · GApples',
+    tags: [],
+    desc: '新增强化深板岩、紫水晶母岩、可堆叠图腾、屏障方块的合成配方，以及急迫药水（含喷溅 / 滞留类型与增强 / 延长变种）的酿造台配方。',
+  },
+];
+
+interface PluginEntry {
+  name: string;
+  /** 'private' = 私有插件（服主开发，不分发）；'fork' = 本地分支版本。 */
+  mark?: 'private' | 'fork';
+  desc: string;
+}
+
+const plugins: PluginEntry[] = [
+  {
+    name: 'OffwhiteMessage',
+    mark: 'private',
+    desc: '设置玩家不在白名单时的踢出提示。',
+  },
+  {
+    name: 'PublicContainers',
+    mark: 'private',
+    desc: '公用容器：玩家打开命名的末影箱可打开对应名称的公用容器，相同名称的末影箱指向同一个容器。',
+  },
+  {
+    name: 'SimpleTPA',
+    desc: '允许玩家运行 <code>/tpa &lt;playerName&gt;</code> 并在对方同意后传送至对方。',
+  },
+  {
+    name: 'SpectatorEnabler',
+    mark: 'private',
+    desc: '对授权的用户启用 <code>/se 1|0</code>，以切换至旁观模式 / 生存模式。',
+  },
+  {
+    name: 'TradeCycle',
+    desc: '在未交易过的村民的交易界面的空槽位按 F 可刷新村民交易。',
+  },
+  {
+    name: 'LeadAnyMob',
+    desc: '玩家可用拴绳拴住任何生物。',
+  },
+  {
+    name: 'LargeBarrelPlugin',
+    mark: 'private',
+    desc: '背对背的木桶合并为大木桶，复刻 <a href="https://github.com/plusls/Carpet-TIS-Addition" target="_blank" rel="noopener noreferrer">Carpet TIS Addition</a> 的功能，并且适配 <a href="https://github.com/Snownee/Jade" target="_blank" rel="noopener noreferrer">Jade</a> 协议以显示整个大木桶的内容。',
+  },
+  {
+    name: 'NoteBlockChunkLoader',
+    mark: 'private',
+    desc: '音符盒骨块加载器，复刻 <a href="https://github.com/Geng-Ze/Carpet-AMS-Addition" target="_blank" rel="noopener noreferrer">Carpet AMS Addition</a> 的功能：在红石信号激活上方有骨块的音符盒时，为所在区块为中心的 3×3 区块添加等级为 31 的加载标签和计算标签，并且带有维度保活属性。本插件不是 <a href="https://github.com/MC-XiaoHei/NoteBlockChunkLoader" target="_blank" rel="noopener noreferrer">MC-XiaoHei 的 NoteBlockChunkLoader</a>，但提供的功能相似。',
+  },
+  {
+    name: 'LootingTNT',
+    mark: 'private',
+    desc: '非玩家激活的 TNT 带有抢夺标签。',
+  },
+  {
+    name: 'MineBedrock',
+    desc: '左键下界基岩平台上的基岩可转化为强化深板岩，右键转化回基岩。',
+  },
+  {
+    name: 'TropicalFishSpawnController',
+    desc: '使热带鱼的生成平均化，使所有种类的热带鱼都能够生成。',
+  },
+  {
+    name: 'DragonDeathSuppression',
+    mark: 'private',
+    desc: '简化末影龙死亡抑制。',
+  },
+  {
+    name: 'LodServerSupport',
+    mark: 'fork',
+    desc: '为客户端 <a href="https://github.com/Sollace/Voxy" target="_blank" rel="noopener noreferrer">Voxy</a> 提供 LOD 区块内容通信功能，需客户端安装 LOD Server Support 模组。',
+  },
+];
+
+const otherPrivate = ['UUIDRedirect', 'HastePotion', 'BarrierRecipePlugin'];
+const otherPlugins = ['LightSuicide', 'OpenInv', 'PaperExplosionResist'];
+const adminPlugins = [
+  'LuckPerms', 'WorldEdit', 'spark', 'TAB', 'ProtocolLib', 'CommandAPI',
+  'PlaceholderAPI', 'packetevents', 'bStats',
+];
+---
+
+<McWikiLayout
+  title="插件特性"
+  lead="由插件提供的玩法与功能。维度玩法（天境、暮色森林、后室）尚在开发阶段，可在测试服体验。"
+>
+  <article class="nz-acrylic mcw-card">
+    <h2 class="mcw-h2">标注说明</h2>
+    <p class="mcw-p">
+      <Badge tone="neutral" subtle>私有插件</Badge>
+      指由服主开发的适用于本服务器的插件，并且不进行分发；
+      <Badge tone="success" subtle>本地分支</Badge>
+      指为本服务器制作的插件分支版本。
+    </p>
+  </article>
+
+  <div class="mcw__plugins">
+    {featureCards.map((f) => (
+      <article class="nz-acrylic mcw-card mcw__plugin-card">
+        <h2 class="mcw-h2">{f.title}</h2>
+        <div class="mcw__plugin-src">
+          <span>{f.plugin}</span>
+          {f.tags.map((t) => <Badge tone={t.tone ?? 'neutral'} subtle>{t.text}</Badge>)}
+        </div>
+        <p class="mcw-p" set:html={f.desc} />
+      </article>
+    ))}
+  </div>
+
+  <article class="nz-acrylic mcw-card">
+    <h2 class="mcw-h2">其他在服插件</h2>
+    <ul class="mcw-rules">
+      {plugins.map((p) => (
+        <li>
+          <p class="mcw-rule-key">
+            <code>{p.name}</code>
+            <span class="mcw__plugin-badges">
+              {p.mark === 'private' && <Badge tone="neutral" subtle>私有插件</Badge>}
+              {p.mark === 'fork' && <Badge tone="success" subtle>本地分支</Badge>}
+            </span>
+          </p>
+          <p class="mcw-rule-desc" set:html={p.desc} />
+        </li>
+      ))}
+    </ul>
+    <p class="mcw-p">
+      此外，{otherPrivate.map((p, i) => (i === 0 ? p : `、${p}`))} 也为私有插件；
+      其余还有 {otherPlugins.map((p, i) => (i === 0 ? p : `、${p}`))} 等插件。
+    </p>
+    <p class="mcw-p">管理与依赖类：{adminPlugins.map((p, i) => (i === 0 ? p : `、${p}`))} 等。</p>
+  </article>
+
+  <div class="mcw-actions">
+    <Button href="/mcserver/gameplay">返回玩法介绍</Button>
+  </div>
+</McWikiLayout>
+
+<style>
+  .mcw__plugins {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--nz-space-4);
+  }
+  .mcw__plugin-card { gap: var(--nz-space-2); }
+  .mcw__plugin-src {
+    display: flex;
+    align-items: center;
+    gap: var(--nz-space-2);
+    flex-wrap: wrap;
+    font: var(--nz-font-caption);
+    color: var(--nz-text-tertiary);
+    letter-spacing: 0.04em;
+  }
+  .mcw__plugin-badges {
+    margin-left: auto;
+    display: inline-flex;
+    gap: var(--nz-space-2);
+  }
+</style>

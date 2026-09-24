@@ -1,152 +1,99 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
+import McWikiLayout from '../layouts/McWikiLayout.astro';
 import Button from '../components/Button.astro';
 import Badge from '../components/Badge.astro';
+import { mcWikiNav } from '../lib/mcWiki';
+
+// Section cards on the landing page: everything except the intro itself.
+const sections = mcWikiNav.filter((s) => s.href !== '/mcserver');
+const sectionDesc: Record<string, string> = {
+  群组: '加入交流群与申请白名单',
+  加入方式: '直连 / 虚拟局域网 / 内网穿透',
+  玩法: '生电、建筑与特色玩法',
+  特性: '服务端规则、协议兼容与插件',
+  机器: '服务器内的机器收录',
+  规定: '游玩规定与违规封禁措施',
+};
 ---
 
-<BaseLayout title="Minecraft 服务器" description="Nicrozoft 的 Minecraft Java 1.21 生存服务器。">
-  <Hero
-    eyebrow="MINECRAFT"
-    title="Nicrozoft 服务器"
-    subtitle="基于 Minecraft Java 1.21.11 的生存服务器，服务端为 Leaves，理论支持 Java 版 1.7.10 ~ 26.2，及基岩版 26.0 ~ 26.33 加入。"
-    variant="compact"
-  />
+<McWikiLayout
+  title="简介"
+  lead="基于 Minecraft Java 26.2 的生存服务器，服务端为自行维护的 Leaves 分支，理论支持 Java 版 1.7.10 ~ 26.3，及基岩版 26.30 ~ 26.51 加入。"
+>
+  <article class="nz-acrylic mcw-card">
+    <header class="mcw__head-badges">
+      <Badge tone="active" icon="●">已开服一年有余</Badge>
+      <Badge tone="series">Leaves 分支 · Java 26.2</Badge>
+    </header>
+    <h2 class="mcw-h2">简介</h2>
+    <p>
+      服务器主要玩法为生电和建筑，目前处于生电中期，已建造编码全物品、刷铁机、堆门猪人塔、三联试炼农场、空置域刷怪塔等机器，实现部分资源的量产。
+      目前也有富人刷冰机、二联神殿农场、百万溺尸塔等机器正在建设中。欢迎生电玩家前来帮助，也欢迎建筑玩家来建造独属于你的建筑！
+    </p>
+    <p>
+      服务器为半正版服，正版玩家加入服务器可以自动登录，离线玩家需要设置密码，后续进服需要进行密码验证。
+      非正版玩家(离线或 LittleSkin)如果和正版玩家重名则无法进服，需检查是否与正版用户名重复，如重复，需修改自己用户名。
+      服务器采用白名单制，进群后需要报告自己的 Minecraft 用户名以加入白名单。
+    </p>
+    <p>
+      加入白名单后，正版玩家可直接进服游玩；为防止使用同用户名盗号，离线玩家第一次进服需要设置密码，后续进服需要验证密码。
+      如后续转为同名正版账户，可执行 <code>/premium</code> 以切换到正版进服，不再需要验证密码。
+      如果更改用户名，需要联系服主 Nicrozoft 以进行玩家数据迁移。
+    </p>
+    <p><span class="warn">本服务器不欢迎故意破坏公共设施的玩家加入。如果你存在这类倾向，请移步无规则服务器。</span></p>
 
-  <section class="nz-section nz-container nz-stack nz-stack--xl">
-    <article class="nz-acrylic mc__card">
-      <header class="mc__head">
-        <Badge tone="active" icon="●">已开服一年有余</Badge>
-        <Badge tone="series">Leaves · Java 1.21.11</Badge>
-      </header>
-      <h2 class="nz-subtitle">简介</h2>
-      <p>
-        服务器主要玩法为生电和建筑，目前处于生电中期，已建造编码全物品、刷铁机、堆门猪人塔、三联试炼农场、空置域刷怪塔等机器，实现部分资源的量产。
-        目前也有富人刷冰机、二联神殿农场、百万溺尸塔等机器正在建设中。欢迎生电玩家前来帮助，也欢迎建筑玩家来建造独属于你的建筑！
-      </p>
-      <p>
-        服务器为半正版服，正版玩家加入服务器可以自动登录，离线玩家需要设置密码，后续进服需要进行密码验证。
-        非正版玩家(离线或 LittleSkin)如果和正版玩家重名则无法进服，需检查是否与正版用户名重复，如重复，需修改自己用户名。
-        服务器采用白名单制，进群后需要报告自己的 Minecraft 用户名以加入白名单。
-      </p>
-      <p>
-        加入白名单后，正版玩家可直接进服游玩；为防止使用同用户名盗号，离线玩家第一次进服需要设置密码，后续进服需要验证密码。
-        如后续转为同名正版账户，可执行 <code>/premium</code> 以切换到正版进服，不再需要验证密码。
-        如果更改用户名，需要联系服主 Nicrozoft 以进行玩家数据迁移。
-      </p>
-      <p><span class="warn">本服务器不欢迎故意破坏公共设施的玩家加入。如果你存在这类倾向，请移步无规则服务器。</span></p>
+    <div class="mcw-actions">
+      <Button href="/mcserver/group" variant="accent" size="lg">前往群组页</Button>
+      <Button href="/mcserver/join" size="lg">查看加入方式</Button>
+    </div>
+  </article>
 
-      <div class="mc__actions">
-        <Button href="https://qm.qq.com/q/wtOyMoiu6A" target="_blank" variant="accent" size="lg">
-          加入服务器交流群（QQ）
-        </Button>
-      </div>
-    </article>
-
-    <article class="nz-mica mc__card">
-      <h2 class="nz-subtitle">加入方式</h2>
-
-      <h3 class="nz-body-strong mc__method">EasyTier</h3>
-      <p>
-        你可以在 <a href="https://github.com/EasyTier/EasyTier/releases" target="_blank" rel="noopener noreferrer">EasyTier/EasyTier releases</a> 下载 EasyTier，随后加入虚拟网络：
-      </p>
-      <dl class="mc__props">
-        <div><dt>网络名称</dt><dd><code>Nicrozoft_Network</code></dd></div>
-        <div><dt>节点（手动设置）</dt><dd><code>tcp://et.sbgov.cn:11010</code></dd></div>
-        <div><dt>Java 版加入地址</dt><dd><code>et.nicrozoft.org</code></dd></div>
-        <div><dt>基岩版加入地址</dt><dd><code>et.nicrozoft.org</code>，端口 <code>23457</code></dd></div>
-      </dl>
-
-      <h3 class="nz-body-strong mc__method">Radmin</h3>
-      <p>你可以在 <a href="https://www.radmin-lan.cn" target="_blank" rel="noopener noreferrer">radmin-lan.cn</a> 下载，随后加入虚拟网络（私人网络）：</p>
-      <dl class="mc__props">
-        <div><dt>网络</dt><dd><code>Nicrozoft_Network</code></dd></div>
-        <div><dt>密码</dt><dd><code>123456</code></dd></div>
-        <div><dt>Java 版加入地址</dt><dd><code>ra.nicrozoft.org</code></dd></div>
-        <div><dt>基岩版加入地址</dt><dd><code>ra.nicrozoft.org</code>，端口 <code>23457</code></dd></div>
-      </dl>
-
-      <h3 class="nz-body-strong mc__method">OpenFrp</h3>
-      <p>此为内网穿透链接，可以直连，但可能存在较大延迟，该链接并不常开：</p>
-      <dl class="mc__props">
-        <div><dt>Java 版加入地址</dt><dd><code>cn-hk-bgp-4.ofalias.net:27452</code></dd></div>
-      </dl>
-    </article>
-
-    <article class="nz-acrylic mc__card">
-      <h2 class="nz-subtitle">玩法介绍</h2>
-      <p>服务器的玩法以原版生电及建筑为主，鼓励玩家建造机器或建筑，也有以下特殊玩法或功能：</p>
-      <ul class="mc__feat">
-        <li><strong>新人礼：</strong>第一次加入服务器可以找服主领取新人礼，包含全套钻石盔甲及武器工具、鞘翅、绿宝石等物资，后续自行建造一些项目也可以找服主领取部分材料。</li>
-        <li><strong>伪装：</strong>当你第一次杀死某种生物或某个玩家之后，你将具有其伪装，可以随时伪装为该生物或恢复自身，部分生物具有特殊属性或技能，如凋灵能够飞行，可以更加方便地对机器或建筑进行施工。</li>
-        <li><strong>领地：</strong>任何玩家都可以创建领地以保护自己的建筑或机器，可以设置其他玩家对自己领地的访问权限。</li>
-        <li><strong>高级附魔书：</strong>服务器里允许略高于原版等级上限的附魔书，可在铁砧中合成，同时解除了铁砧经验上限。</li>
-        <li><strong>假人：</strong>生电服的标配，可以用于生电机器挂机、区块加载等用途。请勿滥用！禁止频繁召唤假人用于 PVP 或者大量召唤无用假人增加服务器负担。</li>
-        <li><strong>新配方：</strong>服务器有强化深板岩和紫水晶母岩的合成配方。</li>
-      </ul>
-    </article>
-  </section>
-</BaseLayout>
+  <nav class="mcw__quick" aria-label="Wiki 目录">
+    {sections.map((s) => (
+      <a class="mcw__quick-card nz-lift" href={s.href ?? s.items?.[0].href}>
+        <span class="mcw__quick-title">{s.label}</span>
+        <span class="mcw__quick-desc">{sectionDesc[s.label]}</span>
+      </a>
+    ))}
+  </nav>
+</McWikiLayout>
 
 <style>
-  .mc__card {
-    padding: var(--nz-space-8);
+  .mcw__head-badges {
+    display: flex;
+    gap: var(--nz-space-2);
+    flex-wrap: wrap;
+    margin-bottom: var(--nz-space-2);
+  }
+  .mcw__quick {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--nz-space-3);
+  }
+  .mcw__quick-card {
     display: flex;
     flex-direction: column;
-    gap: var(--nz-space-3);
-    line-height: 1.7;
+    gap: 4px;
+    padding: var(--nz-space-4) var(--nz-space-5);
+    border-radius: var(--nz-radius-large);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-card);
+    text-decoration: none;
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      border-color var(--nz-duration-faster) var(--nz-easing-max);
   }
-  .mc__card > p { font: var(--nz-font-body-large); color: var(--nz-text-secondary); }
-  .mc__card p code {
-    font-family: var(--nz-font-family-mono);
-    font-size: 0.9em;
-    padding: 2px 6px;
-    border-radius: var(--nz-radius-small);
-    background: var(--nz-control-secondary);
-    border: 1px solid var(--nz-stroke-default);
+  .mcw__quick-card:hover {
+    background: var(--nz-subtle-tertiary);
+    border-color: color-mix(in srgb, var(--nz-accent-default) 40%, transparent);
+  }
+  .mcw__quick-title {
+    font: var(--nz-font-body-strong);
     color: var(--nz-text-primary);
   }
-  .mc__head { display: flex; gap: var(--nz-space-2); flex-wrap: wrap; margin-bottom: var(--nz-space-2); }
-  .mc__method { margin-top: var(--nz-space-4); color: var(--nz-accent-text); }
-  .mc__props {
-    margin: 0;
-    display: grid;
-    gap: var(--nz-space-2);
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  .mcw__quick-title::after { content: " →"; color: var(--nz-accent-text); }
+  .mcw__quick-desc {
+    font: var(--nz-font-caption);
+    color: var(--nz-text-tertiary);
   }
-  .mc__props > div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--nz-space-3);
-    border-radius: var(--nz-radius-medium);
-    background: var(--nz-subtle-secondary);
-    border: 1px solid var(--nz-stroke-default);
-  }
-  .mc__props dt { font: var(--nz-font-caption); color: var(--nz-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; }
-  .mc__props dd { margin: 0; font: var(--nz-font-body); }
-  .mc__props code {
-    font-family: var(--nz-font-family-mono);
-    font-size: 13px;
-    padding: 1px 6px;
-    border-radius: var(--nz-radius-small);
-    background: var(--nz-control-default);
-    border: 1px solid var(--nz-stroke-default);
-  }
-  .mc__feat {
-    margin: var(--nz-space-2) 0 0;
-    padding-left: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--nz-space-3);
-  }
-  .mc__feat li {
-    padding: var(--nz-space-3) var(--nz-space-4);
-    background: var(--nz-subtle-secondary);
-    border-left: 3px solid var(--nz-accent-default);
-    border-radius: 0 var(--nz-radius-medium) var(--nz-radius-medium) 0;
-  }
-  .mc__feat strong { color: var(--nz-accent-text); }
-  .mc__actions { margin-top: var(--nz-space-3); display: flex; gap: var(--nz-space-3); flex-wrap: wrap; }
 </style>

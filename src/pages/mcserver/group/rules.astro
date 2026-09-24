@@ -1,0 +1,19 @@
+---
+import McWikiLayout from '../../../layouts/McWikiLayout.astro';
+// Same rules document as the /group page — the server group shares it.
+import { Content as GroupRules } from '../../../data/group-rules.md';
+---
+
+<McWikiLayout title="群规" lead="服务器交流群与 Nicrozoft 产品测试及交流群共用以下群规。">
+  <article class="nz-acrylic mcw-card">
+    <div class="mcw-prose nz-prose">
+      <GroupRules />
+    </div>
+  </article>
+</McWikiLayout>
+
+<style>
+  .mcw-prose { max-width: none; }
+  .mcw-card :global(.nz-prose ol) { display: flex; flex-direction: column; gap: var(--nz-space-3); }
+  .mcw-card :global(.nz-prose li) { line-height: 1.75; }
+</style>

@@ -1,0 +1,67 @@
+---
+import McWikiLayout from '../../layouts/McWikiLayout.astro';
+
+const categories = [
+  {
+    href: '/mcserver/machines/natural',
+    title: '自然刷怪类',
+    desc: '基于自然刷怪机制的机器（刷怪塔、刷铁机等）。',
+  },
+  {
+    href: '/mcserver/machines/structure',
+    title: '结构利用类',
+    desc: '利用自然生成结构的机器（掠夺者前哨站、试炼密室等）。',
+  },
+  {
+    href: '/mcserver/machines/redstone',
+    title: '普通红石机器类',
+    desc: '全物品、门控、红石电路等常规红石机器。',
+  },
+];
+---
+
+<McWikiLayout title="机器" lead="收录服务器内的机器与大型工程，按类型分类整理。">
+  <nav class="mcw__cats" aria-label="机器分类">
+    {categories.map((c) => (
+      <a class="mcw__cat-card nz-lift" href={c.href}>
+        <span class="mcw__cat-title">{c.title}</span>
+        <span class="mcw__cat-desc">{c.desc}</span>
+      </a>
+    ))}
+  </nav>
+  <p class="mcw-p">本栏目正在建设中，各分类页面暂时为占位页面，详细信息将陆续补充。</p>
+</McWikiLayout>
+
+<style>
+  .mcw__cats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--nz-space-3);
+  }
+  .mcw__cat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--nz-space-5);
+    border-radius: var(--nz-radius-large);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-card);
+    text-decoration: none;
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      border-color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .mcw__cat-card:hover {
+    background: var(--nz-subtle-tertiary);
+    border-color: color-mix(in srgb, var(--nz-accent-default) 40%, transparent);
+  }
+  .mcw__cat-title {
+    font: var(--nz-font-subtitle);
+    color: var(--nz-text-primary);
+  }
+  .mcw__cat-title::after { content: " →"; color: var(--nz-accent-text); }
+  .mcw__cat-desc {
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+  }
+</style>
