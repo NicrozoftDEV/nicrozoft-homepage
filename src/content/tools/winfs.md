@@ -1,13 +1,21 @@
 ---
-title: "适用于 Vista 的 WinFS Beta 1"
-cover: "/img/winfs.jpg"
-hero: "/img/winvistatolh.png"
-status: "active"
+title: '适用于 Vista 的 WinFS Beta 1'
+cover: '/img/winfs.jpg'
+hero: '/img/winvistatolh.png'
+status: 'active'
 order: 10
-blurb: "适用于 Vista SP2 的 WinFS Beta 1"
+blurb: '适用于 Vista SP2 的 WinFS Beta 1'
 downloads:
-  - { label: "下载适用于 Vista 的 WinFS Beta 1", href: "https://pan.huang1111.cn/s/NZGQH1?path=%2FWinFS_for_Vista", kind: "archive" }
-  - { label: "观看 WinBetaUser 对此程序的讲解视频视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1he411B7Ju", kind: "link" }
+  - {
+      label: '下载适用于 Vista 的 WinFS Beta 1',
+      href: 'https://pan.huang1111.cn/s/NZGQH1?path=%2FWinFS_for_Vista',
+      kind: 'archive',
+    }
+  - {
+      label: '观看 WinBetaUser 对此程序的讲解视频视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1he411B7Ju',
+      kind: 'link',
+    }
 ---
 
 Nicrozoft 破解了 WinFS Beta 1 并使其可以在 Windows Vista SP2 上使用。

@@ -1,0 +1,27 @@
+---
+import MachineTag from './MachineTag.astro';
+import { machineTags, type MachineTagId } from '../lib/mcMachines';
+
+interface Props {
+  groups: { title: string; tags: MachineTagId[] }[];
+}
+const { groups } = Astro.props;
+---
+
+{groups.map((group) => <section class="tag-legend nz-stack nz-stack--md">
+  <h3 class="nz-body-strong">{group.title}</h3>
+  <ul class="tag-legend__list nz-stack nz-stack--md">
+    {group.tags.map((tag) => <li class="nz-row">
+      <MachineTag tag={tag} />
+      {machineTags[tag].hint && <span class="nz-caption">{machineTags[tag].hint}</span>}
+    </li>)}
+  </ul>
+</section>)}
+
+<style>
+  .tag-legend__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

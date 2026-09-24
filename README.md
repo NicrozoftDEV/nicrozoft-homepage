@@ -9,14 +9,9 @@ Built with [Astro](https://astro.build) and served on Cloudflare Workers.
 bun install
 bun run dev      # local dev server
 bun run build    # production build → dist/
+bun run format   # fix formatting across the repository
+bun run validate # formatting check, Astro/TypeScript check, production build
 ```
-
-## Deploy
-
-Pushes to `main` build and deploy via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
-(`astro build && wrangler deploy`). Requires repo secrets `CLOUDFLARE_API_TOKEN`
-(Workers Scripts + Workers Routes edit permissions on the zone) and
-`CLOUDFLARE_ACCOUNT_ID`. Trigger manually from the Actions tab if needed.
 
 ## License
 

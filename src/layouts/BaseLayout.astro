@@ -21,7 +21,7 @@ const fullTitle = title === 'Nicrozoft' ? title : `${title} · Nicrozoft`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.org').toString();
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-cn">
   <head>
     <meta charset="UTF-8" />
@@ -48,7 +48,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
          loaded, so without JS just drop the shimmer to reveal the image. -->
     <noscript>
       <style>
-        .nz-skel::before { display: none !important; }
+        .nz-skel::before {
+          display: none !important;
+        }
       </style>
     </noscript>
 
@@ -100,16 +102,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         if (!dlg) return;
         dlg.addEventListener('cancel', (e) => e.preventDefault());
         const ok = document.getElementById('nz-welcome-ok');
-        if (ok) ok.addEventListener('click', () => {
-          try { localStorage.setItem(KEY, '1'); } catch (e) {}
-          dlg.close();
-        });
+        if (ok)
+          ok.addEventListener('click', () => {
+            try {
+              localStorage.setItem(KEY, '1');
+            } catch (e) {}
+            dlg.close();
+          });
         let dismissed = false;
-        try { dismissed = localStorage.getItem(KEY) === '1'; } catch (e) {}
+        try {
+          dismissed = localStorage.getItem(KEY) === '1';
+        } catch (e) {}
         if (!dismissed && typeof dlg.showModal === 'function') dlg.showModal();
       })();
     </script>
-
     <!-- Status-filter controller: toggles card visibility by data-status, and
          hides any [data-filter-section] that ends up empty. -->
     <script is:inline>
@@ -117,8 +123,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         if (window.__nzFilterInit) return;
         window.__nzFilterInit = true;
         const apply = (root, val) => {
-          root.querySelectorAll('.nzfilter__btn').forEach((b) =>
-            b.setAttribute('aria-selected', String(b.dataset.filter === val)));
+          root
+            .querySelectorAll('.nzfilter__btn')
+            .forEach((b) => b.setAttribute('aria-selected', String(b.dataset.filter === val)));
           document.querySelectorAll('[data-status]').forEach((card) => {
             card.classList.toggle('is-hidden', !(val === 'all' || card.dataset.status === val));
           });
@@ -134,7 +141,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         });
       })();
     </script>
-
     <!-- Image skeleton: mark a .nz-skel wrapper as loaded so its shimmer fades
          out to reveal the image. load/error don't bubble, so capture them;
          sweep handles cache hits (incl. after view transitions). -->
@@ -152,14 +158,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         };
         document.addEventListener('load', hit, true);
         document.addEventListener('error', hit, true);
-        const sweep = () => document.querySelectorAll('.nz-skel img').forEach((img) => {
-          if (img.complete && img.naturalWidth > 0) done(img);
-        });
+        const sweep = () =>
+          document.querySelectorAll('.nz-skel img').forEach((img) => {
+            if (img.complete && img.naturalWidth > 0) done(img);
+          });
         sweep();
         document.addEventListener('astro:page-load', sweep);
       })();
     </script>
-
     <!-- Loading bar controller: show while a client-side navigation is in
          flight (between before-preparation and after-swap). -->
     <script is:inline>
@@ -187,7 +193,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         document.addEventListener('astro:page-load', done);
       })();
     </script>
-
     <!-- Tiny pointer tracker for the Fluent "reveal" hover effect on .nz-reveal -->
     <script is:inline>
       (() => {
@@ -202,7 +207,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         document.addEventListener('pointermove', onPointer, { passive: true });
       })();
     </script>
-
     <!-- Fluent/WinUI tooltip driver. A single floating element is appended to
          <body> (escaping card overflow:hidden) and positioned under whatever
          [data-tooltip] element is hovered/focused. Bound once; survives view
@@ -212,7 +216,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         if (window.__nzTooltipInit) return;
         window.__nzTooltipInit = true;
         const DELAY = 600;
-        let tip = null, timer = 0, current = null;
+        let tip = null,
+          timer = 0,
+          current = null;
 
         const ensure = () => {
           if (!tip || !tip.isConnected) {
@@ -240,7 +246,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
           const t = ensure();
           t.textContent = text;
           place(el);
-          requestAnimationFrame(() => { place(el); t.classList.add('is-visible'); });
+          requestAnimationFrame(() => {
+            place(el);
+            t.classList.add('is-visible');
+          });
           current = el;
         };
         const hide = () => {
@@ -264,7 +273,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         });
         document.addEventListener('focusin', (e) => {
           const el = e.target.closest && e.target.closest('[data-tooltip]');
-          if (el) { clearTimeout(timer); show(el); }
+          if (el) {
+            clearTimeout(timer);
+            show(el);
+          }
         });
         document.addEventListener('focusout', hide);
         document.addEventListener('scroll', hide, true);
@@ -272,7 +284,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         addEventListener('resize', hide);
       })();
     </script>
-
     <!-- Email de-obfuscation: addresses ship base64-encoded in [data-email] with
          no plaintext or mailto: in the markup. Decode + wire up the link here so
          scrapers reading the static HTML never see the address. -->
@@ -281,7 +292,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         const wire = () => {
           document.querySelectorAll('[data-email]').forEach((el) => {
             let addr = '';
-            try { addr = atob(el.getAttribute('data-email')); } catch { return; }
+            try {
+              addr = atob(el.getAttribute('data-email'));
+            } catch {
+              return;
+            }
             if (!addr) return;
             if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + addr);
             if (el.hasAttribute('data-email-reveal')) el.textContent = addr;
@@ -293,7 +308,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
         document.addEventListener('astro:page-load', wire);
       })();
     </script>
-
     <!-- Mobile menu controller: syncs aria-expanded + body scroll-lock, and
          closes the menu on link tap, navigation, or resize back to desktop.
          The nav is transition:persist'd, so the checkbox state would otherwise
@@ -309,7 +323,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
           if (t) t.setAttribute('aria-expanded', String(open));
           document.body.classList.toggle('nav-open', open);
         };
-        const close = () => { const t = toggle(); if (t && t.checked) { t.checked = false; } sync(); };
+        const close = () => {
+          const t = toggle();
+          if (t && t.checked) {
+            t.checked = false;
+          }
+          sync();
+        };
         document.addEventListener('change', (e) => {
           if (e.target && e.target.id === 'nav-toggle') sync();
         });
@@ -317,10 +337,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
           if (e.target.closest && e.target.closest('.nav__links a')) close();
         });
         document.addEventListener('astro:page-load', close);
-        addEventListener('resize', () => { if (innerWidth > 880) close(); });
+        addEventListener('resize', () => {
+          if (innerWidth > 880) close();
+        });
       })();
     </script>
-
     <!-- Re-sync the TopNav active link on client-side navigation. The nav is
          transition:persist'd, so its server-rendered .nav__link--active class
          doesn't update on its own. -->
@@ -354,7 +375,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
     border-radius: var(--nz-radius-medium);
     z-index: 100;
   }
-  .skip-link:focus { left: var(--nz-space-3); top: var(--nz-space-3); }
+  .skip-link:focus {
+    left: var(--nz-space-3);
+    top: var(--nz-space-3);
+  }
 
   main {
     min-height: calc(100vh - 56px - 280px);
@@ -376,14 +400,27 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
   }
-  .nz-cdialog__content { padding: var(--nz-space-6) var(--nz-space-6) var(--nz-space-5); }
-  .nz-cdialog__title { font: var(--nz-font-subtitle); margin: 0 0 var(--nz-space-3); }
-  .nz-cdialog__text { font: var(--nz-font-body); color: var(--nz-text-secondary); line-height: 1.6; margin: 0; }
+  .nz-cdialog__content {
+    padding: var(--nz-space-6) var(--nz-space-6) var(--nz-space-5);
+  }
+  .nz-cdialog__title {
+    font: var(--nz-font-subtitle);
+    margin: 0 0 var(--nz-space-3);
+  }
+  .nz-cdialog__text {
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
   .nz-cdialog__text a {
     color: var(--nz-accent-text);
     border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
   }
-  .nz-cdialog__commands { display: flex; padding: var(--nz-space-2) var(--nz-space-6) var(--nz-space-6); }
+  .nz-cdialog__commands {
+    display: flex;
+    padding: var(--nz-space-2) var(--nz-space-6) var(--nz-space-6);
+  }
   .nz-cdialog__btn {
     flex: 1;
     padding: var(--nz-space-3) var(--nz-space-5);
@@ -393,21 +430,51 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
     color: var(--nz-text-on-accent);
     font: var(--nz-font-body-strong);
     cursor: pointer;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.25);
     transition: background var(--nz-duration-faster) var(--nz-easing-max);
   }
-  .nz-cdialog__btn:hover { background: var(--nz-accent-secondary); }
-  .nz-cdialog__btn:active { background: var(--nz-accent-tertiary); transform: translateY(1px); }
-  .nz-cdialog__btn:focus-visible { outline: 2px solid var(--nz-stroke-focus); outline-offset: 2px; }
-  .nz-cdialog[open] { animation: nz-cdialog-in var(--nz-duration-normal) var(--nz-easing-max); }
-  .nz-cdialog[open]::backdrop { animation: nz-cdialog-fade var(--nz-duration-normal) ease; }
-  @keyframes nz-cdialog-in {
-    from { opacity: 0; transform: scale(0.95) translateY(10px); }
-    to { opacity: 1; transform: none; }
+  .nz-cdialog__btn:hover {
+    background: var(--nz-accent-secondary);
   }
-  @keyframes nz-cdialog-fade { from { opacity: 0; } to { opacity: 1; } }
+  .nz-cdialog__btn:active {
+    background: var(--nz-accent-tertiary);
+    transform: translateY(1px);
+  }
+  .nz-cdialog__btn:focus-visible {
+    outline: 2px solid var(--nz-stroke-focus);
+    outline-offset: 2px;
+  }
+  .nz-cdialog[open] {
+    animation: nz-cdialog-in var(--nz-duration-normal) var(--nz-easing-max);
+  }
+  .nz-cdialog[open]::backdrop {
+    animation: nz-cdialog-fade var(--nz-duration-normal) ease;
+  }
+  @keyframes nz-cdialog-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes nz-cdialog-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .nz-cdialog[open], .nz-cdialog[open]::backdrop { animation: none; }
+    .nz-cdialog[open],
+    .nz-cdialog[open]::backdrop {
+      animation: none;
+    }
   }
 
   /* WinUI-style indeterminate loading bar (top of viewport, above everything) */
@@ -423,7 +490,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
     opacity: 0;
     transition: opacity var(--nz-duration-fast) var(--nz-easing-max);
   }
-  .nz-progress.is-active { opacity: 1; }
+  .nz-progress.is-active {
+    opacity: 1;
+  }
   .nz-progress.is-done {
     opacity: 0;
     transition: opacity var(--nz-duration-normal) var(--nz-easing-max);
@@ -442,19 +511,36 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://nicrozoft.o
     animation: nz-progress-sweep 1.3s var(--nz-easing-max) infinite;
   }
   @keyframes nz-progress-sweep {
-    0%   { left: -45%; width: 45%; }
-    55%  { left: 30%;  width: 55%; }
-    100% { left: 100%; width: 45%; }
+    0% {
+      left: -45%;
+      width: 45%;
+    }
+    55% {
+      left: 30%;
+      width: 55%;
+    }
+    100% {
+      left: 100%;
+      width: 45%;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     /* Avoid the travelling sweep — show a gently pulsing full-width bar instead */
-    .nz-progress__bar { left: 0; width: 100%; }
+    .nz-progress__bar {
+      left: 0;
+      width: 100%;
+    }
     .nz-progress.is-active .nz-progress__bar {
       animation: nz-progress-pulse 1.2s ease-in-out infinite;
     }
     @keyframes nz-progress-pulse {
-      0%, 100% { opacity: 0.45; }
-      50% { opacity: 1; }
+      0%,
+      100% {
+        opacity: 0.45;
+      }
+      50% {
+        opacity: 1;
+      }
     }
   }
 </style>

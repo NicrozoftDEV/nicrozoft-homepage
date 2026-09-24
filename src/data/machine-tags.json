@@ -1,0 +1,81 @@
+{
+  "tier1": {
+    "label": "I 类",
+    "icon": "▁",
+    "tone": "neutral",
+    "hint": "效率 < 5 万"
+  },
+  "tier2": {
+    "label": "II 类",
+    "icon": "▄",
+    "tone": "neutral",
+    "hint": "效率 10 万 ~ 100 万"
+  },
+  "tier3": {
+    "label": "III 类",
+    "icon": "█",
+    "tone": "neutral",
+    "hint": "效率 > 100 万"
+  },
+  "produce": {
+    "label": "生产",
+    "icon": "⛏",
+    "tone": "neutral"
+  },
+  "process": {
+    "label": "加工",
+    "icon": "⚙",
+    "tone": "neutral"
+  },
+  "storage": {
+    "label": "存储",
+    "icon": "📦",
+    "tone": "neutral"
+  },
+  "unique": {
+    "label": "独有产物",
+    "icon": "✪",
+    "tone": "accent"
+  },
+  "precious": {
+    "label": "珍贵产物",
+    "icon": "💎",
+    "tone": "accent"
+  },
+  "largeRedstone": {
+    "label": "大型红石机器",
+    "icon": "⚡",
+    "tone": "neutral"
+  },
+  "lagExclusive": {
+    "label": "高卡独占",
+    "icon": "⚠",
+    "tone": "critical",
+    "hint": "卡顿高，为防止掉刻，开启时不建议同时开启其它机器"
+  },
+  "lowLag": {
+    "label": "低卡高效",
+    "icon": "🌱",
+    "tone": "success"
+  },
+  "active": {
+    "label": "现役机器",
+    "icon": "●",
+    "tone": "success"
+  },
+  "retired": {
+    "label": "退役机器",
+    "icon": "○",
+    "tone": "neutral"
+  },
+  "demolish": {
+    "label": "待拆除",
+    "icon": "✕",
+    "tone": "critical"
+  },
+  "building": {
+    "label": "建造中",
+    "icon": "⏳",
+    "tone": "caution"
+  }
+}

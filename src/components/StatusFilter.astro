@@ -12,16 +12,18 @@ const { statuses, class: className = '' } = Astro.props;
 const present = ORDER.filter((s) => statuses.includes(s));
 ---
 
-{present.length >= 2 && (
-  <div class:list={['nzfilter', className]} role="tablist" aria-label="按状态筛选">
-    <button class="nzfilter__btn" type="button" role="tab" data-filter="all" aria-selected="true">全部</button>
-    {present.map((s) => (
-      <button class={`nzfilter__btn nzfilter__btn--${s}`} type="button" role="tab" data-filter={s} aria-selected="false">
-        {LABELS[s]}
-      </button>
-    ))}
-  </div>
-)}
+{present.length >= 2 && <div class:list={['nzfilter', className]} role="tablist" aria-label="按状态筛选">
+  <button class="nzfilter__btn" type="button" role="tab" data-filter="all" aria-selected="true">全部</button>
+  {present.map((s) => <button
+    class={`nzfilter__btn nzfilter__btn--${s}`}
+    type="button"
+    role="tab"
+    data-filter={s}
+    aria-selected="false"
+  >
+    {LABELS[s]}
+  </button>)}
+</div>}
 
 <style>
   .nzfilter {
@@ -47,7 +49,10 @@ const present = ORDER.filter((s) => statuses.includes(s));
       background var(--nz-duration-faster) var(--nz-easing-max),
       color var(--nz-duration-faster) var(--nz-easing-max);
   }
-  .nzfilter__btn:hover { background: var(--nz-control-default); color: var(--nz-text-primary); }
+  .nzfilter__btn:hover {
+    background: var(--nz-control-default);
+    color: var(--nz-text-primary);
+  }
   .nzfilter__btn[aria-selected='true'] {
     background: var(--nz-accent-default);
     color: var(--nz-accent-foreground);

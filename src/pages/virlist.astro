@@ -5,8 +5,7 @@ import Hero from '../components/Hero.astro';
 import Card from '../components/Card.astro';
 import StatusFilter from '../components/StatusFilter.astro';
 
-const entries = (await getCollection('virus', ({ data }) => !data.draft))
-  .sort((a, b) => a.data.order - b.data.order);
+const entries = (await getCollection('virus', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
 const statuses = [...new Set(entries.map((e) => e.data.status))];
 ---
 
@@ -23,9 +22,7 @@ const statuses = [...new Set(entries.map((e) => e.data.status))];
       <p class="nz-body-strong">
         <span class="warn">⚠ 警告：此处所列的病毒仅供学习与研究用途。请勿在他人计算机或物理机器上运行。</span>
       </p>
-      <p class="nz-body nz-text-secondary">
-        所有内容由 Nicrozoft 独立制作。任何因运行造成的损失，由运行者自行承担。
-      </p>
+      <p class="nz-body nz-text-secondary">所有内容由 Nicrozoft 独立制作。任何因运行造成的损失，由运行者自行承担。</p>
     </div>
 
     <StatusFilter statuses={statuses} />

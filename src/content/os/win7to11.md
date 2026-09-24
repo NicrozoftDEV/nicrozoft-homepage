@@ -1,17 +1,21 @@
 ---
-title: "Windows 7 仿 Windows 11"
-cover: "/img/7to11.png"
-hero: "/img/win7to11.png"
-status: "planned"
+title: 'Windows 7 仿 Windows 11'
+cover: '/img/7to11.png'
+hero: '/img/win7to11.png'
+status: 'planned'
 order: 90
-blurb: "Windows 7 仿 Windows 11"
+blurb: 'Windows 7 仿 Windows 11'
 downloads:
-  - { label: "123 网盘链接", href: "https://www.123912.com/s/kb7cjv-Nsve3", kind: "iso" }
-  - { label: "123 网盘链接 （备用链接）", href: "https://www.123865.com/s/kb7cjv-Nsve3", kind: "iso" }
-  - { label: "123 网盘链接", href: "https://www.123912.com/s/kb7cjv-Osve3", kind: "archive" }
-  - { label: "123 网盘链接 （备用链接）", href: "https://www.123865.com/s/kb7cjv-Osve3", kind: "archive" }
-  - { label: "下载截图", href: "/img/win7to11.png", kind: "image" }
-  - { label: "观看 WinBetaUser 为此系统的 2.0 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1Bp421U7zB", kind: "link" }
+  - { label: '123 网盘链接', href: 'https://www.123912.com/s/kb7cjv-Nsve3', kind: 'iso' }
+  - { label: '123 网盘链接 （备用链接）', href: 'https://www.123865.com/s/kb7cjv-Nsve3', kind: 'iso' }
+  - { label: '123 网盘链接', href: 'https://www.123912.com/s/kb7cjv-Osve3', kind: 'archive' }
+  - { label: '123 网盘链接 （备用链接）', href: 'https://www.123865.com/s/kb7cjv-Osve3', kind: 'archive' }
+  - { label: '下载截图', href: '/img/win7to11.png', kind: 'image' }
+  - {
+      label: '观看 WinBetaUser 为此系统的 2.0 版本制作的测评视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1Bp421U7zB',
+      kind: 'link',
+    }
 ---
 
 Windows 7 仿 Windows 11。

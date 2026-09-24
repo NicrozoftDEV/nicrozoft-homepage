@@ -1,85 +1,48 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { mcWikiNav, normalizeWikiPath } from '../lib/mcWiki';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import McWikiNav from '../components/McWikiNav.astro';
+import type { McWikiSection } from '../lib/mcWiki';
 
 interface Props {
   title: string;
+  navigation: McWikiSection[];
   description?: string;
   /** One-line lead shown under the page title. */
   lead?: string;
 }
 
-const { title, description, lead } = Astro.props;
-const current = normalizeWikiPath(Astro.url.pathname);
-
-const isActive = (href: string) => current === href;
-
-// A section is "expanded" (children always visible) when the current page is
-// inside it — the wiki is small enough to keep every section open, so children
-// render unconditionally; this flag only styles the section heading.
-const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
-  (s.href && isActive(s.href)) || (s.items?.some((i) => isActive(i.href)) ?? false);
+const { title, description, lead, navigation } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description ?? 'Nicrozoft 的 Minecraft 生存服务器 Wiki。'}>
-  <div class="mcw">
-    <!-- Site-level breadcrumb sits ABOVE the wiki-local sidebar: it belongs to
-         the whole site, while the sidebar only covers the /mcserver wiki. -->
-    <nav class="mcw__crumbs" aria-label="页面路径">
-      <a href="/">主页</a><span aria-hidden="true">/</span>
-      <a href="/mcserver">Minecraft 服务器</a><span aria-hidden="true">/</span>
-      <span>{title}</span>
-    </nav>
+  <div class="mcw nz-container">
+    <Breadcrumb
+      items={[{ label: '主页', href: '/' }, { label: 'Minecraft 服务器', href: '/mcserver' }, { label: title }]}
+    />
 
     <div class="mcw__row">
-    <!-- Mobile nav: collapsible page menu (hidden on desktop) -->
-    <details class="mcw__toc-m">
-      <summary>页面导航</summary>
-      <nav class="mcw__nav" aria-label="Minecraft 服务器 Wiki 导航">
-        {mcWikiNav.map((s) => (
-          <div class="mcw__nav-group">
-            {s.href ? (
-              <a class:list={['mcw__nav-link', 'mcw__nav-link--top', isActive(s.href) && 'is-active']} href={s.href}>{s.label}</a>
-            ) : (
-              <p class:list={['mcw__nav-head', sectionActive(s) && 'is-active']}>{s.label}</p>
-            )}
-            {s.items?.map((i) => (
-              <a class:list={['mcw__nav-link', isActive(i.href) && 'is-active']} href={i.href}>{i.label}</a>
-            ))}
-          </div>
-        ))}
-      </nav>
-    </details>
+      <!-- Mobile nav: collapsible page menu (hidden on desktop) -->
+      <details class="mcw__toc-m">
+        <summary>页面导航</summary>
+        <McWikiNav sections={navigation} />
+      </details>
 
-    <!-- Desktop sidebar -->
-    <aside class="mcw__side">
-      <nav class="mcw__nav" aria-label="Minecraft 服务器 Wiki 导航">
-        <p class="mcw__nav-title">Nicrozoft 服务器 Wiki</p>
-        {mcWikiNav.map((s) => (
-          <div class="mcw__nav-group">
-            {s.href ? (
-              <a class:list={['mcw__nav-link', 'mcw__nav-link--top', isActive(s.href) && 'is-active']} href={s.href}>{s.label}</a>
-            ) : (
-              <p class:list={['mcw__nav-head', sectionActive(s) && 'is-active']}>{s.label}</p>
-            )}
-            {s.items?.map((i) => (
-              <a class:list={['mcw__nav-link', isActive(i.href) && 'is-active']} href={i.href}>{i.label}</a>
-            ))}
-          </div>
-        ))}
-      </nav>
-    </aside>
+      <!-- Desktop sidebar -->
+      <aside class="mcw__side">
+        <McWikiNav title="Nicrozoft 服务器 Wiki" sections={navigation} />
+      </aside>
 
-    <div class="mcw__main">
-      <header class="mcw__head">
-        <h1 class="mcw__title">{title}</h1>
-        {lead && <p class="mcw__lead">{lead}</p>}
-      </header>
+      <div class="mcw__main">
+        <header class="mcw__head">
+          <h1 class="mcw__title nz-gradient-text">{title}</h1>
+          {lead && <p class="mcw__lead">{lead}</p>}
+        </header>
 
-      <div class="mcw__body">
-        <slot />
+        <div class="mcw__body">
+          <slot />
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </BaseLayout>
@@ -89,9 +52,7 @@ const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
     display: flex;
     flex-direction: column;
     gap: var(--nz-space-5);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--nz-space-8) var(--nz-space-6) var(--nz-space-12);
+    padding-block: var(--nz-space-10) var(--nz-space-12);
   }
   .mcw__row {
     display: grid;
@@ -104,77 +65,21 @@ const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
       padding-top: var(--nz-space-6);
       gap: var(--nz-space-4);
     }
-    .mcw__row { grid-template-columns: 1fr; }
+    .mcw__row {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ---- Sidebar (desktop) ---- */
-  .mcw__side { position: sticky; top: 84px; display: none; }
+  .mcw__side {
+    position: sticky;
+    top: 84px;
+    display: none;
+  }
   @media (min-width: 921px) {
-    .mcw__side { display: block; }
-  }
-
-  .mcw__nav {
-    display: flex;
-    flex-direction: column;
-    gap: var(--nz-space-4);
-    padding: var(--nz-space-5) var(--nz-space-4);
-    border-radius: var(--nz-radius-large);
-    background: var(--nz-subtle-secondary);
-    border: 1px solid var(--nz-stroke-card);
-  }
-  .mcw__nav-title {
-    font: var(--nz-font-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--nz-text-tertiary);
-    padding: 0 var(--nz-space-2);
-  }
-  .mcw__nav-group { display: flex; flex-direction: column; gap: 2px; }
-  .mcw__nav-head {
-    margin: 0;
-    padding: 6px var(--nz-space-2) 2px;
-    font: var(--nz-font-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--nz-text-tertiary);
-  }
-  .mcw__nav-head.is-active { color: var(--nz-accent-text); }
-  .mcw__nav-link {
-    display: block;
-    padding: 6px var(--nz-space-2) 6px var(--nz-space-3);
-    border-radius: var(--nz-radius-medium);
-    font: var(--nz-font-body);
-    color: var(--nz-text-secondary);
-    text-decoration: none;
-    border-left: 2px solid transparent;
-    transition:
-      background var(--nz-duration-faster) var(--nz-easing-max),
-      color var(--nz-duration-faster) var(--nz-easing-max);
-  }
-  .mcw__nav-link:hover {
-    background: var(--nz-subtle-tertiary);
-    color: var(--nz-text-primary);
-  }
-  /* Standalone sections (no sub-pages) share the group-heading typography so
-     every section label reads at the same visual weight, whether linked or not. */
-  .mcw__nav-link--top {
-    font: var(--nz-font-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--nz-text-tertiary);
-    padding: 6px var(--nz-space-2);
-  }
-  .mcw__nav-link--top:hover {
-    background: transparent;
-    color: var(--nz-text-primary);
-  }
-  .mcw__nav-link.is-active {
-    background: color-mix(in srgb, var(--nz-accent-default) 12%, transparent);
-    border-left-color: var(--nz-accent-default);
-    color: var(--nz-accent-text);
+    .mcw__side {
+      display: block;
+    }
   }
 
   /* ---- Mobile TOC ---- */
@@ -184,7 +89,9 @@ const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
     border-radius: var(--nz-radius-large);
   }
   @media (min-width: 921px) {
-    .mcw__toc-m { display: none; }
+    .mcw__toc-m {
+      display: none;
+    }
   }
   .mcw__toc-m > summary {
     cursor: pointer;
@@ -197,45 +104,51 @@ const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
     align-items: center;
     gap: var(--nz-space-2);
   }
-  .mcw__toc-m > summary::-webkit-details-marker { display: none; }
+  .mcw__toc-m > summary::-webkit-details-marker {
+    display: none;
+  }
   .mcw__toc-m > summary::before {
-    content: "☰";
+    content: '☰';
     color: var(--nz-text-tertiary);
     font-size: 13px;
   }
-  .mcw__toc-m[open] > summary { border-bottom: 1px solid var(--nz-stroke-default); }
-  .mcw__toc-m .mcw__nav { border: none; border-radius: 0; background: transparent; max-height: 60vh; overflow-y: auto; }
+  .mcw__toc-m[open] > summary {
+    border-bottom: 1px solid var(--nz-stroke-default);
+  }
+  .mcw__toc-m :global(.wiki-nav) {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
 
   /* ---- Main column ---- */
-  .mcw__main { min-width: 0; display: flex; flex-direction: column; gap: var(--nz-space-6); }
+  .mcw__main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-6);
+  }
   /* Vertical rhythm between the page's top-level blocks (cards, grids, lists). */
   .mcw__body {
     display: flex;
     flex-direction: column;
     gap: var(--nz-space-6);
   }
-  .mcw__head { display: flex; flex-direction: column; gap: var(--nz-space-2); }
-  .mcw__crumbs {
+  .mcw__head {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
     gap: var(--nz-space-2);
-    font: var(--nz-font-caption);
-    color: var(--nz-text-tertiary);
   }
-  .mcw__crumbs a { color: var(--nz-text-tertiary); text-decoration: none; }
-  .mcw__crumbs a:hover { color: var(--nz-accent-text); }
-  .mcw__crumbs span:last-child { color: var(--nz-text-secondary); }
   .mcw__title {
     font: var(--nz-font-title-large);
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--nz-text-primary), color-mix(in srgb, var(--nz-accent-default) 50%, var(--nz-text-primary)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
   }
   @media (max-width: 700px) {
-    .mcw__title { font: var(--nz-font-title); }
+    .mcw__title {
+      font: var(--nz-font-title);
+    }
   }
   .mcw__lead {
     font: var(--nz-font-body-large);
@@ -255,170 +168,23 @@ const sectionActive = (s: { href?: string; items?: { href: string }[] }) =>
     line-height: 1.7;
   }
   @media (max-width: 700px) {
-    .mcw__body :global(.mcw-card) { padding: var(--nz-space-5); }
+    .mcw__body :global(.mcw-card) {
+      padding: var(--nz-space-5);
+    }
   }
-  .mcw__body :global(.mcw-card > p),
-  .mcw__body :global(.mcw-p) {
-    font: var(--nz-font-body-large);
-    color: var(--nz-text-secondary);
+  .mcw__body :global(.nz-prose) {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
-  .mcw__body :global(.mcw-h2) {
-    font: var(--nz-font-subtitle);
-    color: var(--nz-text-primary);
-    margin: var(--nz-space-2) 0 0;
+  .mcw__body :global(.nz-prose > :first-child) {
+    margin-top: 0;
   }
-  .mcw__body :global(.mcw-h3) {
-    font: var(--nz-font-body-strong);
-    color: var(--nz-accent-text);
-    margin: var(--nz-space-4) 0 0;
-  }
-  .mcw__body :global(code) {
-    font-family: var(--nz-font-family-mono);
-    font-size: 0.9em;
-    padding: 2px 6px;
-    border-radius: var(--nz-radius-small);
-    background: var(--nz-control-secondary);
-    border: 1px solid var(--nz-stroke-default);
-    color: var(--nz-text-primary);
-  }
-  /* Body link color — exclude .btn so accent buttons keep their white label. */
-  .mcw__body :global(a:not(.btn)) { color: var(--nz-accent-text); }
-
-  /* Link direction markers inside wiki prose (cards/buttons excluded):
-     internal links end with "→"; external links carry a small "↗" pinned to
-     the bottom-right corner of the link box. */
-  .mcw__body :global(a:not(.btn):not(.mcw__quick-card):not(.mcw__cat-card):not([target="_blank"]))::after {
-    content: "→";
-    margin-left: 3px;
-    font-size: 0.8em;
-    text-decoration: none;
+  .mcw__body :global(.nz-prose a:not([target='_blank']))::after {
+    content: ' →';
     color: var(--nz-text-tertiary);
   }
-  .mcw__body :global(a:not(.btn):not(.mcw__quick-card):not(.mcw__cat-card)[target="_blank"]) {
-    position: relative;
-    /* reserve room for the corner mark so it never overlaps following text */
-    margin-right: 0.7em;
-  }
-  .mcw__body :global(a:not(.btn):not(.mcw__quick-card):not(.mcw__cat-card)[target="_blank"])::after {
-    content: "↗";
-    position: absolute;
-    right: -0.75em;
-    bottom: 0;
-    font-size: 0.62em;
-    line-height: 1;
-    text-decoration: none;
+  .mcw__body :global(.nz-prose a[target='_blank'])::after {
+    content: ' ↗';
     color: var(--nz-text-tertiary);
-  }
-
-  /* Definition grid for address/connection cards */
-  .mcw__body :global(.mcw-props) {
-    margin: 0;
-    display: grid;
-    gap: var(--nz-space-2);
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-  .mcw__body :global(.mcw-props > div) {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--nz-space-3);
-    border-radius: var(--nz-radius-medium);
-    background: var(--nz-subtle-secondary);
-    border: 1px solid var(--nz-stroke-default);
-  }
-  .mcw__body :global(.mcw-props dt) {
-    font: var(--nz-font-caption);
-    color: var(--nz-text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .mcw__body :global(.mcw-props dd) { margin: 0; font: var(--nz-font-body); }
-
-  /* Feature list (玩法 highlights) */
-  .mcw__body :global(.mcw-feat) {
-    margin: var(--nz-space-2) 0 0;
-    padding-left: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--nz-space-3);
-  }
-  .mcw__body :global(.mcw-feat li) {
-    padding: var(--nz-space-3) var(--nz-space-4);
-    background: var(--nz-subtle-secondary);
-    border-left: 3px solid var(--nz-accent-default);
-    border-radius: 0 var(--nz-radius-medium) var(--nz-radius-medium) 0;
-    font: var(--nz-font-body);
-    color: var(--nz-text-secondary);
-  }
-  .mcw__body :global(.mcw-feat strong) { color: var(--nz-accent-text); }
-
-  .mcw__body :global(.mcw-actions) {
-    margin-top: var(--nz-space-3);
-    display: flex;
-    gap: var(--nz-space-3);
-    flex-wrap: wrap;
-  }
-
-  /* Rule entry rows (特性 pages): key + description + optional badge */
-  .mcw__body :global(.mcw-rules) {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--nz-space-2);
-  }
-  .mcw__body :global(.mcw-rules > li) {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--nz-space-3) var(--nz-space-4);
-    border-radius: var(--nz-radius-medium);
-    background: var(--nz-subtle-secondary);
-    border: 1px solid var(--nz-stroke-default);
-  }
-  .mcw__body :global(.mcw-rule-key) {
-    display: flex;
-    align-items: center;
-    gap: var(--nz-space-2);
-    flex-wrap: wrap;
-    row-gap: 4px;
-  }
-  .mcw__body :global(.mcw-rule-key code) { font-size: 13px; }
-  .mcw__body :global(.mcw-rule-desc) {
-    font: var(--nz-font-body);
-    color: var(--nz-text-secondary);
-  }
-
-  /* 规定 pages: nested ordered lists */
-  .mcw__body :global(.mcw-law) {
-    margin: 0;
-    padding-left: 26px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--nz-space-3);
-    font: var(--nz-font-body);
-    color: var(--nz-text-primary);
-  }
-  .mcw__body :global(.mcw-law li)::marker { color: var(--nz-accent-text); font-weight: 600; }
-  .mcw__body :global(.mcw-law-sub) {
-    margin: var(--nz-space-2) 0 0;
-    padding-left: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--nz-space-2);
-    font: var(--nz-font-body);
-    color: var(--nz-text-secondary);
-  }
-  .mcw__body :global(.mcw-law-sub li) {
-    padding-left: 24px;
-    text-indent: -24px;
-  }
-  .mcw__body :global(.mcw-law-note) {
-    margin-top: var(--nz-space-2);
-    font: var(--nz-font-body);
-    color: var(--nz-text-secondary);
   }
 </style>

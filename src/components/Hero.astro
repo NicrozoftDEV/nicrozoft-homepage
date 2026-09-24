@@ -15,27 +15,23 @@ const { eyebrow, title, subtitle, image, variant = 'default', plain = false } = 
 ---
 
 <section class:list={['hero', `hero--${variant}`, plain && 'hero--plain']}>
-  {!plain && (
-    <div class="hero__aurora" aria-hidden="true">
-      <span class="hero__orb hero__orb--1"></span>
-      <span class="hero__orb hero__orb--2"></span>
-      <span class="hero__orb hero__orb--3"></span>
-    </div>
-  )}
+  {!plain && <div class="hero__aurora" aria-hidden="true">
+    <span class="hero__orb hero__orb--1"></span>
+    <span class="hero__orb hero__orb--2"></span>
+    <span class="hero__orb hero__orb--3"></span>
+  </div>}
 
   <div class="nz-container hero__inner">
     <div class="hero__text">
       {eyebrow && <span class="nz-eyebrow">{eyebrow}</span>}
-      <h1 class="hero__title">{title}</h1>
+      <h1 class="hero__title nz-gradient-text">{title}</h1>
       {subtitle && <p class="hero__subtitle">{subtitle}</p>}
       <slot name="actions" />
     </div>
 
-    {image && (
-      <div class="hero__media nz-skel">
-        <img src={image} alt="" loading="eager" decoding="async" />
-      </div>
-    )}
+    {image && <div class="hero__media nz-skel">
+      <img src={image} alt="" loading="eager" decoding="async" />
+    </div>}
   </div>
 </section>
 
@@ -48,7 +44,9 @@ const { eyebrow, title, subtitle, image, variant = 'default', plain = false } = 
   .hero--compact {
     padding-block: var(--nz-space-12) var(--nz-space-8);
   }
-  .hero--plain { padding-block: var(--nz-space-10) var(--nz-space-6); }
+  .hero--plain {
+    padding-block: var(--nz-space-10) var(--nz-space-6);
+  }
 
   .hero__inner {
     display: grid;
@@ -73,13 +71,12 @@ const { eyebrow, title, subtitle, image, variant = 'default', plain = false } = 
   .hero__title {
     font: var(--nz-font-title-large);
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--nz-text-primary), color-mix(in srgb, var(--nz-accent-default) 50%, var(--nz-text-primary)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
   }
   @media (min-width: 700px) {
-    .hero__title { font: var(--nz-font-display); letter-spacing: -0.025em; }
+    .hero__title {
+      font: var(--nz-font-display);
+      letter-spacing: -0.025em;
+    }
   }
   .hero__subtitle {
     font: var(--nz-font-body-large);
@@ -110,37 +107,67 @@ const { eyebrow, title, subtitle, image, variant = 'default', plain = false } = 
     mix-blend-mode: screen;
   }
   .hero__orb--1 {
-    width: 38vw; height: 38vw;
-    left: -8vw; top: -8vw;
+    width: 38vw;
+    height: 38vw;
+    left: -8vw;
+    top: -8vw;
     background: radial-gradient(circle at 30% 30%, var(--nz-accent-default), transparent 65%);
     animation: drift-1 18s var(--nz-easing-max) infinite alternate;
   }
   .hero__orb--2 {
-    width: 30vw; height: 30vw;
-    right: -6vw; top: 10vw;
-    background: radial-gradient(circle at 70% 30%, color-mix(in srgb, var(--nz-accent-default) 80%, white), transparent 65%);
+    width: 30vw;
+    height: 30vw;
+    right: -6vw;
+    top: 10vw;
+    background: radial-gradient(
+      circle at 70% 30%,
+      color-mix(in srgb, var(--nz-accent-default) 80%, white),
+      transparent 65%
+    );
     animation: drift-2 22s var(--nz-easing-max) infinite alternate;
   }
   .hero__orb--3 {
-    width: 26vw; height: 26vw;
-    left: 30vw; top: 18vw;
-    background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--nz-accent-default) 60%, transparent), transparent 70%);
+    width: 26vw;
+    height: 26vw;
+    left: 30vw;
+    top: 18vw;
+    background: radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--nz-accent-default) 60%, transparent),
+      transparent 70%
+    );
     animation: drift-3 26s var(--nz-easing-max) infinite alternate;
   }
 
   @keyframes drift-1 {
-    from { transform: translate(0, 0); }
-    to   { transform: translate(6vw, 4vw); }
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(6vw, 4vw);
+    }
   }
   @keyframes drift-2 {
-    from { transform: translate(0, 0); }
-    to   { transform: translate(-5vw, 3vw); }
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(-5vw, 3vw);
+    }
   }
   @keyframes drift-3 {
-    from { transform: translate(0, 0); }
-    to   { transform: translate(3vw, -4vw); }
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(3vw, -4vw);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero__orb--1, .hero__orb--2, .hero__orb--3 { animation: none; }
+    .hero__orb--1,
+    .hero__orb--2,
+    .hero__orb--3 {
+      animation: none;
+    }
   }
 </style>

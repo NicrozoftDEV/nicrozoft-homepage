@@ -32,20 +32,36 @@
     const registry = () => {
       const el = document.getElementById('nz-dl-notices');
       if (!el) return [];
-      try { return JSON.parse(el.textContent || '[]'); } catch (e) { return []; }
+      try {
+        return JSON.parse(el.textContent || '[]');
+      } catch (e) {
+        return [];
+      }
     };
-    const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const esc = (s) =>
+      String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
-    const render = (notices) => notices.map((n) => {
-      const tone = ICON[n.tone] ? n.tone : 'info';
-      const title = n.title ? '<p class="nz-dl-notice__title">' + esc(n.title) + '</p>' : '';
-      // n.body is trusted owner-authored HTML — injected as-is.
-      return '<div class="nz-dl-notice nz-dl-notice--' + tone + '">'
-        + '<span class="nz-dl-notice__icon" aria-hidden="true">' + ICON[tone] + '</span>'
-        + '<div class="nz-dl-notice__main">' + title
-        + '<div class="nz-dl-notice__body">' + (n.body || '') + '</div></div></div>';
-    }).join('');
+    const render = (notices) =>
+      notices
+        .map((n) => {
+          const tone = ICON[n.tone] ? n.tone : 'info';
+          const title = n.title ? '<p class="nz-dl-notice__title">' + esc(n.title) + '</p>' : '';
+          // n.body is trusted owner-authored HTML — injected as-is.
+          return (
+            '<div class="nz-dl-notice nz-dl-notice--' +
+            tone +
+            '">' +
+            '<span class="nz-dl-notice__icon" aria-hidden="true">' +
+            ICON[tone] +
+            '</span>' +
+            '<div class="nz-dl-notice__main">' +
+            title +
+            '<div class="nz-dl-notice__body">' +
+            (n.body || '') +
+            '</div></div></div>'
+          );
+        })
+        .join('');
 
     const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -54,7 +70,10 @@
     const animateClose = () => {
       const dlg = dialog();
       if (!dlg || !dlg.open || dlg.classList.contains('is-closing')) return;
-      if (reduceMotion()) { dlg.close(); return; }
+      if (reduceMotion()) {
+        dlg.close();
+        return;
+      }
       dlg.classList.add('is-closing');
       let done = false;
       const finish = () => {
@@ -68,13 +87,19 @@
       setTimeout(finish, 400); // fallback if animationend never fires
     };
 
-    const closeDialog = () => { pending = null; animateClose(); };
+    const closeDialog = () => {
+      pending = null;
+      animateClose();
+    };
 
     const openFor = (el) => {
       const idsAttr = el.getAttribute('data-nz-notices');
       if (!idsAttr) return false;
       const reg = registry();
-      const notices = idsAttr.split(',').map((i) => reg[Number(i)]).filter(Boolean);
+      const notices = idsAttr
+        .split(',')
+        .map((i) => reg[Number(i)])
+        .filter(Boolean);
       if (!notices.length) return false;
       const dlg = dialog();
       if (!dlg || typeof dlg.showModal !== 'function') return false;
@@ -83,7 +108,10 @@
       // Escape triggers the native `cancel`; intercept it to animate the close.
       if (!dlg.__nzCancelBound) {
         dlg.__nzCancelBound = true;
-        dlg.addEventListener('cancel', (e) => { e.preventDefault(); closeDialog(); });
+        dlg.addEventListener('cancel', (e) => {
+          e.preventDefault();
+          closeDialog();
+        });
       }
       dlg.classList.remove('is-closing');
       pending = { href: el.href, target: el.getAttribute('target') || '' };
@@ -117,7 +145,10 @@
 
       // Backdrop click (a native <dialog> reports itself as the target).
       const dlg = dialog();
-      if (dlg && dlg.open && target === dlg) { closeDialog(); return; }
+      if (dlg && dlg.open && target === dlg) {
+        closeDialog();
+        return;
+      }
 
       // Download-button interception.
       const el = target.closest('a[data-nz-dl]');
@@ -148,8 +179,13 @@
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
   }
-  .nz-dld__content { padding: var(--nz-space-6) var(--nz-space-6) var(--nz-space-5); }
-  .nz-dld__title { font: var(--nz-font-subtitle); margin: 0 0 var(--nz-space-4); }
+  .nz-dld__content {
+    padding: var(--nz-space-6) var(--nz-space-6) var(--nz-space-5);
+  }
+  .nz-dld__title {
+    font: var(--nz-font-subtitle);
+    margin: 0 0 var(--nz-space-4);
+  }
 
   .nz-dld__body {
     display: flex;
@@ -170,9 +206,15 @@
     border-radius: var(--nz-radius-medium);
     background: var(--nz-subtle-secondary);
   }
-  .nz-dld__body :global(.nz-dl-notice--info)     { --tone: var(--nz-system-attention); }
-  .nz-dld__body :global(.nz-dl-notice--warning)  { --tone: var(--nz-system-caution); }
-  .nz-dld__body :global(.nz-dl-notice--critical) { --tone: var(--nz-system-critical); }
+  .nz-dld__body :global(.nz-dl-notice--info) {
+    --tone: var(--nz-system-attention);
+  }
+  .nz-dld__body :global(.nz-dl-notice--warning) {
+    --tone: var(--nz-system-caution);
+  }
+  .nz-dld__body :global(.nz-dl-notice--critical) {
+    --tone: var(--nz-system-critical);
+  }
 
   .nz-dld__body :global(.nz-dl-notice__icon) {
     flex: 0 0 auto;
@@ -180,7 +222,9 @@
     line-height: 1.4;
     color: var(--tone, var(--nz-accent-default));
   }
-  .nz-dld__body :global(.nz-dl-notice__main) { min-width: 0; }
+  .nz-dld__body :global(.nz-dl-notice__main) {
+    min-width: 0;
+  }
   .nz-dld__body :global(.nz-dl-notice__title) {
     font: var(--nz-font-body-strong);
     margin: 0 0 var(--nz-space-1);
@@ -191,12 +235,16 @@
     line-height: 1.6;
     overflow-wrap: anywhere;
   }
-  .nz-dld__body :global(.nz-dl-notice__body > * + *) { margin-top: var(--nz-space-2); }
+  .nz-dld__body :global(.nz-dl-notice__body > * + *) {
+    margin-top: var(--nz-space-2);
+  }
   .nz-dld__body :global(.nz-dl-notice__body a) {
     color: var(--nz-accent-text);
     border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
   }
-  .nz-dld__body :global(.nz-dl-notice__body strong) { color: var(--nz-text-primary); }
+  .nz-dld__body :global(.nz-dl-notice__body strong) {
+    color: var(--nz-text-primary);
+  }
   /* Rendered Markdown: inline code, code blocks, lists. */
   .nz-dld__body :global(.nz-dl-notice__body code) {
     font-family: var(--nz-font-family-mono);
@@ -221,8 +269,13 @@
     background: none;
   }
   .nz-dld__body :global(.nz-dl-notice__body ul),
-  .nz-dld__body :global(.nz-dl-notice__body ol) { margin: 0; padding-left: 1.4em; }
-  .nz-dld__body :global(.nz-dl-notice__body li + li) { margin-top: 2px; }
+  .nz-dld__body :global(.nz-dl-notice__body ol) {
+    margin: 0;
+    padding-left: 1.4em;
+  }
+  .nz-dld__body :global(.nz-dl-notice__body li + li) {
+    margin-top: 2px;
+  }
 
   .nz-dld__commands {
     display: flex;
@@ -240,43 +293,98 @@
     cursor: pointer;
     transition: background var(--nz-duration-faster) var(--nz-easing-max);
   }
-  .nz-dld__btn:hover { background: var(--nz-control-secondary); }
-  .nz-dld__btn:active { transform: translateY(1px); }
-  .nz-dld__btn:focus-visible { outline: 2px solid var(--nz-stroke-focus); outline-offset: 2px; }
+  .nz-dld__btn:hover {
+    background: var(--nz-control-secondary);
+  }
+  .nz-dld__btn:active {
+    transform: translateY(1px);
+  }
+  .nz-dld__btn:focus-visible {
+    outline: 2px solid var(--nz-stroke-focus);
+    outline-offset: 2px;
+  }
   .nz-dld__btn--primary {
     border-color: transparent;
     background: var(--nz-accent-default);
     color: var(--nz-text-on-accent);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.25);
   }
-  .nz-dld__btn--primary:hover { background: var(--nz-accent-secondary); }
-  .nz-dld__btn--primary:active { background: var(--nz-accent-tertiary); }
+  .nz-dld__btn--primary:hover {
+    background: var(--nz-accent-secondary);
+  }
+  .nz-dld__btn--primary:active {
+    background: var(--nz-accent-tertiary);
+  }
 
-  .nz-dld[open]:not(.is-closing) { animation: nz-dld-in var(--nz-duration-normal) var(--nz-easing-max); }
-  .nz-dld[open]:not(.is-closing)::backdrop { animation: nz-dld-fade var(--nz-duration-normal) ease; }
+  .nz-dld[open]:not(.is-closing) {
+    animation: nz-dld-in var(--nz-duration-normal) var(--nz-easing-max);
+  }
+  .nz-dld[open]:not(.is-closing)::backdrop {
+    animation: nz-dld-fade var(--nz-duration-normal) ease;
+  }
 
   /* Exit: reversed, quicker, held at the end (both) until the JS close() lands. */
-  .nz-dld.is-closing { animation: nz-dld-out var(--nz-duration-fast) var(--nz-easing-accelerate) both; }
-  .nz-dld.is-closing::backdrop { animation: nz-dld-fade-out var(--nz-duration-fast) var(--nz-easing-accelerate) both; }
+  .nz-dld.is-closing {
+    animation: nz-dld-out var(--nz-duration-fast) var(--nz-easing-accelerate) both;
+  }
+  .nz-dld.is-closing::backdrop {
+    animation: nz-dld-fade-out var(--nz-duration-fast) var(--nz-easing-accelerate) both;
+  }
 
   @keyframes nz-dld-in {
-    from { opacity: 0; transform: scale(0.95) translateY(10px); }
-    to { opacity: 1; transform: none; }
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
-  @keyframes nz-dld-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes nz-dld-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   @keyframes nz-dld-out {
-    from { opacity: 1; transform: none; }
-    to { opacity: 0; transform: scale(0.97) translateY(6px); }
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.97) translateY(6px);
+    }
   }
-  @keyframes nz-dld-fade-out { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes nz-dld-fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .nz-dld[open], .nz-dld[open]::backdrop,
-    .nz-dld.is-closing, .nz-dld.is-closing::backdrop { animation: none; }
+    .nz-dld[open],
+    .nz-dld[open]::backdrop,
+    .nz-dld.is-closing,
+    .nz-dld.is-closing::backdrop {
+      animation: none;
+    }
   }
 
   @media (max-width: 520px) {
-    .nz-dld__commands { flex-direction: column-reverse; }
-    .nz-dld__btn { width: 100%; }
+    .nz-dld__commands {
+      flex-direction: column-reverse;
+    }
+    .nz-dld__btn {
+      width: 100%;
+    }
   }
 </style>

@@ -1,21 +1,41 @@
 ---
-title: "Windows 10 仿 Windows 11"
-cover: "/img/10to11.png"
-hero: "/img/windows10to11.png"
-status: "planned"
+title: 'Windows 10 仿 Windows 11'
+cover: '/img/10to11.png'
+hero: '/img/windows10to11.png'
+status: 'planned'
 order: 160
-blurb: "Windows 10 仿 Windows 11"
+blurb: 'Windows 10 仿 Windows 11'
 downloads:
-  - { label: "查看文件校验和 (1.0 VM)", href: "/checksums/win10to11_1.0_vm", kind: "link" }
-  - { label: "huang1111 网盘链接 (1.0 VM)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin10to11%2Fv1.0%2FVM", kind: "archive" }
-  - { label: "123 网盘链接 (1.0 VM)", href: "https://www.123pan.com/s/kb7cjv-Gjzc3.html", kind: "archive" }
-  - { label: "astpan 网盘链接 (1.0 VM)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwin10to11%2Fv1.0%2FVM", kind: "archive" }
-  - { label: "查看文件校验和 (1.0 ISO)", href: "/checksums/win10to11_1.0_iso", kind: "link" }
-  - { label: "huang1111 网盘链接 (1.0 ISO)", href: "https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin10to11%2Fv1.0%2FISO", kind: "iso" }
-  - { label: "123 网盘链接 (1.0 ISO)", href: "https://www.123pan.com/s/kb7cjv-QVzc3.html", kind: "iso" }
-  - { label: "astpan 网盘链接 (1.0 ISO)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwin10to11%2Fv1.0%2FISO", kind: "iso" }
-  - { label: "下载 1.0 系统截图", href: "/img/windows10to11.png", kind: "image" }
-  - { label: "在 bilibili 上观看该系统的介绍及演示视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1mZ421K76x", kind: "link" }
+  - { label: '查看文件校验和 (1.0 VM)', href: '/checksums/win10to11_1.0_vm', kind: 'link' }
+  - {
+      label: 'huang1111 网盘链接 (1.0 VM)',
+      href: 'https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin10to11%2Fv1.0%2FVM',
+      kind: 'archive',
+    }
+  - { label: '123 网盘链接 (1.0 VM)', href: 'https://www.123pan.com/s/kb7cjv-Gjzc3.html', kind: 'archive' }
+  - {
+      label: 'astpan 网盘链接 (1.0 VM)',
+      href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwin10to11%2Fv1.0%2FVM',
+      kind: 'archive',
+    }
+  - { label: '查看文件校验和 (1.0 ISO)', href: '/checksums/win10to11_1.0_iso', kind: 'link' }
+  - {
+      label: 'huang1111 网盘链接 (1.0 ISO)',
+      href: 'https://pan.huang1111.cn/s/GmNgFW?path=%2Fwin10to11%2Fv1.0%2FISO',
+      kind: 'iso',
+    }
+  - { label: '123 网盘链接 (1.0 ISO)', href: 'https://www.123pan.com/s/kb7cjv-QVzc3.html', kind: 'iso' }
+  - {
+      label: 'astpan 网盘链接 (1.0 ISO)',
+      href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwin10to11%2Fv1.0%2FISO',
+      kind: 'iso',
+    }
+  - { label: '下载 1.0 系统截图', href: '/img/windows10to11.png', kind: 'image' }
+  - {
+      label: '在 bilibili 上观看该系统的介绍及演示视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1mZ421K76x',
+      kind: 'link',
+    }
 ---
 
 Windows 10 仿 Windows 11。

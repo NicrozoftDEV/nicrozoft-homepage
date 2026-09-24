@@ -1,43 +1,143 @@
 ---
-title: "Nicrozoft_Super_WindowsKiller_Virus"
-cover: "/img/Nicrozoft_Super_WindowsKiller_Virus.jpg"
-hero: "/img/Nicrozoft_Super_WindowsKiller_Virus.jpg"
-status: "active"
+title: 'Nicrozoft_Super_WindowsKiller_Virus'
+cover: '/img/Nicrozoft_Super_WindowsKiller_Virus.jpg'
+hero: '/img/Nicrozoft_Super_WindowsKiller_Virus.jpg'
+status: 'active'
 order: 10
-warning: "本软件不允许抖音平台上任何博主测评，禁止的行为包括但不限于转载视频、制作测评、截取运行界面并发布动态！抖音用户“xuezhiqian3245”请你立即撤下“win12”这篇动态，或者支付以此获得的流量收益的 50%。"
-blurb: "Nicrozoft_Super_WindowsKiller_Virus"
+warning: '本软件不允许抖音平台上任何博主测评，禁止的行为包括但不限于转载视频、制作测评、截取运行界面并发布动态！抖音用户“xuezhiqian3245”请你立即撤下“win12”这篇动态，或者支付以此获得的流量收益的 50%。'
+blurb: 'Nicrozoft_Super_WindowsKiller_Virus'
 downloads:
-  - { label: "6.6.6 版 Github 发行", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.6.6", kind: "link" }
-  - { label: "下载 6.6.6 内部正式版", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6.6/fullversion/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6.zip", kind: "archive" }
-  - { label: "下载 6.6.6 内部正式版 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6.6/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6.zip", kind: "archive" }
-  - { label: "下载 6.6.6 公开正式版", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6.6/public/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Public.zip", kind: "archive" }
-  - { label: "下载 6.6.6 公开正式版 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6.6/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Public.zip", kind: "archive" }
-  - { label: "下载 6.6.6 弱化版", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6.6/weak/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Weak.zip", kind: "archive" }
-  - { label: "下载 6.6.6 弱化版 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6.6/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Weak.zip", kind: "archive" }
-  - { label: "下载 6.6.6 版运行视频", href: "/video/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6.mp4", kind: "link" }
-  - { label: "在 bilibili 上观看 6.6.6 版运行视频", href: "https://www.bilibili.com/video/BV1gA4m1A7hw", kind: "link" }
-  - { label: "6.6 版 Github 发行", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.6", kind: "link" }
-  - { label: "下载 6.6 版", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6/Nicrozoft_Super_WindowsKiller_Virus.zip", kind: "archive" }
-  - { label: "下载 6.6 版 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6/Nicrozoft_Super_WindowsKiller_Virus.zip", kind: "archive" }
-  - { label: "下载 6.6 版运行视频", href: "/video/Nicrozoft_Super_WindowsKiller_Virus_v6.6.mp4", kind: "link" }
-  - { label: "6.0 版 Github 发行", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.0", kind: "link" }
-  - { label: "6.0 版变种 Github 发行", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.0-mode", kind: "link" }
-  - { label: "下载完整版 (6.0 版)", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/full/Nicrozoft_Super_WindowsKiller_Virus.zip", kind: "archive" }
-  - { label: "下载完整版 (6.0 版 GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0/Nicrozoft_Super_WindowsKiller_Virus.zip", kind: "archive" }
-  - { label: "下载直接编译版 (6.0 版)", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/normal/Nicrozoft_Super_WindowsKiller_Virus.zip", kind: "archive" }
-  - { label: "下载直接编译版 (6.0 版 GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0/Nicrozoft_Super_WindowsKiller_Virus_original.zip", kind: "archive" }
-  - { label: "下载变种: 激活工具", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/active/Nicrozoft_Activator.zip", kind: "archive" }
-  - { label: "下载变种: 激活工具 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Nicrozoft_Activator.zip", kind: "archive" }
-  - { label: "下载变种: 学习资料", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/study/学习资料.zip", kind: "archive" }
-  - { label: "下载变种: 学习资料 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Study.zip", kind: "archive" }
-  - { label: "下载变种: Jack 2.0", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/jack/贾尚龙病毒.zip", kind: "archive" }
-  - { label: "下载变种: Jack 2.0 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/JJacky.zip", kind: "archive" }
-  - { label: "下载变种: MENZ", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/menz/MENZ.zip", kind: "archive" }
-  - { label: "下载变种: MENZ (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/MENZ.zip", kind: "archive" }
-  - { label: "下载变种: 三体病毒", href: "/data/Nicrozoft_Super_WindowsKiller_Virus/trisolaris/Trisolaris.zip", kind: "archive" }
-  - { label: "下载变种: 三体病毒 (GitHub Release 链接)", href: "https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Trisolaris.zip", kind: "archive" }
-  - { label: "下载 6.0 版运行视频", href: "/video/Nicrozoft_Super_WindowsKiller_Virus.wmv", kind: "link" }
-  - { label: "前往旧版 Nicrozoft 网站", href: "https://legacy.nicrozoft.org", kind: "link" }
+  - {
+      label: '6.6.6 版 Github 发行',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.6.6',
+      kind: 'link',
+    }
+  - {
+      label: '下载 6.6.6 内部正式版',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6.6/fullversion/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载 6.6.6 内部正式版 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6.6/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载 6.6.6 公开正式版',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6.6/public/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Public.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载 6.6.6 公开正式版 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6.6/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Public.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载 6.6.6 弱化版',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6.6/weak/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Weak.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载 6.6.6 弱化版 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6.6/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6_Weak.zip',
+      kind: 'archive',
+    }
+  - { label: '下载 6.6.6 版运行视频', href: '/video/Nicrozoft_Super_WindowsKiller_Virus_v6.6.6.mp4', kind: 'link' }
+  - { label: '在 bilibili 上观看 6.6.6 版运行视频', href: 'https://www.bilibili.com/video/BV1gA4m1A7hw', kind: 'link' }
+  - {
+      label: '6.6 版 Github 发行',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.6',
+      kind: 'link',
+    }
+  - {
+      label: '下载 6.6 版',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/v6.6/Nicrozoft_Super_WindowsKiller_Virus.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载 6.6 版 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.6/Nicrozoft_Super_WindowsKiller_Virus.zip',
+      kind: 'archive',
+    }
+  - { label: '下载 6.6 版运行视频', href: '/video/Nicrozoft_Super_WindowsKiller_Virus_v6.6.mp4', kind: 'link' }
+  - {
+      label: '6.0 版 Github 发行',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.0',
+      kind: 'link',
+    }
+  - {
+      label: '6.0 版变种 Github 发行',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/tag/NZSWKV-6.0-mode',
+      kind: 'link',
+    }
+  - {
+      label: '下载完整版 (6.0 版)',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/full/Nicrozoft_Super_WindowsKiller_Virus.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载完整版 (6.0 版 GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0/Nicrozoft_Super_WindowsKiller_Virus.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载直接编译版 (6.0 版)',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/normal/Nicrozoft_Super_WindowsKiller_Virus.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载直接编译版 (6.0 版 GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0/Nicrozoft_Super_WindowsKiller_Virus_original.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: 激活工具',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/active/Nicrozoft_Activator.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: 激活工具 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Nicrozoft_Activator.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: 学习资料',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/study/学习资料.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: 学习资料 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Study.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: Jack 2.0',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/jack/贾尚龙病毒.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: Jack 2.0 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/JJacky.zip',
+      kind: 'archive',
+    }
+  - { label: '下载变种: MENZ', href: '/data/Nicrozoft_Super_WindowsKiller_Virus/menz/MENZ.zip', kind: 'archive' }
+  - {
+      label: '下载变种: MENZ (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/MENZ.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: 三体病毒',
+      href: '/data/Nicrozoft_Super_WindowsKiller_Virus/trisolaris/Trisolaris.zip',
+      kind: 'archive',
+    }
+  - {
+      label: '下载变种: 三体病毒 (GitHub Release 链接)',
+      href: 'https://github.com/Nicrozoft/Nicrozoft_Viruses/releases/download/NZSWKV-6.0-mode/Trisolaris.zip',
+      kind: 'archive',
+    }
+  - { label: '下载 6.0 版运行视频', href: '/video/Nicrozoft_Super_WindowsKiller_Virus.wmv', kind: 'link' }
+  - { label: '前往旧版 Nicrozoft 网站', href: 'https://legacy.nicrozoft.org', kind: 'link' }
 ---
 
 Nicrozoft_Super_WindowsKiller_Virus 是 Nicrozoft 开发的最强病毒，它可以死锁硬盘，清空数据，破坏操作系统，禁用功能，删除用户，且无法恢复。

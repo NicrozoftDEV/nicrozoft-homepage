@@ -1,13 +1,13 @@
 ---
-title: "Nicrozoft_Lframe32_Virus"
-cover: "/img/Nicrozoft_Lframe32_Virus.jpg"
-hero: "/img/Nicrozoft_Lframe32_Virus.jpg"
-status: "active"
+title: 'Nicrozoft_Lframe32_Virus'
+cover: '/img/Nicrozoft_Lframe32_Virus.jpg'
+hero: '/img/Nicrozoft_Lframe32_Virus.jpg'
+status: 'active'
 order: 20
-blurb: "Nicrozoft_Lframe32_Virus"
+blurb: 'Nicrozoft_Lframe32_Virus'
 downloads:
-  - { label: "下载病毒", href: "/data/Nicrozoft_Lframe32_Virus/Nicrozoft_Lframe32_Virus.zip", kind: "archive" }
-  - { label: "下载运行视频", href: "/video/Nicrozoft_Lframe32_Virus.mp4", kind: "link" }
+  - { label: '下载病毒', href: '/data/Nicrozoft_Lframe32_Virus/Nicrozoft_Lframe32_Virus.zip', kind: 'archive' }
+  - { label: '下载运行视频', href: '/video/Nicrozoft_Lframe32_Virus.mp4', kind: 'link' }
 ---
 
 Nicrozoft_Lframe32_Virus 是 Nicrozoft 开发的超强病毒，它可以死锁硬盘，并展示特效，其特效碾压 MEMZ。

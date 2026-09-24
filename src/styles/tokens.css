@@ -89,23 +89,12 @@
   --nz-space-24: 96px;
 
   /* ----- Elevation / shadows --------------------------------------------- */
-  --nz-shadow-2:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 2px 4px rgba(0, 0, 0, 0.05);
-  --nz-shadow-4:
-    0 2px 4px rgba(0, 0, 0, 0.06),
-    0 4px 8px rgba(0, 0, 0, 0.08);
-  --nz-shadow-8:
-    0 3px 7px rgba(0, 0, 0, 0.08),
-    0 8px 16px rgba(0, 0, 0, 0.1);
-  --nz-shadow-16:
-    0 6px 14px rgba(0, 0, 0, 0.1),
-    0 16px 32px rgba(0, 0, 0, 0.13);
-  --nz-shadow-32:
-    0 12px 24px rgba(0, 0, 0, 0.12),
-    0 32px 48px rgba(0, 0, 0, 0.18);
-  --nz-shadow-flyout:
-    0 8px 16px rgba(0, 0, 0, 0.14);
+  --nz-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.05);
+  --nz-shadow-4: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.08);
+  --nz-shadow-8: 0 3px 7px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.1);
+  --nz-shadow-16: 0 6px 14px rgba(0, 0, 0, 0.1), 0 16px 32px rgba(0, 0, 0, 0.13);
+  --nz-shadow-32: 0 12px 24px rgba(0, 0, 0, 0.12), 0 32px 48px rgba(0, 0, 0, 0.18);
+  --nz-shadow-flyout: 0 8px 16px rgba(0, 0, 0, 0.14);
 
   /* ----- Motion: duration ------------------------------------------------ */
   --nz-duration-ultra-fast: 50ms;
@@ -118,29 +107,26 @@
   /* ----- Motion: easing (Fluent curves) ---------------------------------- */
   --nz-easing-accelerate: cubic-bezier(0.7, 0, 1, 0.5);
   --nz-easing-decelerate: cubic-bezier(0.1, 0.9, 0.2, 1); /* "decel" */
-  --nz-easing-max: cubic-bezier(0.8, 0, 0.2, 1);          /* "easy-ease" */
+  --nz-easing-max: cubic-bezier(0.8, 0, 0.2, 1); /* "easy-ease" */
   --nz-easing-emphasized: cubic-bezier(0.16, 1.36, 0.4, 1);
   --nz-easing-linear: linear;
 
   /* ----- Typography: family ---------------------------------------------- */
   --nz-font-family:
-    "Segoe UI Variable Display", "Segoe UI Variable Text",
-    "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei",
-    -apple-system, BlinkMacSystemFont, system-ui,
-    "Helvetica Neue", Arial, sans-serif;
+    'Segoe UI Variable Display', 'Segoe UI Variable Text', 'Segoe UI', 'Microsoft YaHei UI', 'Microsoft YaHei',
+    -apple-system, BlinkMacSystemFont, system-ui, 'Helvetica Neue', Arial, sans-serif;
   --nz-font-family-mono:
-    "Cascadia Code", "Cascadia Mono",
-    "JetBrains Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
+    'Cascadia Code', 'Cascadia Mono', 'JetBrains Mono', 'SF Mono', Consolas, 'Liberation Mono', monospace;
 
   /* ----- Typography: ramp (Fluent 2 type ramp) --------------------------- */
-  --nz-font-caption:        400 12px/16px  var(--nz-font-family);
-  --nz-font-body:           400 14px/20px  var(--nz-font-family);
-  --nz-font-body-strong:    600 14px/20px  var(--nz-font-family);
-  --nz-font-body-large:     400 18px/24px  var(--nz-font-family);
-  --nz-font-subtitle:       600 20px/28px  var(--nz-font-family);
-  --nz-font-title:          600 28px/36px  var(--nz-font-family);
-  --nz-font-title-large:    600 40px/52px  var(--nz-font-family);
-  --nz-font-display:        600 68px/92px  var(--nz-font-family);
+  --nz-font-caption: 400 12px/16px var(--nz-font-family);
+  --nz-font-body: 400 14px/20px var(--nz-font-family);
+  --nz-font-body-strong: 600 14px/20px var(--nz-font-family);
+  --nz-font-body-large: 400 18px/24px var(--nz-font-family);
+  --nz-font-subtitle: 600 20px/28px var(--nz-font-family);
+  --nz-font-title: 600 28px/36px var(--nz-font-family);
+  --nz-font-title-large: 600 40px/52px var(--nz-font-family);
+  --nz-font-display: 600 68px/92px var(--nz-font-family);
 
   /* ----- Misc ------------------------------------------------------------ */
   --nz-stroke-thickness: 1px;
@@ -161,7 +147,7 @@
     --nz-accent-foreground: #000000;
 
     --nz-text-primary: #ffffff;
-    --nz-text-secondary: rgba(255, 255, 255, 0.7860);
+    --nz-text-secondary: rgba(255, 255, 255, 0.786);
     --nz-text-tertiary: rgba(255, 255, 255, 0.5442);
     --nz-text-disabled: rgba(255, 255, 255, 0.3628);
     --nz-text-on-accent: #000000;
@@ -205,23 +191,12 @@
     --nz-mica-tint: rgba(32, 32, 32, 0.85);
     --nz-mica-fallback: rgba(32, 32, 32, 0.95);
 
-    --nz-shadow-2:
-      0 1px 2px rgba(0, 0, 0, 0.2),
-      0 2px 4px rgba(0, 0, 0, 0.25);
-    --nz-shadow-4:
-      0 2px 4px rgba(0, 0, 0, 0.3),
-      0 4px 8px rgba(0, 0, 0, 0.4);
-    --nz-shadow-8:
-      0 3px 7px rgba(0, 0, 0, 0.4),
-      0 8px 16px rgba(0, 0, 0, 0.5);
-    --nz-shadow-16:
-      0 6px 14px rgba(0, 0, 0, 0.5),
-      0 16px 32px rgba(0, 0, 0, 0.6);
-    --nz-shadow-32:
-      0 12px 24px rgba(0, 0, 0, 0.6),
-      0 32px 48px rgba(0, 0, 0, 0.75);
-    --nz-shadow-flyout:
-      0 8px 16px rgba(0, 0, 0, 0.5);
+    --nz-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.25);
+    --nz-shadow-4: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+    --nz-shadow-8: 0 3px 7px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0.5);
+    --nz-shadow-16: 0 6px 14px rgba(0, 0, 0, 0.5), 0 16px 32px rgba(0, 0, 0, 0.6);
+    --nz-shadow-32: 0 12px 24px rgba(0, 0, 0, 0.6), 0 32px 48px rgba(0, 0, 0, 0.75);
+    --nz-shadow-flyout: 0 8px 16px rgba(0, 0, 0, 0.5);
   }
 }
 

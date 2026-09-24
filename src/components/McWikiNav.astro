@@ -1,0 +1,109 @@
+---
+import { normalizeWikiPath, type McWikiSection } from '../lib/mcWiki';
+
+interface Props {
+  title?: string;
+  sections: McWikiSection[];
+}
+const { title, sections } = Astro.props;
+const current = normalizeWikiPath(Astro.url.pathname);
+const isActive = (href: string) => current === href;
+const sectionActive = (section: McWikiSection) =>
+  (section.href && isActive(section.href)) || (section.items?.some((item) => isActive(item.href)) ?? false);
+---
+
+<nav class="wiki-nav" aria-label="Minecraft 服务器 Wiki 导航">
+  {title && <p class="wiki-nav__title">{title}</p>}
+  {sections.map((section) => <div class="wiki-nav__group">
+    {section.href ? (
+      <a
+        class:list={['wiki-nav__link', 'wiki-nav__link--top', isActive(section.href) && 'wiki-nav__link--active']}
+        href={section.href}
+        aria-current={isActive(section.href) ? 'page' : undefined}
+      >
+        {section.label}
+      </a>
+    ) : (
+      <p class:list={['wiki-nav__head', sectionActive(section) && 'wiki-nav__head--active']}>{section.label}</p>
+    )}
+    {section.items?.map((item) => <a
+      class:list={['wiki-nav__link', isActive(item.href) && 'wiki-nav__link--active']}
+      href={item.href}
+      aria-current={isActive(item.href) ? 'page' : undefined}
+    >
+      {item.label}
+    </a>)}
+  </div>)}
+</nav>
+
+<style>
+  .wiki-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-4);
+    padding: var(--nz-space-5) var(--nz-space-4);
+    border-radius: var(--nz-radius-large);
+    background: var(--nz-subtle-secondary);
+    border: 1px solid var(--nz-stroke-card);
+  }
+  .wiki-nav__title {
+    font: var(--nz-font-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--nz-text-tertiary);
+    padding: 0 var(--nz-space-2);
+  }
+  .wiki-nav__group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .wiki-nav__head {
+    margin: 0;
+    padding: 6px var(--nz-space-2) 2px;
+    font: var(--nz-font-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--nz-text-tertiary);
+  }
+  .wiki-nav__head--active {
+    color: var(--nz-accent-text);
+  }
+  .wiki-nav__link {
+    display: block;
+    padding: 6px var(--nz-space-2) 6px var(--nz-space-3);
+    border-radius: var(--nz-radius-medium);
+    font: var(--nz-font-body);
+    color: var(--nz-text-secondary);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition:
+      background var(--nz-duration-faster) var(--nz-easing-max),
+      color var(--nz-duration-faster) var(--nz-easing-max);
+  }
+  .wiki-nav__link:hover {
+    background: var(--nz-subtle-tertiary);
+    color: var(--nz-text-primary);
+  }
+  /* Standalone sections (no sub-pages) share the group-heading typography so
+     every section label reads at the same visual weight, whether linked or not. */
+  .wiki-nav__link--top {
+    font: var(--nz-font-caption);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--nz-text-tertiary);
+    padding: 6px var(--nz-space-2);
+  }
+  .wiki-nav__link--top:hover {
+    background: transparent;
+    color: var(--nz-text-primary);
+  }
+  .wiki-nav__link.wiki-nav__link--active {
+    background: color-mix(in srgb, var(--nz-accent-default) 12%, transparent);
+    border-left-color: var(--nz-accent-default);
+    color: var(--nz-accent-text);
+  }
+</style>

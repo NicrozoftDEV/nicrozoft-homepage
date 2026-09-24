@@ -13,9 +13,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-const screenshots = entry.data.screenshots.map((s) =>
-  typeof s === 'string' ? { src: s } : s
-);
+const screenshots = entry.data.screenshots.map((s) => (typeof s === 'string' ? { src: s } : s));
 ---
 
 <ProductLayout

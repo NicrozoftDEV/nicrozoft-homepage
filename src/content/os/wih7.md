@@ -1,15 +1,15 @@
 ---
-title: "Nicrozoft Wihdous 7 SP1 旗舰版"
-cover: "/img/7.png"
-hero: "/img/wihdous7.png"
-status: "stopped"
-series: "Wihdous"
+title: 'Nicrozoft Wihdous 7 SP1 旗舰版'
+cover: '/img/7.png'
+hero: '/img/wihdous7.png'
+status: 'stopped'
+series: 'Wihdous'
 order: 20
-blurb: "Wihdous 7 SP1"
+blurb: 'Wihdous 7 SP1'
 downloads:
-  - { label: "下载截图", href: "/img/wihdous7.png", kind: "image" }
+  - { label: '下载截图', href: '/img/wihdous7.png', kind: 'image' }
 screenshots:
-  - "/img/7_1.png"
+  - '/img/7_1.png'
 ---
 
 Nicrozoft Wihdous 7 SP1 旗舰版。

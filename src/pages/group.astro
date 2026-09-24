@@ -2,9 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Button from '../components/Button.astro';
-// Group rules — transcribed from the v12.2 docx ("Nicrozoft 交流群群规 12.2")
-// and rendered server-side instead of shipping the image.
-import { Content as GroupRules } from '../data/group-rules.md';
+import GroupRules from '../components/GroupRules.astro';
 ---
 
 <BaseLayout title="交流群" description="Nicrozoft 产品测试及交流群。">
@@ -18,7 +16,8 @@ import { Content as GroupRules } from '../data/group-rules.md';
   <section class="nz-section nz-container nz-stack nz-stack--lg">
     <div class="nz-acrylic group__panel">
       <p class="nz-body-large">
-        你可以加入 Nicrozoft 产品测试及交流群来发表你对 Nicrozoft 产品的看法和建议，帮助测试 Nicrozoft 产品，或者交流和计算机有关的内容。
+        你可以加入 Nicrozoft 产品测试及交流群来发表你对 Nicrozoft 产品的看法和建议，帮助测试 Nicrozoft
+        产品，或者交流和计算机有关的内容。
       </p>
       <div class="group__actions">
         <Button href="https://qm.qq.com/q/Kj9xQNIFOe" target="_blank" variant="accent" size="lg">
@@ -29,9 +28,7 @@ import { Content as GroupRules } from '../data/group-rules.md';
 
     <article class="nz-acrylic group__rules">
       <h2 class="nz-subtitle group__rules-title">群规</h2>
-      <div class="nz-prose">
-        <GroupRules />
-      </div>
+      <GroupRules />
     </article>
   </section>
 </BaseLayout>
@@ -43,11 +40,16 @@ import { Content as GroupRules } from '../data/group-rules.md';
     flex-direction: column;
     gap: var(--nz-space-5);
   }
-  .group__actions { display: flex; gap: var(--nz-space-3); flex-wrap: wrap; }
+  .group__actions {
+    display: flex;
+    gap: var(--nz-space-3);
+    flex-wrap: wrap;
+  }
 
-  .group__rules { padding: var(--nz-space-8); }
-  .group__rules-title { margin-bottom: var(--nz-space-4); }
-  /* Tighten the dense rules list a touch */
-  .group__rules :global(.nz-prose ol) { display: flex; flex-direction: column; gap: var(--nz-space-3); }
-  .group__rules :global(.nz-prose li) { line-height: 1.75; }
+  .group__rules {
+    padding: var(--nz-space-8);
+  }
+  .group__rules-title {
+    margin-bottom: var(--nz-space-4);
+  }
 </style>

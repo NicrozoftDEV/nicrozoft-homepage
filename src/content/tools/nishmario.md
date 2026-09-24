@@ -1,14 +1,18 @@
 ---
-title: "溺尸马里奥 v2.0"
-cover: "/img/NMario.png"
-hero: "/data/FightAgainstNish/NishMario.png"
-status: "active"
+title: '溺尸马里奥 v2.0'
+cover: '/img/NMario.png'
+hero: '/data/FightAgainstNish/NishMario.png'
+status: 'active'
 order: 50
-blurb: "溺尸马里奥"
+blurb: '溺尸马里奥'
 downloads:
-  - { label: "下载 v2.0", href: "/data/FightAgainstNish/NishMario_v2.0.7z", kind: "archive" }
-  - { label: "下载截图", href: "/data/FightAgainstNish/NMario.png", kind: "image" }
-  - { label: "观看 石一明336 为此程序的 1.1 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV14zvveoES5", kind: "link" }
+  - { label: '下载 v2.0', href: '/data/FightAgainstNish/NishMario_v2.0.7z', kind: 'archive' }
+  - { label: '下载截图', href: '/data/FightAgainstNish/NMario.png', kind: 'image' }
+  - {
+      label: '观看 石一明336 为此程序的 1.1 版本制作的测评视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV14zvveoES5',
+      kind: 'link',
+    }
 ---
 
 被溺尸侵权、侮辱长达 5 个月，我们现在开始反击！

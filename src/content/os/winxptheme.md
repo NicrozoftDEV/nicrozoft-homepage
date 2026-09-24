@@ -1,16 +1,20 @@
 ---
-title: "Windows XP SP3 集成主题版"
-cover: "/img/xptheme.jpg"
-hero: "/img/windowsxptheme.png"
-status: "stopped"
+title: 'Windows XP SP3 集成主题版'
+cover: '/img/xptheme.jpg'
+hero: '/img/windowsxptheme.png'
+status: 'stopped'
 order: 70
-blurb: "Windows XP SP3 集成主题版"
+blurb: 'Windows XP SP3 集成主题版'
 downloads:
-  - { label: "下载镜像 (ISO)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwinxptheme%2FISO", kind: "iso" }
-  - { label: "下载虚拟机 (7Z)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwinxptheme%2FVM", kind: "archive" }
-  - { label: "下载该截图", href: "/img/windowsxptheme.png", kind: "image" }
-  - { label: "下载主题截图", href: "/data/winxptheme/WinXP_theme_edition_Imgs.zip", kind: "archive" }
-  - { label: "观看 WinBetaUser 为此系统制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1VH4y157bP", kind: "link" }
+  - { label: '下载镜像 (ISO)', href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwinxptheme%2FISO', kind: 'iso' }
+  - { label: '下载虚拟机 (7Z)', href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwinxptheme%2FVM', kind: 'archive' }
+  - { label: '下载该截图', href: '/img/windowsxptheme.png', kind: 'image' }
+  - { label: '下载主题截图', href: '/data/winxptheme/WinXP_theme_edition_Imgs.zip', kind: 'archive' }
+  - {
+      label: '观看 WinBetaUser 为此系统制作的测评视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1VH4y157bP',
+      kind: 'link',
+    }
 ---
 
 Windows XP SP3 集成主题版。

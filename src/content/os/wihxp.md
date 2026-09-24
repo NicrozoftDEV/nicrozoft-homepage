@@ -1,20 +1,20 @@
 ---
-title: "Nicrozoft Wihdous XP SP3 专业版"
-cover: "/img/xp.jpg"
-hero: "/img/wihdousxp.png"
-status: "stopped"
-series: "Wihdous"
+title: 'Nicrozoft Wihdous XP SP3 专业版'
+cover: '/img/xp.jpg'
+hero: '/img/wihdousxp.png'
+status: 'stopped'
+series: 'Wihdous'
 order: 30
-blurb: "Nicrozoft Wihdous XP SP3"
+blurb: 'Nicrozoft Wihdous XP SP3'
 downloads:
-  - { label: "下载截图", href: "/img/wihdousxp.png", kind: "image" }
+  - { label: '下载截图', href: '/img/wihdousxp.png', kind: 'image' }
 screenshots:
-  - "/img/xp_1.png"
-  - "/img/xp_2.png"
-  - "/img/xp_3.png"
-  - "/img/xp_4.png"
-  - "/img/xp_5.png"
-  - "/img/xp_6.png"
+  - '/img/xp_1.png'
+  - '/img/xp_2.png'
+  - '/img/xp_3.png'
+  - '/img/xp_4.png'
+  - '/img/xp_5.png'
+  - '/img/xp_6.png'
 ---
 
 Nicrozoft Wihdous XP SP3 专业版。

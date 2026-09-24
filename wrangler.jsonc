@@ -16,7 +16,7 @@
     "html_handling": "auto-trailing-slash",
     // Serve our custom 404 page (with a real 404 status) on any unmatched
     // route — no dynamic Worker required.
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
   },
   // Bind the custom domain. `_redirects` cannot do host-level redirects, so the
   // www → apex canonicalization should be a zone-level Redirect Rule when the
@@ -25,9 +25,9 @@
   "routes": [
     { "pattern": "new.nicrozoft.org", "custom_domain": true },
     { "pattern": "nicrozoft.org", "custom_domain": true },
-    { "pattern": "www.nicrozoft.org", "custom_domain": true }
+    { "pattern": "www.nicrozoft.org", "custom_domain": true },
   ],
   "observability": {
-    "enabled": true
-  }
+    "enabled": true,
+  },
 }

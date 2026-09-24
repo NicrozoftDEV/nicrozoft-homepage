@@ -7,9 +7,7 @@ import Button from '../components/Button.astro';
   <section class="nz-section nz-container nz-container--narrow err">
     <span class="err__code" aria-hidden="true">404</span>
     <h1 class="err__title">页面未找到</h1>
-    <p class="err__body">
-      你要找的页面可能已经被删除、重命名，或者从未存在。回到主页看看？
-    </p>
+    <p class="err__body">你要找的页面可能已经被删除、重命名，或者从未存在。回到主页看看？</p>
     <div class="err__actions">
       <Button href="/" variant="accent" size="lg">← 返回主页</Button>
       <Button href="/oslist" variant="subtle" size="lg">浏览操作系统</Button>
@@ -31,12 +29,27 @@ import Button from '../components/Button.astro';
     font-size: clamp(80px, 18vw, 200px);
     line-height: 1;
     letter-spacing: -0.04em;
-    background: linear-gradient(135deg, var(--nz-accent-default), color-mix(in srgb, var(--nz-accent-default) 60%, var(--nz-text-primary)));
+    background: linear-gradient(
+      135deg,
+      var(--nz-accent-default),
+      color-mix(in srgb, var(--nz-accent-default) 60%, var(--nz-text-primary))
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .err__title { font: var(--nz-font-title-large); }
-  .err__body { font: var(--nz-font-body-large); color: var(--nz-text-secondary); max-width: 50ch; }
-  .err__actions { display: flex; gap: var(--nz-space-3); flex-wrap: wrap; justify-content: center; }
+  .err__title {
+    font: var(--nz-font-title-large);
+  }
+  .err__body {
+    font: var(--nz-font-body-large);
+    color: var(--nz-text-secondary);
+    max-width: 50ch;
+  }
+  .err__actions {
+    display: flex;
+    gap: var(--nz-space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 </style>

@@ -1,5 +1,7 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { machineSchema, machineTagIdSchema } from './lib/mcMachines';
 
 // Status maps to colored Fluent badges on cards.
 const Status = z.enum(['planned', 'active', 'stopped']).default('active');
@@ -8,7 +10,7 @@ const downloadSchema = z.object({
   label: z.string(),
   href: z.string(),
   kind: z.enum(['iso', 'ova', 'image', 'archive', 'link']).default('link'),
-  /** Extraction code (提取码) — when present, shown in the download-notice dialog. */
+  /** Extraction code — when present, shown in the download-notice dialog. */
   password: z.string().optional(),
 });
 
@@ -27,10 +29,7 @@ const noticeSchema = z.object({
   kinds: z.array(z.string()).optional(),
 });
 
-const screenshotSchema = z.union([
-  z.string(),
-  z.object({ src: z.string(), alt: z.string().optional() }),
-]);
+const screenshotSchema = z.union([z.string(), z.object({ src: z.string(), alt: z.string().optional() })]);
 
 // Reusable base schema for product-like entries (OS / virus / tools).
 const productSchema = z.object({
@@ -70,6 +69,38 @@ const tools = defineCollection({
   schema: productSchema,
 });
 
-// Recommend page is rendered from static data inline; no collection needed.
+const mcserver = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/mcserver' }),
+  schema: z.object({
+    title: z.string(),
+    lead: z.string().optional(),
+    description: z.string().optional(),
+    blurb: z.string().optional(),
+    order: z.number().default(100),
+    navTitle: z.string().optional(),
+    indexLabel: z.string().optional(),
+    directory: z.enum(['sections', 'children']).optional(),
+    sharedContent: z.literal('group-rules').optional(),
+    actions: z
+      .array(
+        z.object({
+          label: z.string(),
+          href: z.string(),
+          variant: z.enum(['standard', 'accent']).default('standard'),
+          external: z.boolean().default(false),
+        }),
+      )
+      .default([]),
+    machines: z.array(machineSchema).optional(),
+    tagLegend: z
+      .array(
+        z.object({
+          title: z.string(),
+          tags: z.array(machineTagIdSchema),
+        }),
+      )
+      .optional(),
+  }),
+});
 
-export const collections = { os, virus, tools };
+export const collections = { os, virus, tools, mcserver };

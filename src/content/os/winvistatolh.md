@@ -1,25 +1,33 @@
 ---
-title: "Windows Vista 仿 Longhorn 优化版 v6.1"
-cover: "/img/vistatolh.png"
-hero: "/img/winvistatolh.png"
-status: "planned"
+title: 'Windows Vista 仿 Longhorn 优化版 v6.1'
+cover: '/img/vistatolh.png'
+hero: '/img/winvistatolh.png'
+status: 'planned'
 order: 110
-blurb: "Windows Vista 仿 Longhorn 优化版"
+blurb: 'Windows Vista 仿 Longhorn 优化版'
 downloads:
-  - { label: "查看文件校验和", href: "/checksums/winvistatolh_6.1_plus_vm", kind: "link" }
-  - { label: "[首选]移动网盘链接", href: "https://yun.139.com/shareweb/#/w/i/2sUfLs3y2jM12", kind: "archive" }
-  - { label: "查看文件校验和", href: "/checksums/winvistatolh_6.0_free_vm", kind: "link" }
-  - { label: "123 网盘链接", href: "https://www.123912.com/s/kb7cjv-Dvve3", kind: "archive" }
-  - { label: "123 网盘链接（备用链接）", href: "https://www.123865.com/s/kb7cjv-Dvve3", kind: "archive" }
-  - { label: "下载 6.1 系统截图", href: "/img/winvistatolh.png", kind: "image" }
-  - { label: "观看此系统的 6.1 版的介绍及演示视频", href: "https://www.bilibili.com/video/BV1mPfeB9Eib/", kind: "link" }
-  - { label: "观看此系统的 6.0 版的介绍及演示视频", href: "https://www.bilibili.com/video/BV1fRp1eGEVM/", kind: "link" }
-  - { label: "观看此系统的 5.0 版的介绍及演示视频", href: "https://www.bilibili.com/video/BV1fRp1eGEVM/", kind: "link" }
-  - { label: "观看 WinBetaUser 为此系统的 4.0 版制作的测评视频", href: "https://www.bilibili.com/video/BV1Yx4y1Q7YD/", kind: "link" }
-  - { label: "观看 WinBetaUser 为此系统的 3.0 版制作的测评视频", href: "https://www.bilibili.com/video/BV1y642137gD/", kind: "link" }
+  - { label: '查看文件校验和', href: '/checksums/winvistatolh_6.1_plus_vm', kind: 'link' }
+  - { label: '[首选]移动网盘链接', href: 'https://yun.139.com/shareweb/#/w/i/2sUfLs3y2jM12', kind: 'archive' }
+  - { label: '查看文件校验和', href: '/checksums/winvistatolh_6.0_free_vm', kind: 'link' }
+  - { label: '123 网盘链接', href: 'https://www.123912.com/s/kb7cjv-Dvve3', kind: 'archive' }
+  - { label: '123 网盘链接（备用链接）', href: 'https://www.123865.com/s/kb7cjv-Dvve3', kind: 'archive' }
+  - { label: '下载 6.1 系统截图', href: '/img/winvistatolh.png', kind: 'image' }
+  - { label: '观看此系统的 6.1 版的介绍及演示视频', href: 'https://www.bilibili.com/video/BV1mPfeB9Eib/', kind: 'link' }
+  - { label: '观看此系统的 6.0 版的介绍及演示视频', href: 'https://www.bilibili.com/video/BV1fRp1eGEVM/', kind: 'link' }
+  - { label: '观看此系统的 5.0 版的介绍及演示视频', href: 'https://www.bilibili.com/video/BV1fRp1eGEVM/', kind: 'link' }
+  - {
+      label: '观看 WinBetaUser 为此系统的 4.0 版制作的测评视频',
+      href: 'https://www.bilibili.com/video/BV1Yx4y1Q7YD/',
+      kind: 'link',
+    }
+  - {
+      label: '观看 WinBetaUser 为此系统的 3.0 版制作的测评视频',
+      href: 'https://www.bilibili.com/video/BV1y642137gD/',
+      kind: 'link',
+    }
 screenshots:
-  - "/img/vistatolh_1.png"
-  - "/img/vistatolh_2.png"
+  - '/img/vistatolh_1.png'
+  - '/img/vistatolh_2.png'
 ---
 
 Windows Vista 仿 Windows Longhorn v6.1  
@@ -55,23 +63,23 @@ Windows Vista 仿 Windows Longhorn v6.1
 26. 【3.0 内容】更新了 40+ 个系统图标。
 27. 【3.0 内容】隐藏了不必要的更新。(3 个会损坏系统的更新，以及其它语言的语言包)
 28. 【3.0 内容】更新了用户头像。
-29~34. 【3.0 内容】（已被弃用）
-35. 【3.0 内容】为侧边栏添加了 SlideShow 组件并设置了图片。
-36. 【3.0 内容】使用 Topaz Photo AI 将部分壁纸扩展至 8K。
-37. 【3.0 内容】使用 AI 扩展了部分图片的画面，将这些图片命名为 Extended_xxx。
-38. 【3.1 内容】修复了部分视频出现黑边的问题。
-39. 【3.1 内容】调整了 Longhorn 资源管理器的图标。
-40~42. 【4.0 内容】（已被弃用）
-43~45. 【5.0 内容】（已被弃用）
-46. 【5.0 内容】安装了高内存补丁，使系统支持 4GB 及以上的内存容量，最大支持到 128GB。
-47. 【5.0 内容】安装了 Supermium 浏览器，内核版本为 Chromium 124，开启了 2023 新外观，设为了默认浏览器。同时移除了 Minibrowser。
-48. 【5.0 内容】编写了一款 WinSAT 效果管理工具，可用于展示各版本 Vista(Longhorn) 的 WinSAT 效果。该工具内置到系统中。
-49. 【5.0 内容】更新了开始菜单的样式。
-50. 【6.0 内容】重制了所有的动态壁纸，所有壁纸均为 4K 或 1080P。赞助版的壁纸分辨率均为 4K，帧率大部分为 60fps，少数为 30fps。免费版的大多为 <1080P，30fps。
-51. 【6.0 内容】制作了 WinSAT 效果管理工具 2.0，该版本拥有 GUI（具体内容见视频或一览图），仅内置于赞助版。
-52. 【6.0 内容】更新了 Supermium 浏览器，内核升级到了更高版本。
-53. 【6.1 内容】再次更新了 Supermium 浏览器。
-54. 【6.1 内容】内置了增强到 4K 的 Vista 壁纸、Vista Starter 壁纸、Longhorn 壁纸。
+    29~34. 【3.0 内容】（已被弃用）
+29. 【3.0 内容】为侧边栏添加了 SlideShow 组件并设置了图片。
+30. 【3.0 内容】使用 Topaz Photo AI 将部分壁纸扩展至 8K。
+31. 【3.0 内容】使用 AI 扩展了部分图片的画面，将这些图片命名为 Extended_xxx。
+32. 【3.1 内容】修复了部分视频出现黑边的问题。
+33. 【3.1 内容】调整了 Longhorn 资源管理器的图标。
+    40~42. 【4.0 内容】（已被弃用）
+    43~45. 【5.0 内容】（已被弃用）
+34. 【5.0 内容】安装了高内存补丁，使系统支持 4GB 及以上的内存容量，最大支持到 128GB。
+35. 【5.0 内容】安装了 Supermium 浏览器，内核版本为 Chromium 124，开启了 2023 新外观，设为了默认浏览器。同时移除了 Minibrowser。
+36. 【5.0 内容】编写了一款 WinSAT 效果管理工具，可用于展示各版本 Vista(Longhorn) 的 WinSAT 效果。该工具内置到系统中。
+37. 【5.0 内容】更新了开始菜单的样式。
+38. 【6.0 内容】重制了所有的动态壁纸，所有壁纸均为 4K 或 1080P。赞助版的壁纸分辨率均为 4K，帧率大部分为 60fps，少数为 30fps。免费版的大多为 <1080P，30fps。
+39. 【6.0 内容】制作了 WinSAT 效果管理工具 2.0，该版本拥有 GUI（具体内容见视频或一览图），仅内置于赞助版。
+40. 【6.0 内容】更新了 Supermium 浏览器，内核升级到了更高版本。
+41. 【6.1 内容】再次更新了 Supermium 浏览器。
+42. 【6.1 内容】内置了增强到 4K 的 Vista 壁纸、Vista Starter 壁纸、Longhorn 壁纸。
 
 注意:
 "C:\Windows\Web\Windows DreamScene" 下的 .wmv 视频文件内容是 MPEG-4 格式，因为扩展名为 .mp4 的视频不能直接被 Windows DreamScene 播放，所以将其扩展名改为 .wmv。

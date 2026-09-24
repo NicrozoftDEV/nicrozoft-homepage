@@ -46,21 +46,31 @@ function parse(raw) {
     if (!m) continue;
     const key = norm(m[1]);
     const value = m[2].trim();
-    if (FILENAME_KEYS.includes(key)) { filename = value; continue; }
-    if (SIZE_KEYS.includes(key)) { size = value; continue; }
+    if (FILENAME_KEYS.includes(key)) {
+      filename = value;
+      continue;
+    }
+    if (SIZE_KEYS.includes(key)) {
+      size = value;
+      continue;
+    }
     const a = algoByKey.get(key);
     // Store the hash value uppercased so mixed-case sources render uniformly.
     if (a && !found.has(a.algo)) found.set(a.algo, value.toUpperCase());
   }
 
-  const hashes = ALGORITHMS
-    .filter((a) => found.has(a.algo))
-    .map((a) => ({ algo: a.algo, label: a.label, value: found.get(a.algo) }));
+  const hashes = ALGORITHMS.filter((a) => found.has(a.algo)).map((a) => ({
+    algo: a.algo,
+    label: a.label,
+    value: found.get(a.algo),
+  }));
 
   return { filename, size, hashes };
 }
 
-const files = readdirSync(SRC_DIR).filter((f) => f.endsWith('.txt')).sort();
+const files = readdirSync(SRC_DIR)
+  .filter((f) => f.endsWith('.txt'))
+  .sort();
 const out = {};
 for (const file of files) {
   const slug = file.replace(/\.txt$/, '');

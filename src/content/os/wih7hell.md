@@ -1,17 +1,21 @@
 ---
-title: "Nicrozoft Wihdous 7 地狱版"
-cover: "/img/7hell.png"
-hero: "/img/7hell.png"
-status: "stopped"
-series: "Wihdous"
+title: 'Nicrozoft Wihdous 7 地狱版'
+cover: '/img/7hell.png'
+hero: '/img/7hell.png'
+status: 'stopped'
+series: 'Wihdous'
 order: 60
-blurb: "Wihdous 7 地狱版"
+blurb: 'Wihdous 7 地狱版'
 downloads:
-  - { label: "下载镜像 (ISO)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwih7hell%2FISO", kind: "iso" }
-  - { label: "下载虚拟机 (7Z)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwih7hell%2FVM", kind: "archive" }
-  - { label: "下载视频", href: "/video/wih7hell.mp4", kind: "link" }
-  - { label: "下载截图", href: "/img/Win7HellImgs.zip", kind: "archive" }
-  - { label: "在 bilibili 上观看该运行视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1aD421n7Lv", kind: "link" }
+  - { label: '下载镜像 (ISO)', href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwih7hell%2FISO', kind: 'iso' }
+  - { label: '下载虚拟机 (7Z)', href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwih7hell%2FVM', kind: 'archive' }
+  - { label: '下载视频', href: '/video/wih7hell.mp4', kind: 'link' }
+  - { label: '下载截图', href: '/img/Win7HellImgs.zip', kind: 'archive' }
+  - {
+      label: '在 bilibili 上观看该运行视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1aD421n7Lv',
+      kind: 'link',
+    }
 ---
 
 Nicrozoft Wihdous 7 地狱版。

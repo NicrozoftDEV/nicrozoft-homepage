@@ -5,8 +5,7 @@ import Hero from '../components/Hero.astro';
 import Card from '../components/Card.astro';
 import StatusFilter from '../components/StatusFilter.astro';
 
-const entries = (await getCollection('tools', ({ data }) => !data.draft))
-  .sort((a, b) => a.data.order - b.data.order);
+const entries = (await getCollection('tools', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
 const statuses = [...new Set(entries.map((e) => e.data.status))];
 ---
 

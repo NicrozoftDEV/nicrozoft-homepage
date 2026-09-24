@@ -1,40 +1,50 @@
 ---
-title: "Windows 11 优化版"
-subtitle: "Windows 11 优化版 x64 25H2 专业工作站版 v6.0"
-cover: "/img/11ext.png"
-hero: "/img/windows11ext_full.png"
-status: "planned"
+title: 'Windows 11 优化版'
+subtitle: 'Windows 11 优化版 x64 25H2 专业工作站版 v6.0'
+cover: '/img/11ext.png'
+hero: '/img/windows11ext_full.png'
+status: 'planned'
 order: 140
-blurb: "Windows 11 优化版"
+blurb: 'Windows 11 优化版'
 downloads:
-  - { label: "赞助 Nicrozoft", href: "https://afdian.com/a/nicrozoft", kind: "link" }
-  - { label: "观看 6.0 版本的介绍及演示视频", href: "https://www.bilibili.com/video/BV1uEZ4BMEQw", kind: "link" }
-  - { label: "阅读 《安装前必读》", href: "/data/Win11Ext/安装前必读.pdf", kind: "link" }
-  - { label: "阅读 《安装后必读》", href: "/data/Win11Ext/安装后必读.pdf", kind: "link" }
-  - { label: "查看文件校验和 (6.0 完整版 ISO)", href: "/checksums/win11ext_6.0_full_iso", kind: "link" }
-  - { label: "移动网盘链接 (6.0 完整版)", href: "https://yun.139.com/shareweb/#/w/i/2vMBA1KPbcAib", kind: "iso", password: "b6at" }
-  - { label: "123 网盘链接 (6.0 完整版)", href: "https://www.123865.com/s/kb7cjv-23he3", kind: "iso" }
-  - { label: "查看文件校验和 (6.0 基本版 ISO)", href: "/checksums/win11ext_6.0_basic_iso", kind: "link" }
-  - { label: "移动网盘链接 (6.0 基本版)", href: "https://yun.139.com/shareweb/#/w/i/2u8ooGH7HPB37", kind: "iso", password: "ljar" }
-  - { label: "123 网盘链接 (6.0 基本版)", href: "https://www.123865.com/s/kb7cjv-s3he3", kind: "iso" }
-  - { label: "查看文件校验和 (5.1 ISO)", href: "/checksums/win11ext_5.1_iso", kind: "link" }
-  - { label: "123 网盘链接 (5.1)", href: "https://www.123912.com/s/kb7cjv-bHve3", kind: "iso" }
-  - { label: "123 网盘链接 (5.1 备用链接)", href: "https://www.123865.com/s/kb7cjv-bHve3", kind: "iso" }
+  - { label: '赞助 Nicrozoft', href: 'https://afdian.com/a/nicrozoft', kind: 'link' }
+  - { label: '观看 6.0 版本的介绍及演示视频', href: 'https://www.bilibili.com/video/BV1uEZ4BMEQw', kind: 'link' }
+  - { label: '阅读 《安装前必读》', href: '/data/Win11Ext/安装前必读.pdf', kind: 'link' }
+  - { label: '阅读 《安装后必读》', href: '/data/Win11Ext/安装后必读.pdf', kind: 'link' }
+  - { label: '查看文件校验和 (6.0 完整版 ISO)', href: '/checksums/win11ext_6.0_full_iso', kind: 'link' }
+  - {
+      label: '移动网盘链接 (6.0 完整版)',
+      href: 'https://yun.139.com/shareweb/#/w/i/2vMBA1KPbcAib',
+      kind: 'iso',
+      password: 'b6at',
+    }
+  - { label: '123 网盘链接 (6.0 完整版)', href: 'https://www.123865.com/s/kb7cjv-23he3', kind: 'iso' }
+  - { label: '查看文件校验和 (6.0 基本版 ISO)', href: '/checksums/win11ext_6.0_basic_iso', kind: 'link' }
+  - {
+      label: '移动网盘链接 (6.0 基本版)',
+      href: 'https://yun.139.com/shareweb/#/w/i/2u8ooGH7HPB37',
+      kind: 'iso',
+      password: 'ljar',
+    }
+  - { label: '123 网盘链接 (6.0 基本版)', href: 'https://www.123865.com/s/kb7cjv-s3he3', kind: 'iso' }
+  - { label: '查看文件校验和 (5.1 ISO)', href: '/checksums/win11ext_5.1_iso', kind: 'link' }
+  - { label: '123 网盘链接 (5.1)', href: 'https://www.123912.com/s/kb7cjv-bHve3', kind: 'iso' }
+  - { label: '123 网盘链接 (5.1 备用链接)', href: 'https://www.123865.com/s/kb7cjv-bHve3', kind: 'iso' }
 notices:
-  - groups: ["6.0 版"]
-    tone: "critical"
-    title: "Nicrozoft Activator 可能不起作用"
-    body: "由于未知原因，基于 MAS 3.8 的 Nicrozoft_Activator 已失效。你可以在 PowerShell 运行 <br>`irm https://get.activated.win | iex`<br> 来执行来自上游 [Massgravel](https://massgrave.dev) 的激活。"
-  - groups: ["6.0 版"]
-    tone: "warning"
-    title: "下载 6.0 版镜像前请注意"
-    body: "为保证下载到正确的文件，<strong>请勿使用迅雷下载该镜像</strong>！网盘单线程即可跑满带宽，无需第三方下载器加速。下载前请阅读 <a href=\"/data/Win11Ext/安装前必读.pdf\" target=\"_blank\" rel=\"noopener\">《安装前必读》</a>。"
-  - labels: ["*6.0 完整版*"]
-    tone: "info"
-    body: "完整版预装 Office、Adobe 等大型软件，体积较大，请确认磁盘空间充足。"
+  - groups: ['6.0 版']
+    tone: 'critical'
+    title: 'Nicrozoft Activator 可能不起作用'
+    body: '由于未知原因，基于 MAS 3.8 的 Nicrozoft_Activator 已失效。你可以在 PowerShell 运行 <br>`irm https://get.activated.win | iex`<br> 来执行来自上游 [Massgravel](https://massgrave.dev) 的激活。'
+  - groups: ['6.0 版']
+    tone: 'warning'
+    title: '下载 6.0 版镜像前请注意'
+    body: '为保证下载到正确的文件，<strong>请勿使用迅雷下载该镜像</strong>！网盘单线程即可跑满带宽，无需第三方下载器加速。下载前请阅读 <a href="/data/Win11Ext/安装前必读.pdf" target="_blank" rel="noopener">《安装前必读》</a>。'
+  - labels: ['*6.0 完整版*']
+    tone: 'info'
+    body: '完整版预装 Office、Adobe 等大型软件，体积较大，请确认磁盘空间充足。'
 screenshots:
-  - "/img/win11ext_1.png"
-  - "/img/win11ext_2.png"
+  - '/img/win11ext_1.png'
+  - '/img/win11ext_2.png'
 ---
 
 该系统在 v6.0 版本重制，从原版系统重新制作，重制后分为完整版本和基本版本，完整版本与重制前相似，但对系统进一步优化；基本版本未预装 Office、Adobe 等大型软件，仅预装系统优化必要的软件及运行库，具有更小的体积。

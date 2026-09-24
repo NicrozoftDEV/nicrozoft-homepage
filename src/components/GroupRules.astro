@@ -1,0 +1,35 @@
+---
+import { Content } from '../data/group-rules.md';
+---
+
+<div class="group-rules nz-prose">
+  <Content />
+</div>
+
+<style>
+  .group-rules :global(ol) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nz-space-3);
+  }
+  .group-rules :global(li) {
+    line-height: 1.75;
+  }
+  /* Group-rules (server-rendered markdown) — red emphasis "color blocks", footer */
+  .group-rules :global(.gr-hl) {
+    color: var(--nz-system-critical);
+    font-weight: 600;
+  }
+  .group-rules :global(.gr-note) {
+    margin-top: var(--nz-space-5);
+    padding-top: var(--nz-space-4);
+    border-top: 1px solid var(--nz-stroke-divider);
+    line-height: 1.8;
+  }
+  .group-rules :global(.gr-ver) {
+    margin-top: var(--nz-space-3);
+    text-align: right;
+    font-style: italic;
+    color: var(--nz-text-tertiary);
+  }
+</style>

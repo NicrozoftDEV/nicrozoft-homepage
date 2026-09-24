@@ -1,0 +1,13 @@
+# Generated output and dependencies
+node_modules/
+dist/
+.astro/
+.wrangler/
+bun.lock
+src/data/checksums.json
+
+# Download payloads, media, and verbatim checksum files
+public/
+
+# Local files
+internal/

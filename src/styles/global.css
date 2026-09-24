@@ -50,8 +50,12 @@ a {
   text-decoration: none;
   transition: color var(--nz-duration-faster) var(--nz-easing-max);
 }
-a:hover { color: var(--nz-accent-secondary); }
-a:focus-visible { outline: none; }
+a:hover {
+  color: var(--nz-accent-secondary);
+}
+a:focus-visible {
+  outline: none;
+}
 
 button,
 input,
@@ -61,15 +65,23 @@ textarea {
   color: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   color: var(--nz-text-primary);
   letter-spacing: -0.01em;
 }
 
-p { margin: 0; }
+p {
+  margin: 0;
+}
 
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding-left: 1.4em;
 }
@@ -113,9 +125,15 @@ hr {
   display: flex;
   flex-direction: column;
 }
-.nz-stack--md { gap: var(--nz-space-4); }
-.nz-stack--lg { gap: var(--nz-space-6); }
-.nz-stack--xl { gap: var(--nz-space-10); }
+.nz-stack--md {
+  gap: var(--nz-space-4);
+}
+.nz-stack--lg {
+  gap: var(--nz-space-6);
+}
+.nz-stack--xl {
+  gap: var(--nz-space-10);
+}
 
 .nz-row {
   display: flex;
@@ -141,17 +159,52 @@ hr {
   color: var(--nz-accent-text);
 }
 
-.nz-display { font: var(--nz-font-display); letter-spacing: -0.02em; }
-.nz-title-large { font: var(--nz-font-title-large); letter-spacing: -0.02em; }
-.nz-title { font: var(--nz-font-title); letter-spacing: -0.015em; }
-.nz-subtitle { font: var(--nz-font-subtitle); }
-.nz-body-large { font: var(--nz-font-body-large); }
-.nz-body { font: var(--nz-font-body); }
-.nz-body-strong { font: var(--nz-font-body-strong); }
-.nz-caption { font: var(--nz-font-caption); color: var(--nz-text-secondary); }
+.nz-display {
+  font: var(--nz-font-display);
+  letter-spacing: -0.02em;
+}
+.nz-title-large {
+  font: var(--nz-font-title-large);
+  letter-spacing: -0.02em;
+}
+.nz-title {
+  font: var(--nz-font-title);
+  letter-spacing: -0.015em;
+}
+.nz-subtitle {
+  font: var(--nz-font-subtitle);
+}
+.nz-body-large {
+  font: var(--nz-font-body-large);
+}
+.nz-body {
+  font: var(--nz-font-body);
+}
+.nz-body-strong {
+  font: var(--nz-font-body-strong);
+}
+.nz-caption {
+  font: var(--nz-font-caption);
+  color: var(--nz-text-secondary);
+}
 
-.nz-text-secondary { color: var(--nz-text-secondary); }
-.nz-text-accent { color: var(--nz-accent-text); }
+.nz-gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--nz-text-primary),
+    color-mix(in srgb, var(--nz-accent-default) 50%, var(--nz-text-primary))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nz-text-secondary {
+  color: var(--nz-text-secondary);
+}
+.nz-text-accent {
+  color: var(--nz-accent-text);
+}
 
 /* ===========================================================================
  * Fluent surfaces — acrylic + mica
@@ -197,7 +250,7 @@ hr {
   isolation: isolate;
 }
 .nz-reveal::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -257,11 +310,21 @@ hr {
   main > * {
     animation: nz-enter var(--nz-duration-slow) var(--nz-easing-decelerate) both;
   }
-  main > *:nth-child(2) { animation-delay: 40ms; }
-  main > *:nth-child(3) { animation-delay: 80ms; }
-  main > *:nth-child(4) { animation-delay: 120ms; }
-  main > *:nth-child(5) { animation-delay: 160ms; }
-  main > *:nth-child(6) { animation-delay: 200ms; }
+  main > *:nth-child(2) {
+    animation-delay: 40ms;
+  }
+  main > *:nth-child(3) {
+    animation-delay: 80ms;
+  }
+  main > *:nth-child(4) {
+    animation-delay: 120ms;
+  }
+  main > *:nth-child(5) {
+    animation-delay: 160ms;
+  }
+  main > *:nth-child(6) {
+    animation-delay: 200ms;
+  }
 }
 
 /* ===========================================================================
@@ -281,12 +344,23 @@ hr {
     animation-name: nz-fade-in;
   }
   @keyframes nz-fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; transform: translateY(-6px); }
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
   }
   @keyframes nz-fade-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
@@ -310,7 +384,9 @@ hr {
   font: var(--nz-font-body-large);
   color: var(--nz-text-primary);
 }
-.nz-prose > * + * { margin-top: var(--nz-space-4); }
+.nz-prose > * + * {
+  margin-top: var(--nz-space-4);
+}
 .nz-prose h2 {
   font: var(--nz-font-subtitle);
   margin-top: var(--nz-space-8);
@@ -322,13 +398,19 @@ hr {
   font-weight: 600;
   margin-top: var(--nz-space-6);
 }
-.nz-prose ul, .nz-prose ol { padding-left: 1.5em; }
-.nz-prose li + li { margin-top: var(--nz-space-1); }
+.nz-prose ul,
+.nz-prose ol {
+  padding-left: 1.5em;
+}
+.nz-prose li + li {
+  margin-top: var(--nz-space-1);
+}
 .nz-prose a {
   color: var(--nz-accent-text);
   border-bottom: 1px solid color-mix(in srgb, var(--nz-accent-default) 35%, transparent);
 }
-.nz-prose code {
+.nz-prose code,
+.nz-code {
   font-family: var(--nz-font-family-mono);
   font-size: 0.92em;
   padding: 2px 6px;
@@ -351,8 +433,13 @@ hr {
   scrollbar-width: thin;
   scrollbar-color: var(--nz-stroke-secondary) transparent;
 }
-*::-webkit-scrollbar { width: 10px; height: 10px; }
-*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
 *::-webkit-scrollbar-thumb {
   background: var(--nz-stroke-secondary);
   border-radius: var(--nz-radius-circular);
@@ -366,19 +453,26 @@ hr {
 }
 
 /* Lock body scroll while the mobile nav menu is open (toggled from BaseLayout) */
-body.nav-open { overflow: hidden; }
+body.nav-open {
+  overflow: hidden;
+}
 
 /* Status-filter: hide non-matching cards / emptied sections (see BaseLayout) */
-.is-hidden { display: none !important; }
+.is-hidden {
+  display: none !important;
+}
 
 /* ===========================================================================
  * Image skeleton — shimmer overlay on an image wrapper until the image loads.
  * Add `nz-skel` to a positioned wrapper that has a reserved size (aspect-ratio
  * or fixed height); the controller in BaseLayout adds `is-loaded` on load.
  * ========================================================================= */
-.nz-skel { position: relative; isolation: isolate; }
+.nz-skel {
+  position: relative;
+  isolation: isolate;
+}
 .nz-skel::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -393,28 +487,22 @@ body.nav-open { overflow: hidden; }
   animation: nz-skel-shimmer 1.5s linear infinite;
   transition: opacity var(--nz-duration-normal) var(--nz-easing-max);
 }
-.nz-skel.is-loaded::before { opacity: 0; animation: none; }
+.nz-skel.is-loaded::before {
+  opacity: 0;
+  animation: none;
+}
 @keyframes nz-skel-shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .nz-skel::before { animation: none; }
-}
-
-/* Group-rules (server-rendered markdown) — red emphasis "color blocks", footer */
-.gr-hl { color: var(--nz-system-critical); font-weight: 600; }
-.gr-note {
-  margin-top: var(--nz-space-5);
-  padding-top: var(--nz-space-4);
-  border-top: 1px solid var(--nz-stroke-divider);
-  line-height: 1.8;
-}
-.gr-ver {
-  margin-top: var(--nz-space-3);
-  text-align: right;
-  font-style: italic;
-  color: var(--nz-text-tertiary);
+  .nz-skel::before {
+    animation: none;
+  }
 }
 
 /* ===========================================================================
@@ -448,5 +536,7 @@ body.nav-open { overflow: hidden; }
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .nz-tooltip { transition-duration: 1ms; }
+  .nz-tooltip {
+    transition-duration: 1ms;
+  }
 }

@@ -1,42 +1,42 @@
 ---
-title: "Nicrozoft Wihdous Vista 旗舰版"
-cover: "/img/vista.png"
-hero: "/img/wihdousvista.png"
-status: "stopped"
-series: "Wihdous"
+title: 'Nicrozoft Wihdous Vista 旗舰版'
+cover: '/img/vista.png'
+hero: '/img/wihdousvista.png'
+status: 'stopped'
+series: 'Wihdous'
 order: 40
-blurb: "Wihdous Vista SP3"
+blurb: 'Wihdous Vista SP3'
 downloads:
-  - { label: "下载截图", href: "/img/wihdousvista.png", kind: "image" }
+  - { label: '下载截图', href: '/img/wihdousvista.png', kind: 'image' }
 screenshots:
-  - "/img/vista_1.png"
-  - "/img/vista_2.png"
-  - "/img/vista_3.png"
-  - "/img/vista_4.png"
-  - "/img/vista_5.png"
-  - "/img/vista_6.png"
-  - "/img/vista_7.png"
-  - "/img/vista_8.png"
-  - "/img/vista_9.png"
-  - "/img/vista_10.png"
-  - "/img/vista_11.png"
-  - "/img/vista_12.png"
-  - "/img/vista_13.png"
-  - "/img/vista_14.png"
-  - "/img/vista_15.png"
-  - "/img/vista_16.png"
-  - "/img/vista_17.png"
-  - "/img/vista_18.png"
-  - "/img/vista_19.png"
-  - "/img/vista_20.png"
-  - "/img/vista_21.png"
-  - "/img/vista_22.png"
-  - "/img/vista_23.png"
-  - "/img/vista_24.png"
-  - "/img/vista_25.png"
-  - "/img/vista_26.png"
-  - "/img/vista_27.png"
-  - "/img/vista_add1.png"
+  - '/img/vista_1.png'
+  - '/img/vista_2.png'
+  - '/img/vista_3.png'
+  - '/img/vista_4.png'
+  - '/img/vista_5.png'
+  - '/img/vista_6.png'
+  - '/img/vista_7.png'
+  - '/img/vista_8.png'
+  - '/img/vista_9.png'
+  - '/img/vista_10.png'
+  - '/img/vista_11.png'
+  - '/img/vista_12.png'
+  - '/img/vista_13.png'
+  - '/img/vista_14.png'
+  - '/img/vista_15.png'
+  - '/img/vista_16.png'
+  - '/img/vista_17.png'
+  - '/img/vista_18.png'
+  - '/img/vista_19.png'
+  - '/img/vista_20.png'
+  - '/img/vista_21.png'
+  - '/img/vista_22.png'
+  - '/img/vista_23.png'
+  - '/img/vista_24.png'
+  - '/img/vista_25.png'
+  - '/img/vista_26.png'
+  - '/img/vista_27.png'
+  - '/img/vista_add1.png'
 ---
 
 Nicrozoft Wihdous Vista 旗舰版。

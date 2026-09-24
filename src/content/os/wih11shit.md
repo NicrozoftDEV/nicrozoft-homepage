@@ -1,15 +1,19 @@
 ---
-title: "Nicrozoft Wihdous 11 流氓软件版"
-cover: "/img/11shit.png"
-hero: "/img/wih11shit2.png"
-status: "planned"
-series: "Wihdous"
+title: 'Nicrozoft Wihdous 11 流氓软件版'
+cover: '/img/11shit.png'
+hero: '/img/wih11shit2.png'
+status: 'planned'
+series: 'Wihdous'
 order: 50
-blurb: "Wihdous 11 流氓软件版"
+blurb: 'Wihdous 11 流氓软件版'
 downloads:
-  - { label: "下载 2.0 版截图", href: "/img/wih11shit2.png", kind: "image" }
-  - { label: "下载 1.0 版截图", href: "/img/wih11shit.png", kind: "image" }
-  - { label: "观看 WinBetaUser 为该系统的 1.0 版本制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1HzYtedENo", kind: "link" }
+  - { label: '下载 2.0 版截图', href: '/img/wih11shit2.png', kind: 'image' }
+  - { label: '下载 1.0 版截图', href: '/img/wih11shit.png', kind: 'image' }
+  - {
+      label: '观看 WinBetaUser 为该系统的 1.0 版本制作的测评视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1HzYtedENo',
+      kind: 'link',
+    }
 ---
 
 Nicrozoft Wihdous 11 流氓软件版。

@@ -1,14 +1,18 @@
 ---
-title: "Windows XP 仿 Longhorn 优化版"
-cover: "/img/xptolh.png"
-hero: "/img/winxptolh.png"
-status: "stopped"
+title: 'Windows XP 仿 Longhorn 优化版'
+cover: '/img/xptolh.png'
+hero: '/img/winxptolh.png'
+status: 'stopped'
 order: 130
-blurb: "Windows XP 仿 Longhorn 优化版"
+blurb: 'Windows XP 仿 Longhorn 优化版'
 downloads:
-  - { label: "下载虚拟机 (7Z)", href: "https://pan.astpan.com/s/5Wymca?path=%2Fwinxptolh%2FVM", kind: "archive" }
-  - { label: "下载截图", href: "/img/winxptolh.png", kind: "image" }
-  - { label: "观看 WinBetaUser 为此系统制作的测评视频（记得点赞投币收藏关注）", href: "https://www.bilibili.com/video/BV1ay421b7eq/", kind: "link" }
+  - { label: '下载虚拟机 (7Z)', href: 'https://pan.astpan.com/s/5Wymca?path=%2Fwinxptolh%2FVM', kind: 'archive' }
+  - { label: '下载截图', href: '/img/winxptolh.png', kind: 'image' }
+  - {
+      label: '观看 WinBetaUser 为此系统制作的测评视频（记得点赞投币收藏关注）',
+      href: 'https://www.bilibili.com/video/BV1ay421b7eq/',
+      kind: 'link',
+    }
 ---
 
 Windows XP 仿 Windows Longhorn 优化版！

@@ -1,0 +1,64 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import McWikiLayout from '../../layouts/McWikiLayout.astro';
+import Card from '../../components/Card.astro';
+import Button from '../../components/Button.astro';
+import GroupRules from '../../components/GroupRules.astro';
+import MachineList from '../../components/MachineList.astro';
+import MachineTagLegend from '../../components/MachineTagLegend.astro';
+import { wikiChildren, wikiHref, wikiNavigation } from '../../lib/mcWiki';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('mcserver');
+  return entries.map((entry) => ({
+    params: { slug: entry.id === 'index' ? undefined : entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'mcserver'>;
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const entries = await getCollection('mcserver');
+const { data } = entry;
+const cards =
+  data.directory === 'sections'
+    ? wikiChildren(entries).filter((page) => page.id !== entry.id)
+    : data.directory === 'children'
+      ? wikiChildren(entries, entry.id)
+      : [];
+const lead = data.machines ? `${data.lead ?? ''}共 ${data.machines.length} 台。` : data.lead;
+---
+
+<McWikiLayout title={data.title} lead={lead} description={data.description} navigation={wikiNavigation(entries)}>
+  <article class="nz-acrylic mcw-card">
+    {data.sharedContent === 'group-rules' && <GroupRules />}
+    {data.machines && <MachineList machines={data.machines} />}
+    <div class="nz-prose"><Content /></div>
+    {data.tagLegend && <MachineTagLegend groups={data.tagLegend} />}
+    {data.actions.length > 0 && <div class="nz-row">
+      {data.actions.map((action) => <Button
+        href={action.href}
+        variant={action.variant}
+        target={action.external ? '_blank' : undefined}
+        size="lg"
+        >{action.label}</Button
+      >)}
+    </div>}
+  </article>
+  {cards.length > 0 && <nav class="nz-grid" aria-label={data.title}>
+    {cards.map((page) => (
+      <Card
+        title={
+          page.data.machines
+            ? `${page.data.title}（${page.data.machines.length} 台）`
+            : (page.data.navTitle ?? page.data.title)
+        }
+        href={wikiHref(page.id)}
+        blurb={page.data.blurb ?? page.data.lead}
+      />
+    ))}
+  </nav>}
+</McWikiLayout>

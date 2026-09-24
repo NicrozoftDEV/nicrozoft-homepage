@@ -1,10 +1,10 @@
 ---
-title: "Nicrozoft Wihdous 7 鬼影版 1.0 规则"
-cover: "/img/7ghostshadow.png"
-hero: "/img/7ghostshadow.png"
-status: "active"
+title: 'Nicrozoft Wihdous 7 鬼影版 1.0 规则'
+cover: '/img/7ghostshadow.png'
+hero: '/img/7ghostshadow.png'
+status: 'active'
 order: 40
-blurb: "Wihdous 7 鬼影版 1.0 规则参考"
+blurb: 'Wihdous 7 鬼影版 1.0 规则参考'
 downloads: []
 ---
 

@@ -1,32 +1,23 @@
 ---
-import Badge from './Badge.astro';
-import { machineTags, type Machine } from '../lib/mcMachines';
+import MachineTag from './MachineTag.astro';
+import type { Machine } from '../lib/mcMachines';
 
 interface Props {
   machines: Machine[];
 }
 
 const { machines } = Astro.props;
-
-const tagOf = (id: string) => machineTags[id];
 ---
 
 <ul class="mlist">
-  {machines.map((m) => (
-    <li class="mlist__item">
-      <p class="mlist__name">{m.name}</p>
-      <div class="mlist__tags">
-        {m.tags.map((t) => {
-          const def = tagOf(t);
-          return def ? (
-            <span class="mlist__tag" title={def.hint}>
-              <Badge tone={def.tone} subtle><span class="mlist__tag-icon" aria-hidden="true">{def.icon}</span>{def.label}</Badge>
-            </span>
-          ) : null;
-        })}
-      </div>
-    </li>
-  ))}
+  {machines.map((m) => <li class="mlist__item">
+    <p class="mlist__name">{m.name}</p>
+    <div class="mlist__tags">
+      {m.tags.map((tag) => (
+        <MachineTag tag={tag} />
+      ))}
+    </div>
+  </li>)}
 </ul>
 
 <style>
@@ -55,9 +46,5 @@ const tagOf = (id: string) => machineTags[id];
     display: flex;
     flex-wrap: wrap;
     gap: var(--nz-space-2);
-  }
-  .mlist__tag-icon {
-    margin-right: 5px;
-    font-style: normal;
   }
 </style>

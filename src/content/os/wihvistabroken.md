@@ -1,28 +1,28 @@
 ---
-title: "Wihdous Vista 崩坏版"
-cover: "/img/vistabroken.png"
-hero: "/img/wihdousvistabroken.png"
-status: "planned"
-series: "Wihdous"
+title: 'Wihdous Vista 崩坏版'
+cover: '/img/vistabroken.png'
+hero: '/img/wihdousvistabroken.png'
+status: 'planned'
+series: 'Wihdous'
 order: 150
-blurb: "Wihdous Vista 崩坏版"
+blurb: 'Wihdous Vista 崩坏版'
 downloads:
-  - { label: "下载镜像 (ISO)", href: "https://www.123865.com/s/kb7cjv-h0de3", kind: "iso" }
-  - { label: "下载截图", href: "/img/wihdousvistabroken.png", kind: "image" }
+  - { label: '下载镜像 (ISO)', href: 'https://www.123865.com/s/kb7cjv-h0de3', kind: 'iso' }
+  - { label: '下载截图', href: '/img/wihdousvistabroken.png', kind: 'image' }
 screenshots:
-  - "/img/wvb1.png"
-  - "/img/wvb2.png"
-  - "/img/wvb3.png"
-  - "/img/wvb4.png"
-  - "/img/wvb5.png"
-  - "/img/wvb6.png"
-  - "/img/wvb7.png"
-  - "/img/wvb8.png"
-  - "/img/wvb9.png"
-  - "/img/wvb10.png"
-  - "/img/wvb11.png"
-  - "/img/wvb12.png"
-  - "/img/wvb13.png"
+  - '/img/wvb1.png'
+  - '/img/wvb2.png'
+  - '/img/wvb3.png'
+  - '/img/wvb4.png'
+  - '/img/wvb5.png'
+  - '/img/wvb6.png'
+  - '/img/wvb7.png'
+  - '/img/wvb8.png'
+  - '/img/wvb9.png'
+  - '/img/wvb10.png'
+  - '/img/wvb11.png'
+  - '/img/wvb12.png'
+  - '/img/wvb13.png'
 ---
 
 Wihdous Vista 崩坏版。

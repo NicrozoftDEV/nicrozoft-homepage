@@ -1,0 +1,22 @@
+---
+import Badge from './Badge.astro';
+import { machineTags, type MachineTagId, type MachineTagDef } from '../lib/mcMachines';
+
+interface Props {
+  tag: MachineTagId;
+}
+const { tag } = Astro.props;
+const definition: MachineTagDef = machineTags[tag];
+---
+
+<span title={definition.hint}>
+  <Badge tone={definition.tone} subtle
+    ><span class="machine-tag__icon" aria-hidden="true">{definition.icon}</span>{definition.label}</Badge
+  >
+</span>
+
+<style>
+  .machine-tag__icon {
+    margin-right: 5px;
+  }
+</style>

@@ -1,23 +1,23 @@
 ---
-title: "Nicrozoft Wihdous 11 22H2 专业工作站版"
-cover: "/img/11.png"
-hero: "/img/wihdous11.png"
-status: "stopped"
-series: "Wihdous"
+title: 'Nicrozoft Wihdous 11 22H2 专业工作站版'
+cover: '/img/11.png'
+hero: '/img/wihdous11.png'
+status: 'stopped'
+series: 'Wihdous'
 order: 10
-warning: "注意：本系统不是 Windows 11 优化版！"
-blurb: "Wihdous 11 22H2"
+warning: '注意：本系统不是 Windows 11 优化版！'
+blurb: 'Wihdous 11 22H2'
 downloads:
-  - { label: "下载截图", href: "/img/wihdous11.png", kind: "image" }
+  - { label: '下载截图', href: '/img/wihdous11.png', kind: 'image' }
 screenshots:
-  - "/img/11_1.png"
-  - "/img/11_2.png"
-  - "/img/11_3.png"
-  - "/img/11_4.png"
-  - "/img/11_5.png"
-  - "/img/11_6.png"
-  - "/img/11_7.png"
-  - "/img/11_8.png"
+  - '/img/11_1.png'
+  - '/img/11_2.png'
+  - '/img/11_3.png'
+  - '/img/11_4.png'
+  - '/img/11_5.png'
+  - '/img/11_6.png'
+  - '/img/11_7.png'
+  - '/img/11_8.png'
 ---
 
 Nicrozoft Wihdous 11 22H2
