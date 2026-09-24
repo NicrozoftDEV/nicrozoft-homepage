@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",
-    "astro": "7.0.9"
+    "astro": "7.0.9",
+    "fluentui-astro-icons": "^1.1.341"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

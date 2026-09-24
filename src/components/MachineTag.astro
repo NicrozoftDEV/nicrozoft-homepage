@@ -1,4 +1,5 @@
 ---
+import Icon from 'fluentui-astro-icons';
 import Badge from './Badge.astro';
 import { machineTags, type MachineTagId, type MachineTagDef } from '../lib/mcMachines';
 
@@ -11,12 +12,6 @@ const definition: MachineTagDef = machineTags[tag];
 
 <span title={definition.hint}>
   <Badge tone={definition.tone} subtle
-    ><span class="machine-tag__icon" aria-hidden="true">{definition.icon}</span>{definition.label}</Badge
+    ><Icon name={definition.icon} variant="filled" size={14} />{definition.label}</Badge
   >
 </span>
-
-<style>
-  .machine-tag__icon {
-    margin-right: 5px;
-  }
-</style>

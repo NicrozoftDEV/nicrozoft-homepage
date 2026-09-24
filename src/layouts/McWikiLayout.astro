@@ -23,7 +23,7 @@ const { title, description, lead, navigation } = Astro.props;
 
     <div class="mcw__row">
       <!-- Mobile nav: collapsible page menu (hidden on desktop) -->
-      <details class="mcw__toc-m">
+      <details class="mcw__toc-m nz-acrylic">
         <summary>页面导航</summary>
         <McWikiNav sections={navigation} />
       </details>
@@ -81,12 +81,18 @@ const { title, description, lead, navigation } = Astro.props;
       display: block;
     }
   }
+  /* The pane scrolls inside its own surface so a long nav can't outgrow the
+     sticky viewport slot. */
+  .mcw__side :global(.wiki-nav) {
+    max-height: calc(100vh - 84px - var(--nz-space-8));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
 
   /* ---- Mobile TOC ---- */
+  /* Surface comes from .nz-acrylic; clipping keeps the inner scroller's corners. */
   .mcw__toc-m {
-    background: var(--nz-subtle-secondary);
-    border: 1px solid var(--nz-stroke-card);
-    border-radius: var(--nz-radius-large);
+    overflow: hidden;
   }
   @media (min-width: 921px) {
     .mcw__toc-m {
@@ -103,22 +109,35 @@ const { title, description, lead, navigation } = Astro.props;
     display: flex;
     align-items: center;
     gap: var(--nz-space-2);
+    transition: background var(--nz-duration-faster) var(--nz-easing-max);
   }
   .mcw__toc-m > summary::-webkit-details-marker {
     display: none;
   }
-  .mcw__toc-m > summary::before {
-    content: '☰';
+  .mcw__toc-m > summary:hover {
+    background: var(--nz-subtle-secondary);
+  }
+  /* Fluent Expander chevron, same glyph and rotation as the product-page groups. */
+  .mcw__toc-m > summary::after {
+    content: '▸';
+    margin-left: auto;
     color: var(--nz-text-tertiary);
-    font-size: 13px;
+    font-size: 12px;
+    transition: transform var(--nz-duration-fast) var(--nz-easing-max);
+  }
+  .mcw__toc-m[open] > summary::after {
+    transform: rotate(90deg);
   }
   .mcw__toc-m[open] > summary {
-    border-bottom: 1px solid var(--nz-stroke-default);
+    border-bottom: 1px solid var(--nz-stroke-divider);
   }
+  /* Pane chrome belongs to the <details> here, so flatten the nested surface. */
   .mcw__toc-m :global(.wiki-nav) {
     border: none;
     border-radius: 0;
     background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     max-height: 60vh;
     overflow-y: auto;
   }

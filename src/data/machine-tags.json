@@ -1,81 +1,81 @@
 {
   "tier1": {
     "label": "I 类",
-    "icon": "▁",
+    "icon": "cellular-data-3",
     "tone": "neutral",
     "hint": "效率 < 5 万"
   },
   "tier2": {
     "label": "II 类",
-    "icon": "▄",
+    "icon": "cellular-data-2",
     "tone": "neutral",
     "hint": "效率 10 万 ~ 100 万"
   },
   "tier3": {
     "label": "III 类",
-    "icon": "█",
+    "icon": "cellular-data-1",
     "tone": "neutral",
     "hint": "效率 > 100 万"
   },
   "produce": {
     "label": "生产",
-    "icon": "⛏",
+    "icon": "production",
     "tone": "neutral"
   },
   "process": {
     "label": "加工",
-    "icon": "⚙",
+    "icon": "settings",
     "tone": "neutral"
   },
   "storage": {
     "label": "存储",
-    "icon": "📦",
+    "icon": "box",
     "tone": "neutral"
   },
   "unique": {
     "label": "独有产物",
-    "icon": "✪",
+    "icon": "star",
     "tone": "accent"
   },
   "precious": {
     "label": "珍贵产物",
-    "icon": "💎",
+    "icon": "diamond",
     "tone": "accent"
   },
   "largeRedstone": {
     "label": "大型红石机器",
-    "icon": "⚡",
+    "icon": "flash",
     "tone": "neutral"
   },
   "lagExclusive": {
     "label": "高卡独占",
-    "icon": "⚠",
+    "icon": "warning",
     "tone": "critical",
     "hint": "卡顿高，为防止掉刻，开启时不建议同时开启其它机器"
   },
   "lowLag": {
     "label": "低卡高效",
-    "icon": "🌱",
+    "icon": "leaf-one",
     "tone": "success"
   },
   "active": {
     "label": "现役机器",
-    "icon": "●",
+    "icon": "checkmark-circle",
     "tone": "success"
   },
   "retired": {
     "label": "退役机器",
-    "icon": "○",
+    "icon": "archive",
     "tone": "neutral"
   },
   "demolish": {
     "label": "待拆除",
-    "icon": "✕",
+    "icon": "delete",
     "tone": "critical"
   },
   "building": {
     "label": "建造中",
-    "icon": "⏳",
+    "icon": "wrench-screwdriver",
     "tone": "caution"
   }
 }

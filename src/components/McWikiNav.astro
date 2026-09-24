@@ -12,12 +12,12 @@ const sectionActive = (section: McWikiSection) =>
   (section.href && isActive(section.href)) || (section.items?.some((item) => isActive(item.href)) ?? false);
 ---
 
-<nav class="wiki-nav" aria-label="Minecraft 服务器 Wiki 导航">
+<nav class="wiki-nav nz-acrylic" aria-label="Minecraft 服务器 Wiki 导航">
   {title && <p class="wiki-nav__title">{title}</p>}
   {sections.map((section) => <div class="wiki-nav__group">
     {section.href ? (
       <a
-        class:list={['wiki-nav__link', 'wiki-nav__link--top', isActive(section.href) && 'wiki-nav__link--active']}
+        class:list={['wiki-nav__link', isActive(section.href) && 'wiki-nav__link--active']}
         href={section.href}
         aria-current={isActive(section.href) ? 'page' : undefined}
       >
@@ -37,73 +37,97 @@ const sectionActive = (section: McWikiSection) =>
 </nav>
 
 <style>
+  /* Modeled on the WinUI NavigationView pane in left mode: a card surface whose
+     padding frames a stack of inset item pills, group headings breaking the
+     stack up via their own leading space rather than extra gaps. */
   .wiki-nav {
     display: flex;
     flex-direction: column;
-    gap: var(--nz-space-4);
-    padding: var(--nz-space-5) var(--nz-space-4);
-    border-radius: var(--nz-radius-large);
-    background: var(--nz-subtle-secondary);
-    border: 1px solid var(--nz-stroke-card);
+    gap: 2px;
+    padding: var(--nz-space-2);
   }
   .wiki-nav__title {
-    font: var(--nz-font-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--nz-text-tertiary);
-    padding: 0 var(--nz-space-2);
+    padding: var(--nz-space-2) var(--nz-space-3) var(--nz-space-1);
+    font: var(--nz-font-body-strong);
+    color: var(--nz-text-primary);
   }
   .wiki-nav__group {
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
+  /* NavigationViewItemHeader: semibold body at sentence case. */
   .wiki-nav__head {
-    margin: 0;
-    padding: 6px var(--nz-space-2) 2px;
-    font: var(--nz-font-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--nz-text-tertiary);
+    padding: var(--nz-space-3) var(--nz-space-3) var(--nz-space-1);
+    font: var(--nz-font-body-strong);
+    color: var(--nz-text-secondary);
   }
   .wiki-nav__head--active {
-    color: var(--nz-accent-text);
+    color: var(--nz-text-primary);
   }
   .wiki-nav__link {
-    display: block;
-    padding: 6px var(--nz-space-2) 6px var(--nz-space-3);
-    border-radius: var(--nz-radius-medium);
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: var(--nz-space-1) var(--nz-space-3);
+    border-radius: var(--nz-radius-small);
     font: var(--nz-font-body);
     color: var(--nz-text-secondary);
-    text-decoration: none;
-    border-left: 2px solid transparent;
     transition:
       background var(--nz-duration-faster) var(--nz-easing-max),
       color var(--nz-duration-faster) var(--nz-easing-max);
   }
   .wiki-nav__link:hover {
+    background: var(--nz-subtle-secondary);
+    color: var(--nz-text-primary);
+  }
+  /* Fluent's pressed fill is lighter than its hover fill, so a held row recedes. */
+  .wiki-nav__link:active {
     background: var(--nz-subtle-tertiary);
-    color: var(--nz-text-primary);
-  }
-  /* Standalone sections (no sub-pages) share the group-heading typography so
-     every section label reads at the same visual weight, whether linked or not. */
-  .wiki-nav__link--top {
-    font: var(--nz-font-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--nz-text-tertiary);
-    padding: 6px var(--nz-space-2);
-  }
-  .wiki-nav__link--top:hover {
-    background: transparent;
-    color: var(--nz-text-primary);
   }
   .wiki-nav__link.wiki-nav__link--active {
-    background: color-mix(in srgb, var(--nz-accent-default) 12%, transparent);
-    border-left-color: var(--nz-accent-default);
-    color: var(--nz-accent-text);
+    background: var(--nz-subtle-secondary);
+    color: var(--nz-text-primary);
+  }
+  .wiki-nav__link.wiki-nav__link--active:hover {
+    background: var(--nz-subtle-tertiary);
+  }
+  /* Selection indicator: 3px accent pill centered on the row, matching the one
+     TopNav draws for the active link. */
+  .wiki-nav__link--active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 16px;
+    border-radius: 2px;
+    background: var(--nz-accent-default);
+    transform: translateY(-50%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .wiki-nav__link--active::before {
+      animation: wiki-nav-pip var(--nz-duration-normal) var(--nz-easing-emphasized) both;
+    }
+    @keyframes wiki-nav-pip {
+      from {
+        transform: translateY(-50%) scaleY(0);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-50%) scaleY(1);
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Below the sidebar breakpoint this renders inside the collapsible page menu,
+     where rows need a touch-sized target. */
+  @media (max-width: 920px) {
+    .wiki-nav__link {
+      min-height: 40px;
+      padding-inline: var(--nz-space-3);
+    }
   }
 </style>
