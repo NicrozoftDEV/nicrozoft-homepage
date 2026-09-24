@@ -164,10 +164,8 @@
     --nz-text-secondary: rgba(255, 255, 255, 0.7860);
     --nz-text-tertiary: rgba(255, 255, 255, 0.5442);
     --nz-text-disabled: rgba(255, 255, 255, 0.3628);
-    /* White on accent even in dark mode — the light-blue accent stays a
-       "filled blue button" and its label reads as white, per site owner. */
-    --nz-text-on-accent: #ffffff;
-    --nz-text-on-accent-disabled: rgba(255, 255, 255, 0.5302);
+    --nz-text-on-accent: #000000;
+    --nz-text-on-accent-disabled: rgba(0, 0, 0, 0.5302);
 
     --nz-layer-default: rgba(58, 58, 58, 0.3);
     --nz-layer-alt: rgba(255, 255, 255, 0.0538);
