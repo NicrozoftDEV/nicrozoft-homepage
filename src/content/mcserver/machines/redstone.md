@@ -20,10 +20,19 @@ machines:
       - tier2
       - process
       - active
-  - name: 树场 × 2
+  - name: 标准六件树场
     tags:
-      - tier1
+      - tier2
+      - process
       - produce
+      - lowLag
+      - active
+  - name: 红树树场
+    tags:
+      - tier2
+      - process
+      - produce
+      - lowLag
       - active
   - name: 废石合成机
     tags:
@@ -40,11 +49,6 @@ machines:
       - tier1
       - process
       - active
-  - name: 水爆树场
-    tags:
-      - tier1
-      - produce
-      - retired
 ---
 
 各机器的详细信息（原理、产出、位置等）将后续补充。

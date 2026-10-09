@@ -16,20 +16,7 @@ machines:
       - unique
       - precious
       - largeRedstone
-      - building
-  - name: 16 核刷铁机
-    tags:
-      - tier1
-      - produce
-      - demolish
-  - name: 4 核刷铁机
-    tags:
-      - tier1
-      - produce
-  - name: 2 核刷铁机
-    tags:
-      - tier1
-      - demolish
+      - active
 ---
 
 各机器的详细信息（原理、产出、位置等）将后续补充。

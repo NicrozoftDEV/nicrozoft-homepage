@@ -15,7 +15,7 @@ machines:
       - produce
       - unique
       - precious
-      - building
+      - active
   - name: Y=-54 空置域 EOL 女巫小屋塔
     tags:
       - tier2

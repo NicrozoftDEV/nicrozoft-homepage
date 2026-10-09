@@ -26,7 +26,7 @@ machines:
       - tier2
       - produce
       - unique
-      - retired
+      - demolish
 ---
 
 各机器的详细信息（原理、产出、位置等）将后续补充。
