@@ -23,17 +23,39 @@ machines:
   - name: 标准六件树场
     tags:
       - tier2
-      - process
       - produce
       - lowLag
       - active
   - name: 红树树场
     tags:
       - tier2
-      - process
       - produce
       - lowLag
       - active
+  - name: 深色橡木/苍白橡木树场
+    tags:
+      - tier2
+      - produce
+      - lowLag
+      - building
+  - name: 大云杉树场
+    tags:
+      - tier2
+      - produce
+      - lowLag
+      - building
+  - name: 下界菌场
+    tags:
+      - tier2
+      - produce
+      - lowLag
+      - building
+  - name: 菌场
+    tags:
+      - tier2
+      - produce
+      - lowLag
+      - building
   - name: 废石合成机
     tags:
       - tier2
