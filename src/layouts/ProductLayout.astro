@@ -48,11 +48,14 @@ const {
 const statusLabel = { planned: '计划更新', active: '已发布', stopped: '停止更新' }[status];
 const iconFor = (k: Download['kind']) => ({ iso: '💿', ova: '🖥', image: '🖼', archive: '📦', link: '↗' })[k];
 
-// Split file downloads (ISO/OVA/image/archive) from generic links (GitHub
-// release pages, video watch pages, navigation). The kind field is set by
-// the content extractor; everything not `link` is treated as a real file.
-const fileDownloads = downloads.filter((d) => d.kind !== 'link');
-const relatedLinks = downloads.filter((d) => d.kind === 'link');
+// Entries with an explicit `section` (e.g. 在线使用 → 使用) get their own
+// titled panel sections rendered as button boxes; the rest split into file
+// downloads (ISO/OVA/image/archive) and generic links (GitHub release pages,
+// video watch pages, navigation). Everything not `link` is a real file.
+const sectioned = downloads.filter((d) => d.section);
+const sectionNames = [...new Set(sectioned.map((d) => d.section!))];
+const fileDownloads = downloads.filter((d) => d.kind !== 'link' && !d.section);
+const relatedLinks = downloads.filter((d) => d.kind === 'link' && !d.section);
 
 // Group file downloads by version / category when there are many.
 const useGroups = fileDownloads.length > 5;
@@ -108,6 +111,23 @@ const noticeRegistryJson = JSON.stringify(noticeRegistry).replace(/</g, '\\u003c
           <p class="nz-eyebrow">关于</p>
           <h2 class="nz-subtitle">{title}</h2>
         </div>
+
+        {sectionNames.map((name) => <div class="detail__panel-section">
+          <p class="nz-eyebrow">{name}</p>
+          <ul class="detail__downloads">
+            {sectioned.filter((d) => d.section === name).map((d) => <li>
+              <Button
+                href={mediaUrl(d.href)}
+                variant={d.kind === 'iso' ? 'accent' : 'standard'}
+                size="md"
+                target="_blank"
+              >
+                <span aria-hidden="true">{iconFor(d.kind)}</span>
+                <span>{d.label}</span>
+              </Button>
+            </li>)}
+          </ul>
+        </div>)}
 
         {fileDownloads.length > 0 && <div class="detail__panel-section">
           <p class="nz-eyebrow">下载</p>

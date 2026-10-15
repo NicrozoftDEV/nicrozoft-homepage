@@ -12,6 +12,9 @@ const downloadSchema = z.object({
   kind: z.enum(['iso', 'ova', 'image', 'archive', 'link']).default('link'),
   /** Extraction code — when present, shown in the download-notice dialog. */
   password: z.string().optional(),
+  /** Custom sidebar section for this entry (e.g. 使用) — rendered as button
+   * boxes in its own titled section, separate from 下载 / 相关链接. */
+  section: z.string().optional(),
 });
 
 // Page-local "download additional info" notice. Shown in a popup when a matching

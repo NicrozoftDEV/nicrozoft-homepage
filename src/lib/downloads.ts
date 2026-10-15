@@ -11,6 +11,9 @@ export interface Download {
   kind: DownloadKind;
   /** Extraction code (提取码) — when present, auto-shown in the download-notice dialog. */
   password?: string;
+  /** Custom sidebar section (e.g. 使用) — rendered as button boxes in its own
+   * titled section, separate from 下载 / 相关链接. */
+  section?: string;
 }
 
 export interface DownloadGroup {
