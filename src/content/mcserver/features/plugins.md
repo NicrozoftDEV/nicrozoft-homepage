@@ -30,7 +30,7 @@ configGroups:
         body: '允许略高于原版等级上限的附魔书，可在铁砧中合成；同时解除了铁砧经验上限（配合服务端的 avoid-anvil-too-expensive 规则）。'
   - title: 新配方
     entries:
-      - key: 'RecipeCreateX · HastePotion · BarrierRecipePlugin · GApples'
+      - key: 'RecipeCreateX · HastePotion · BarrierRecipePlugin'
         body: '新增强化深板岩、紫水晶母岩、可堆叠图腾、屏障方块的合成配方，以及急迫药水（含喷溅 / 滞留类型与增强 / 延长变种）的酿造台配方。'
   - title: 其他在服插件
     entries:
@@ -47,19 +47,12 @@ configGroups:
         body: '对授权的用户启用 <code>/se 1|0</code>，以切换至旁观模式 / 生存模式。'
       - key: TradeCycle
         body: '在未交易过的村民的交易界面的空槽位按 F 可刷新村民交易。'
-      - key: LeadAnyMob
-        body: '玩家可用拴绳拴住任何生物。'
       - key: LargeBarrelPlugin
         origin: 私有插件
         body: '背对背的木桶合并为大木桶，复刻 <a href="https://github.com/plusls/Carpet-TIS-Addition" target="_blank" rel="noopener noreferrer">Carpet TIS Addition</a> 的功能，并且适配 <a href="https://github.com/Snownee/Jade" target="_blank" rel="noopener noreferrer">Jade</a> 协议以显示整个大木桶的内容。'
       - key: NoteBlockChunkLoader
         origin: 私有插件
         body: '音符盒骨块加载器，复刻 <a href="https://github.com/Geng-Ze/Carpet-AMS-Addition" target="_blank" rel="noopener noreferrer">Carpet AMS Addition</a> 的功能：在红石信号激活上方有骨块的音符盒时，为所在区块为中心的 3×3 区块添加等级为 31 的加载标签和计算标签，并且带有维度保活属性。本插件不是 <a href="https://github.com/MC-XiaoHei/NoteBlockChunkLoader" target="_blank" rel="noopener noreferrer">MC-XiaoHei 的 NoteBlockChunkLoader</a>，但提供的功能相似。'
-      - key: LootingTNT
-        origin: 私有插件
-        body: '非玩家激活的 TNT 带有抢夺标签。'
-      - key: MineBedrock
-        body: '左键下界基岩平台上的基岩可转化为强化深板岩，右键转化回基岩。'
       - key: TropicalFishSpawnController
         body: '使热带鱼的生成平均化，使所有种类的热带鱼都能够生成。'
       - key: DragonDeathSuppression

@@ -65,6 +65,13 @@ configGroups:
         body: '主手持潜影盒右键即可直接打开（包括空且未堆叠的盒子），GUI 期间锁定手持槽位，内容实时写回物品。'
   - title: 生物与战斗
     entries:
+      - key: modify.tnt-looting
+        origin: 本地分支
+        meta: ['5']
+        body: '非玩家激活的 TNT 带有抢夺 V 标签。'
+      - key: modify.stronger-lead
+        origin: 本地分支
+        body: '玩家可用拴绳拴住任何生物。'
       - key: modify.safe-creepers
         origin: 本地分支
         body: '苦力怕爆炸不破坏方块（实体伤害与击退保留）。'
@@ -114,6 +121,9 @@ configGroups:
         body: '试炼宝库不再对已开启过的玩家做限制，可反复开启。'
   - title: 交互与便利
     entries:
+      - key: modify.mining-bedrock
+        origin: 本地分支
+        body: '左键下界基岩平台上的基岩可转化为强化深板岩，右键转化回基岩。'
       - key: modify.flippin-cactus
         meta: ['仅管理员或授权用户']
         origin: 本地分支
