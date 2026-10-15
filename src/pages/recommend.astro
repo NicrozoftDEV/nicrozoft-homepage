@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Card from '../components/Card.astro';
 import { getCollection } from 'astro:content';
-import { mediaUrl } from '../lib/media';
 
 const os = await getCollection('os', ({ data }) => !data.draft);
 const virus = await getCollection('virus', ({ data }) => !data.draft);
