@@ -7,7 +7,7 @@
   public/data and public/video are kept out of the Worker upload (public/.assetsignore)
   and served from the R2 custom domain instead (see src/lib/media.ts). This script
   uploads them via `wrangler r2 object put`, preserving paths so an object lands at e.g.
-  data/FightAgainstNish/NMario.png — matching the rewritten links.
+  data/winxptheme/WinXP_theme_edition_Imgs.zip — matching the rewritten links.
 
   Unchanged files are skipped: the script lists the bucket via the Cloudflare REST API
   (wrangler has no list command) using wrangler's stored OAuth token, and compares each

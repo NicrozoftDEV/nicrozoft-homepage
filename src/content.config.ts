@@ -54,7 +54,7 @@ const configGroupSchema = z.object({
   notes: z.array(z.string()).default([]),
 });
 
-// Reusable base schema for product-like entries (OS / virus / tools).
+// Reusable base schema for product-like entries (OS / tools).
 const productSchema = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
@@ -79,11 +79,6 @@ const productSchema = z.object({
 
 const os = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/os' }),
-  schema: productSchema,
-});
-
-const virus = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/virus' }),
   schema: productSchema,
 });
 
@@ -127,4 +122,4 @@ const mcserver = defineCollection({
   }),
 });
 
-export const collections = { os, virus, tools, mcserver };
+export const collections = { os, tools, mcserver };

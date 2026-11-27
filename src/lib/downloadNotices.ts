@@ -17,7 +17,7 @@ export type NoticeTone = 'info' | 'warning' | 'critical';
  * filter matches anything. Combine them to hit exactly the scope you want:
  *
  *   • ALL downloads, every page ....... {}                       (no filters)
- *   • one collection .................. { collections: ['os'] }  ('os' | 'virus' | 'tools')
+ *   • one collection .................. { collections: ['os'] }  ('os' | 'tools')
  *   • one page ........................ { pages: ['win11ext'] }
  *   • one category / version group .... { pages: ['win11ext'], groups: ['6.0 版'] }
  *   • one button only ................. { pages: ['win11ext'], labels: ['移动网盘链接 (6.0 完整版)'] }

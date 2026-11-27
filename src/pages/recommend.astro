@@ -5,14 +5,12 @@ import Card from '../components/Card.astro';
 import { getCollection } from 'astro:content';
 
 const os = await getCollection('os', ({ data }) => !data.draft);
-const virus = await getCollection('virus', ({ data }) => !data.draft);
 const tools = await getCollection('tools', ({ data }) => !data.draft);
 
 const pick = <T extends { id: string }>(arr: T[], ids: string[]) =>
   ids.map((id) => arr.find((e) => e.id === id)).filter(Boolean) as T[];
 
 const recOs = pick(os, ['win11ext', 'win10to11', 'win10ext']);
-const recVirus = pick(virus, ['nicrozoft-super-windowskiller-virus']);
 const recTools = pick(tools, ['winfs']);
 
 const winBetaMui = [
@@ -57,24 +55,6 @@ const friendLinks = [
   />
 
   <section class="nz-section nz-container nz-stack nz-stack--xl">
-    {recVirus.length > 0 && <div>
-      <header class="head">
-        <span class="nz-eyebrow">Nicrozoft 产品</span>
-        <h2 class="nz-title">病毒</h2>
-      </header>
-      <div class="nz-grid">
-        {recVirus.map((e) => (
-          <Card
-            title={e.data.title}
-            href={`/virus/${e.id}`}
-            cover={e.data.cover}
-            status={e.data.status}
-            blurb={e.data.blurb}
-          />
-        ))}
-      </div>
-    </div>}
-
     {recOs.length > 0 && <div>
       <header class="head">
         <span class="nz-eyebrow">Nicrozoft 产品</span>

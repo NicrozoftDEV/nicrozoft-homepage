@@ -61,14 +61,3 @@
 /winfs               /tools/winfs            301
 /winfs.html          /tools/winfs            301
 
-# Virus pages → /virus/* (renamed to kebab-case)
-/batvirus            /virus/batvirus         301
-/batvirus.html       /virus/batvirus         301
-/vistahorror         /virus/vistahorror      301
-/vistahorror.html    /virus/vistahorror      301
-/Nicozoft_super_virus /virus/nicozoft-super-virus 301
-/Nicozoft_super_virus.html /virus/nicozoft-super-virus 301
-/Nicrozoft_Lframe32_Virus /virus/nicrozoft-lframe32-virus 301
-/Nicrozoft_Lframe32_Virus.html /virus/nicrozoft-lframe32-virus 301
-/Nicrozoft_Super_WindowsKiller_Virus /virus/nicrozoft-super-windowskiller-virus 301
-/Nicrozoft_Super_WindowsKiller_Virus.html /virus/nicrozoft-super-windowskiller-virus 301
