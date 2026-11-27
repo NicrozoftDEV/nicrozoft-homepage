@@ -15,6 +15,7 @@ machines:
       - produce
       - unique
       - precious
+      - lowLag
       - largeRedstone
       - active
 ---
