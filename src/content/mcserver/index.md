@@ -11,9 +11,11 @@ directory: sections
 order: 0
 navTitle: 简介
 blurb: 服务器简介与账号验证说明
+tags:
+  - 已开服近两年
+  - 本地 Leaves 分支
+  - Java 26.2
 ---
-
-**已开服一年有余** **Leaves 分支 · Java 26.2**
 
 ## 简介
 

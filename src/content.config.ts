@@ -94,6 +94,8 @@ const mcserver = defineCollection({
     lead: z.string().optional(),
     description: z.string().optional(),
     blurb: z.string().optional(),
+    /** Short labels shown as pills at the top of the page. */
+    tags: z.array(z.string()).default([]),
     order: z.number().default(100),
     navTitle: z.string().optional(),
     indexLabel: z.string().optional(),

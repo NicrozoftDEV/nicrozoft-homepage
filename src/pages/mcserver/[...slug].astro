@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import McWikiLayout from '../../layouts/McWikiLayout.astro';
+import Badge from '../../components/Badge.astro';
 import Card from '../../components/Card.astro';
 import Button from '../../components/Button.astro';
 import ConfigList from '../../components/ConfigList.astro';
@@ -38,6 +39,9 @@ const hasProse = Boolean(entry.body?.trim());
 
 <McWikiLayout title={data.title} lead={lead} description={data.description} navigation={wikiNavigation(entries)}>
   <article class="nz-acrylic mcw-card">
+    {data.tags.length > 0 && <div class="mcw-tags">
+      {data.tags.map((tag) => <Badge tone="accent" subtle>{tag}</Badge>)}
+    </div>}
     {data.sharedContent === 'group-rules' && <GroupRules />}
     {data.machines && <MachineList machines={data.machines} />}
     {hasProse && <div class="nz-prose"><Content /></div>}
@@ -67,3 +71,11 @@ const hasProse = Boolean(entry.body?.trim());
     ))}
   </nav>}
 </McWikiLayout>
+
+<style>
+  .mcw-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--nz-space-2);
+  }
+</style>
